@@ -12,6 +12,4 @@ module com.ststjl_project.group_project {
 
     opens com.ststjl_project.group_project to javafx.fxml;
     exports com.ststjl_project.group_project;
-    exports com.ststjl_project.controllers;
-    opens com.ststjl_project.controllers to javafx.fxml;
 }
