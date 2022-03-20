@@ -90,6 +90,7 @@ public class Menu_Btn_List {
         }else{
             System.out.printf("Button[%s] at Method remove_Button not found",name);
         }
+        is_init=false;
     }
     public Still_Button get_Button(String name){
         int index = list_of_Buttons_Str.indexOf(name);

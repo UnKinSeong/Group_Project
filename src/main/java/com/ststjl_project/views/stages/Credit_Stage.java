@@ -2,30 +2,23 @@ package com.ststjl_project.views.stages;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Credit_Stage extends Stage_Generator{
+public class Credit_Stage extends State_Machine {
 
-    public Credit_Stage(double SCENE_WIDTH, double SCENE_HEIGHT) {
-        super(SCENE_WIDTH, SCENE_HEIGHT);
-        Button btn = new Button();
-        btn.setText("Exit");
-        btn.setOnAction(actionEvent -> {
-            enter_NextState(1);
-        });
-        getPane().getChildren().add(btn);
-
+    private Button btn;
+    public Credit_Stage(Stage stage, AnchorPane anchorPane, Scene scene) {
+        super(stage, anchorPane, scene);
     }
-
     @Override
     public void enter_NextState(int id) {
         if(id == 1){
-            Scene credit_scene = Stage_Generator.menu.getScene();
-            Stage currentStage = current.getStage();
-            currentStage.setScene(credit_scene);
-
-            current = Stage_Generator.credit;
-            current.setStage(currentStage);
+            current.clean_Up();
+            current = State_Machine.menu;
+            current.getStage().setTitle("This is the Credit");
+            getStage().setScene(current.getScene());
+            current.init();
         }
     }
 
@@ -35,12 +28,18 @@ public class Credit_Stage extends Stage_Generator{
     }
 
     @Override
-    public void showUp() {
-
+    protected void clean_Up() {
+        getPane().getChildren().remove(btn);
     }
 
     @Override
-    public void cleanup() {
-
+    public void init() {
+        btn = new Button();
+        btn.setText("Exit");
+        btn.setOnAction(actionEvent -> {
+            enter_NextState(1);
+        });
+        getPane().getChildren().add(btn);
+        super.setTitle("This is the Credit");
     }
 }

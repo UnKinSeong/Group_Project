@@ -7,16 +7,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Map;
-
-public class Menu_Stage extends Stage_Generator {
+public class Menu_Stage extends State_Machine {
     Menu_Btn_List menu_btn_list = new Menu_Btn_List(getPane());
     private final String[] Menus = {"Start","Score","Option","Credit","Exit"};
 
@@ -28,15 +26,25 @@ public class Menu_Stage extends Stage_Generator {
     private final double menu_plane_bottom_related = 0.91;
 
     private boolean menu_board = true;
-    public Menu_Stage(double SCENE_WIDTH, double SCENE_HEIGHT){
-        super(SCENE_WIDTH,SCENE_HEIGHT);
+
+    public Menu_Stage (Stage stage, AnchorPane anchorPane, Scene scene){
+        super(stage,anchorPane,scene);
+    };
+    @Override
+    public void init(){
         menu_btn_list.add_Button(Menus);
         init_menu_button();
         menu_btn_list.setManu_Position(0.05,0.30,0.09,0.91,0.30);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
         initMenu_board();
-    };
+        super.setTitle("This is the Menu");
+    }
+    public void clean_Up(){
+        timeline.stop();
+        menu_btn_list.remove_Button(Menus);
+        getPane().getChildren().remove(Menu_board);
+    }
     private void init_menu_button(){
         Still_Button b;
         for(String s : Menus){
@@ -52,33 +60,28 @@ public class Menu_Stage extends Stage_Generator {
         }
     }
     private void trigger_actions(String action_s){
-        if(action_s=="Credit"){
-            enter_NextState(3);
+        switch (action_s){
+            case "Credit":{
+                enter_NextState(3);
+            }break;
+            case "Exit":{
+                System.exit(0);
+            }break;
         }
     }
     @Override
     public void enter_NextState(int id){
         if(id == 3){
-            Scene credit_scene = Stage_Generator.credit.getScene();
-            Stage currentStage = this.getStage();
-            currentStage.setScene(credit_scene);
-
-            current = Stage_Generator.credit;
-            current.setStage(currentStage);
+            current.clean_Up();
+            current = State_Machine.credit;
+            current.getStage().setTitle("This is the Credit");
+            getStage().setScene(current.getScene());
+            current.init();
         }
     }
     @Override
     public void update_State(int id) {
 
-    }
-    @Override
-    public void showUp(){
-        getStage().setScene(menu.getScene());
-        getStage().show();
-    }
-    @Override
-    public void cleanup(){
-        getStage().show();
     }
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), actionEvent -> {
