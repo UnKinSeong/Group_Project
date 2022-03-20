@@ -1,11 +1,8 @@
 package com.ststjl_project.group_project;
 
-import com.ststjl_project.views.Menu_Stage;
-import com.ststjl_project.views.Stage_Generator;
+import com.ststjl_project.views.stages.Menu_Stage;
+import com.ststjl_project.views.stages.Stage_Generator;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class The_Main extends Application {

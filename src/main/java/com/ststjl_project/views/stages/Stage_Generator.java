@@ -1,4 +1,4 @@
-package com.ststjl_project.views;
+package com.ststjl_project.views.stages;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -45,6 +45,12 @@ public class Stage_Generator {
     }
     public double get_HEIGHT() {
         return SCENE_HEIGHT;
+    }
+    public double get_Pane_WIDTH() {
+        return mainPane.getWidth();
+    }
+    public double get_Pane_HEIGHT() {
+        return mainPane.getHeight();
     }
     public AnchorPane getPane() {
         return mainPane;
