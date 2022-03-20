@@ -8,7 +8,10 @@ import javafx.stage.Stage;
 import java.util.Map;
 import java.util.Vector;
 
-public class Stage_Generator {
+public abstract class Stage_Generator {
+    public static Stage_Generator current, menu,game,score,option,credit;
+    public static int id[] = {0,1,2,3,4,5};
+
     private double SCENE_WIDTH;
     private double SCENE_HEIGHT;
     private AnchorPane mainPane;
@@ -61,4 +64,10 @@ public class Stage_Generator {
     public Stage getStage() {
         return mainStage;
     };
+
+    public abstract void enter_NextState(int id);
+    public abstract void update_State(int id);
+    public abstract void showUp();
+    public abstract void cleanup();
+
 }

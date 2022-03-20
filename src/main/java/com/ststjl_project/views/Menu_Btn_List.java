@@ -80,6 +80,7 @@ public class Menu_Btn_List {
             remove_Button(s);
         }
     }
+
     public void remove_Button(String name){
         int index = list_of_Buttons_Str.indexOf(name);
         if(index>=0){
@@ -90,15 +91,38 @@ public class Menu_Btn_List {
             System.out.printf("Button[%s] at Method remove_Button not found",name);
         }
     }
+    public Still_Button get_Button(String name){
+        int index = list_of_Buttons_Str.indexOf(name);
+        if(index>=0){
+            return list_of_Buttons.get(index);
+        }else{
+            return null;
+        }
+    }
     public void add_Button(String name){
         Still_Button t_btn = new Still_Button();
         t_btn.setText(name);
         list_of_Buttons.add(t_btn);
         list_of_Buttons_Str.add(name);
+
     }
     public void add_Button(String[] names){
         for(String s : names){
             add_Button(s);
         }
+    }
+    public void hideButton(String s){
+        int index = list_of_Buttons_Str.indexOf(s);
+        if(index>=0){
+            anchorPane.getChildren().remove(list_of_Buttons.get(index));
+        }else{
+            System.out.printf("Button[%s] at Method remove_Button not found",s);
+        }
+    }
+    public void hideAllButton(){
+        for(String s : list_of_Buttons_Str){
+            hideButton(s);
+        }
+        is_init = false;
     }
 }
