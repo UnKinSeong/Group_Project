@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class The_Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Stage_Generator manager = new Menu_Stage(800,600);
+        Stage_Generator manager = new Menu_Stage(795.3,461.5);
         stage = manager.getStage();
         stage.show();
     }
