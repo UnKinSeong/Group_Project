@@ -8,15 +8,22 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Menu_Stage extends State_Machine {
     Menu_Btn_List menu_btn_list = new Menu_Btn_List(getPane());
-    private final String[] Menus = {"Start","Score","Option","Credit","Exit"};
+
+    private final List<String> Menus = Arrays.asList("Start","Score","Option","Credit","Exit");
 
     private Rectangle Menu_board = new Rectangle();
 
@@ -59,25 +66,41 @@ public class Menu_Stage extends State_Machine {
             }
         }
     }
+
     private void trigger_actions(String action_s){
-        switch (action_s){
-            case "Credit":{
-                enter_NextState(3);
-            }break;
-            case "Exit":{
-                System.exit(0);
-            }break;
+        int index = Menus.indexOf(action_s);
+        if(index>=0){
+            enter_NextState(index);
+        }
+        else //do something else
+        {
+
         }
     }
     @Override
     public void enter_NextState(int id){
-        if(id == 3){
-            current.clean_Up();
-            current = State_Machine.credit;
-            current.getStage().setTitle("This is the Credit");
-            getStage().setScene(current.getScene());
-            current.init();
+        current.clean_Up();
+        switch (id){
+            case 0:{
+                current = State_Machine.game;
+            }break;
+            case 1:{
+                current = State_Machine.score;
+            }break;
+            case 2:{
+                current = State_Machine.option;
+            }break;
+            case 3:{
+                current = State_Machine.credit;
+            }break;
+            case 4:{
+                System.exit(0);
+            }break;
+            default:
         }
+        current.getStage().setTitle(String.format("This is the %s", Menus.get(id)));
+        getStage().setScene(current.getScene());
+        current.init();
     }
     @Override
     public void update_State(int id) {

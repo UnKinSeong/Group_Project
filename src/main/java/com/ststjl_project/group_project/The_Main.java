@@ -1,8 +1,6 @@
 package com.ststjl_project.group_project;
 
-import com.ststjl_project.views.stages.Credit_Stage;
-import com.ststjl_project.views.stages.Menu_Stage;
-import com.ststjl_project.views.stages.State_Machine;
+import com.ststjl_project.views.stages.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +19,9 @@ public class The_Main extends Application {
 
         State_Machine.menu = new Menu_Stage(stage,anchorPane,scene);
         State_Machine.credit = new Credit_Stage(stage,anchorPane,scene);
+        State_Machine.option = new Option_Stage(stage,anchorPane,scene);
+        State_Machine.game = new Gaming_Stage(stage,anchorPane,scene);
+        State_Machine.score = new Score_Stage(stage,anchorPane,scene);
         State_Machine.current = State_Machine.menu;
         State_Machine.current.init();
         State_Machine.current.showUp();

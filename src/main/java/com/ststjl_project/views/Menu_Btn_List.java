@@ -80,6 +80,11 @@ public class Menu_Btn_List {
             remove_Button(s);
         }
     }
+    public void remove_Button(List<String> name){
+        for(String s:name){
+            remove_Button(s);
+        }
+    }
 
     public void remove_Button(String name){
         int index = list_of_Buttons_Str.indexOf(name);
@@ -108,6 +113,11 @@ public class Menu_Btn_List {
 
     }
     public void add_Button(String[] names){
+        for(String s : names){
+            add_Button(s);
+        }
+    }
+    public void add_Button(List<String> names){
         for(String s : names){
             add_Button(s);
         }
