@@ -3,6 +3,10 @@ package com.ststjl_project.group_project;
 import com.ststjl_project.views.stages.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,13 +26,18 @@ public class The_Main extends Application {
         Stage_SM.current.getStage().setFullScreenExitHint("");
         Stage_SM.current.showUp();
         Stage_SM.current.getStage().setFullScreen(true);
+        Stage_SM.mainScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if(new KeyCodeCombination(KeyCode.F11).match(event)) {
+                stage.setFullScreen(!stage.isFullScreen());
+            }
+        });
     }
     private void init_Stage_SM(Stage stage){
         //--------------------------------------//
         // Construct stage of the State machine //
         //--------------------------------------//
         Stage_SM.mainPane = new AnchorPane();
-        Stage_SM.mainScene = new Scene(Stage_SM.mainPane);
+        Stage_SM.mainScene = new Scene(Stage_SM.mainPane,710,400);
         Stage_SM.mainStage = stage;
         Stage_SM.mainStage.setScene(Stage_SM.mainScene);
 
