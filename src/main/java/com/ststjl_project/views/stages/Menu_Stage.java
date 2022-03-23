@@ -1,7 +1,7 @@
 package com.ststjl_project.views.stages;
 
 import com.ststjl_project.views.Menu_Btn_List;
-import com.ststjl_project.views.buttoms.Still_Button;
+import com.ststjl_project.views.buttons.Still_Button;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

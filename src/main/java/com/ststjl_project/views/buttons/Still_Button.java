@@ -1,4 +1,4 @@
-package com.ststjl_project.views.buttoms;
+package com.ststjl_project.views.buttons;
 
 import javafx.scene.control.Button;
 
