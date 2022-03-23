@@ -121,7 +121,7 @@ public class Menu_Stage extends Stage_SM {
 
     }
 
-    private double delta_For_Ball[] = {2,2};
+    private double delta_For_Ball[] = {0.0001,0.0003};
     private void initBall_board(int radius, double LayoutX, double LayoutY) {
         ball = new Circle();
         ball.setRadius(radius);
@@ -143,15 +143,15 @@ public class Menu_Stage extends Stage_SM {
         double top_bound = Menu_board.getLayoutY()+bounds.getMinY() + radius;
         double bottom_bound = Menu_board.getLayoutY()+bounds.getMaxY() - radius;
 
-        double futureX = ball.getLayoutX()+delta_For_Ball[0];
-        double futureY = ball.getLayoutY()+delta_For_Ball[1];
+        double futureX = ball.getLayoutX()+Menu_board.getWidth()*delta_For_Ball[0];
+        double futureY = ball.getLayoutY()+Menu_board.getHeight()*delta_For_Ball[1];
 
         double layX = Menu_board.getLayoutX();
         double layY = Menu_board.getLayoutY();
 
 
-        ball.setLayoutX(ball.getLayoutX()+delta_For_Ball[0]);
-        ball.setLayoutY(ball.getLayoutY()+delta_For_Ball[1]);
+        ball.setLayoutX(ball.getLayoutX()+Menu_board.getWidth()*delta_For_Ball[0]);
+        ball.setLayoutY(ball.getLayoutY()+Menu_board.getHeight()*delta_For_Ball[1]);
         boolean RightBoards = ball.getLayoutX() >= (layX+bounds.getMaxX()-radius);
         boolean LeftBoards = ball.getLayoutX() <= (layX+bounds.getMinX()+radius);
         boolean BottomBoards = ball.getLayoutY() >= (layY+bounds.getMaxY()-radius);
