@@ -52,6 +52,7 @@ public class Menu_Btn_List {
         if(!is_init){
             init_Pane();
         }
+        // Calculate the actual locations of the buttons //
         double menu_init_X  = anchorPane.getWidth()  * menu_related_Pos[0];
         double menu_end_X   = anchorPane.getWidth()  * menu_related_Pos[1];
         double menu_init_Y = anchorPane.getHeight() * menu_related_Pos[2];
@@ -63,6 +64,7 @@ public class Menu_Btn_List {
     // Setters //
     //---------//
     public void init_Pane(){
+        // Just add the button to the anchorPane //
         for(Still_Button b : list_of_Buttons){
             if(!anchorPane.getChildren().contains(b))
                 anchorPane.getChildren().add(b);
@@ -126,6 +128,7 @@ public class Menu_Btn_List {
         is_init=false;
     }
     public Still_Button get_Button(String name){
+        // As the name suggest, It just acquires the button by the name of the button //
         int index = list_of_Buttons_Str.indexOf(name);
         if(index>=0){
             return list_of_Buttons.get(index);

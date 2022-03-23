@@ -27,9 +27,10 @@ public abstract class Stage_SM {
         this.mainScene = scene;
     }
 
-    //-----------------------//
-    // make a separator init //
-    //-----------------------//
+    //---------------------------//
+    //   make a separator init   //
+    // AKA manual Re-constructor //
+    //---------------------------//
     public abstract void init();
 
     //---------//
@@ -70,14 +71,19 @@ public abstract class Stage_SM {
 
     //------------------------------------------------------//
     // State Switcher                                       //
-    // All declaration must follow the cleanup before enter //
+    // All declaration must follow the Cleanup before Enter //
     //     AKA the manual trigger to Garbage collection     //
     //------------------------------------------------------//
+    protected abstract void clean_Up();
     public abstract void enter_NextState(int id);
+
+    //----------------//
+    // Show the State //
+    //----------------//
     public void showUp() {
         this.getStage().setScene(current.getScene());
         this.getStage().show();
     }
 
-    protected abstract void clean_Up();
+
 }
