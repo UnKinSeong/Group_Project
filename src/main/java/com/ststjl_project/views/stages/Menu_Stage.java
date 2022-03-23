@@ -8,49 +8,63 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Menu_Stage extends State_Machine {
+
+//----------------------------------------//
+// In this Stage. Every thing is related. //
+//----------------------------------------//
+public class Menu_Stage extends Stage_SM {
+    //---------------------------------------------//
+    // Declare the Custom Menu Button List Manager // Oh yes it is dynamic resizing
+    //---------------------------------------------//
     Menu_Btn_List menu_btn_list = new Menu_Btn_List(getPane());
 
+    //-------------------------------------------------//
+    // Just to take care of the declaration of the MBL //
+    //-------------------------------------------------//
     private final List<String> Menus = Arrays.asList("Start","Score","Option","Credit","Exit");
 
+    //-----------------------------------------------------------//
+    // I'm going to make a Rectangle and call it a developer log //
+    //-----------------------------------------------------------//
     private Rectangle Menu_board = new Rectangle();
 
-    private final double menu_plane_left_related = 0.47;
-    private final double menu_plane_right_related = 0.95;
-    private final double menu_plane_top_related = 0.09;
-    private final double menu_plane_bottom_related = 0.91;
+    //-------------------------------------------//
+    // Position Follow by Left, Right, Top, Down //
+    //-------------------------------------------//
+    //    Related position of the Menu_Button    //
+    //-------------------------------------------//
+    private final double[] menu_btn_Pos = {0.05,0.30,0.09,0.91,0.30};
 
-    private boolean menu_board = true;
+    private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
 
+    //-----------------//
+    // The constructor //
+    //-----------------//
     public Menu_Stage (Stage stage, AnchorPane anchorPane, Scene scene){
         super(stage,anchorPane,scene);
     };
+    public Menu_Stage() {
+
+    }
+
     @Override
     public void init(){
         menu_btn_list.add_Button(Menus);
         init_menu_button();
-        menu_btn_list.setManu_Position(0.05,0.30,0.09,0.91,0.30);
+        menu_btn_list.setManu_Position(menu_btn_Pos[0],menu_btn_Pos[1],menu_btn_Pos[2],menu_btn_Pos[3],menu_btn_Pos[4]);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
         initMenu_board();
         super.setTitle("This is the Menu");
-    }
-    public void clean_Up(){
-        timeline.stop();
-        menu_btn_list.remove_Button(Menus);
-        getPane().getChildren().remove(Menu_board);
     }
     private void init_menu_button(){
         Still_Button b;
@@ -66,6 +80,12 @@ public class Menu_Stage extends State_Machine {
             }
         }
     }
+    public void clean_Up(){
+        timeline.stop();
+        menu_btn_list.remove_Button(Menus);
+        getPane().getChildren().remove(Menu_board);
+    }
+
 
     private void trigger_actions(String action_s){
         int index = Menus.indexOf(action_s);
@@ -82,16 +102,16 @@ public class Menu_Stage extends State_Machine {
         current.clean_Up();
         switch (id){
             case 0:{
-                current = State_Machine.game;
+                current = Stage_SM.game;
             }break;
             case 1:{
-                current = State_Machine.score;
+                current = Stage_SM.score;
             }break;
             case 2:{
-                current = State_Machine.option;
+                current = Stage_SM.option;
             }break;
             case 3:{
-                current = State_Machine.credit;
+                current = Stage_SM.credit;
             }break;
             case 4:{
                 System.exit(0);
@@ -102,19 +122,15 @@ public class Menu_Stage extends State_Machine {
         getStage().setScene(current.getScene());
         current.init();
     }
-    @Override
-    public void update_State(int id) {
-
-    }
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), actionEvent -> {
         menu_btn_list.update();
         double pane_Width = get_Pane_WIDTH();
         double pane_Height = get_Pane_HEIGHT();
-        double menu_board_init_X  = pane_Width  * menu_plane_left_related;
-        double menu_board_end_X   = pane_Width * menu_plane_right_related;
-        double menu_board_init_Y =  pane_Height * menu_plane_top_related;
-        double menu_board_end_Y  =  pane_Height * menu_plane_bottom_related;
+        double menu_board_init_X  = pane_Width  * menu_board_Pos[0];
+        double menu_board_end_X   = pane_Width * menu_board_Pos[1];
+        double menu_board_init_Y =  pane_Height * menu_board_Pos[2];
+        double menu_board_end_Y  =  pane_Height * menu_board_Pos[3];
         setMenu_board(menu_board_init_X, menu_board_end_X, menu_board_init_Y, menu_board_end_Y);
 
     }));

@@ -11,23 +11,44 @@ public class The_Main extends Application {
     private double height = 460;
     @Override
     public void start(Stage stage) throws Exception {
+        //--------------------------------------------------//
+        // Call init_Stage_SM to Declare the state variable //
+        //--------------------------------------------------//
+        init_Stage_SM(stage);
 
-        AnchorPane anchorPane = new AnchorPane();
-        Scene scene = new Scene(anchorPane);
-        stage.setScene(scene);
-        stage.setTitle("This is the Title");
-
-        State_Machine.menu = new Menu_Stage(stage,anchorPane,scene);
-        State_Machine.credit = new Credit_Stage(stage,anchorPane,scene);
-        State_Machine.option = new Option_Stage(stage,anchorPane,scene);
-        State_Machine.game = new Gaming_Stage(stage,anchorPane,scene);
-        State_Machine.score = new Score_Stage(stage,anchorPane,scene);
-        State_Machine.current = State_Machine.menu;
-        State_Machine.current.init();
-        State_Machine.current.showUp();
-        State_Machine.current.getStage().setFullScreen(true);
+        //----------------//
+        // Show the Stage //
+        //----------------//
+        Stage_SM.current.getStage().setFullScreenExitHint("");
+        Stage_SM.current.showUp();
+        Stage_SM.current.getStage().setFullScreen(true);
     }
+    private void init_Stage_SM(Stage stage){
+        //--------------------------------------//
+        // Construct stage of the State machine //
+        //--------------------------------------//
+        Stage_SM.mainPane = new AnchorPane();
+        Stage_SM.mainScene = new Scene(Stage_SM.mainPane);
+        Stage_SM.mainStage = stage;
+        Stage_SM.mainStage.setScene(Stage_SM.mainScene);
 
+        //--------------------------------------------------------//
+        //           Assign each state to Stage machine           //
+        //--------------------------------------------------------//
+        // State [ menu | credit | option | game | score | current ]
+        //--------------------------------------------------------//
+        Stage_SM.menu = new Menu_Stage();
+        Stage_SM.credit = new Credit_Stage();
+        Stage_SM.option = new Option_Stage();
+        Stage_SM.game = new Gaming_Stage();
+        Stage_SM.score = new Score_Stage();
+
+        //-----------------------------------//
+        // initialization of the entry stage //
+        //-----------------------------------//
+        Stage_SM.current = Stage_SM.menu;
+        Stage_SM.current.init();
+    }
     public static void main(String[] args) {
         launch(args);
     }
