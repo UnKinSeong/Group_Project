@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -131,8 +132,11 @@ public class Menu_Stage extends Stage_SM {
 
     private MediaPlayer mediaPlayer;
     private void play(){
-        mediaPlayer = new MediaPlayer(new Media(new File(getClass().getResource("/Music/down.mp3").getPath()).toURI().toString()));
-        mediaPlayer.play();
+        URL url = getClass().getResource("/Music/down.mp3");
+        if(url!=null){
+            mediaPlayer = new MediaPlayer(new Media(new File(url.getPath()).toURI().toString()));
+            mediaPlayer.play();
+        }
     }
     private void update_Ball_In_Board(){
         Bounds bounds = Menu_board.getBoundsInLocal();
