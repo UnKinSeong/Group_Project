@@ -7,21 +7,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 //----------------------------------------//
 // In this Stage. Every thing is related. //
@@ -82,9 +79,60 @@ public class Menu_Stage extends Stage_SM {
         double middleX = Math.abs(menu_board_init_X-menu_board_end_X);
         double middleY = Math.abs(menu_board_init_Y-menu_board_end_Y);
         update_Menu_Board(menu_board_init_X, menu_board_end_X, menu_board_init_Y, menu_board_end_Y);
-
         update_Ball_In_Board();
+
     }));
+
+    private Label Random_Label;
+    private boolean Is_Labeled = false;
+
+
+    private void animated_Button(String name){
+        double related_width = 0.2;
+        double related_height= 1.1;
+        Still_Button button = menu_btn_list.get_Button(name);
+        if(button==null){
+            System.exit(0);
+        };
+        Random_Label = new Label();
+        String text="";
+        switch (name){
+            case "Start":
+            {
+                text = "Click me to play";
+            }break;
+            case "Credit":
+            {
+                text = "Support us by donation";
+            }break;
+            case "Option":
+            {
+                text = "Twist the game you like";
+            }break;
+            case "Exit":
+            {
+                text = "Master! Don't leave me";
+            }break;
+            case "Score":
+            {
+                int maximum = 3;
+                int minimum = 1;
+                int i = (int) (Math.random()*(maximum - minimum)) + minimum;
+                text = (i==1)?"See how good you are":(i==2)?"Your glory battles":(i==3)?"Oh You are good":"";
+            }break;
+        }
+        double btn_layX = button.getLayoutX();
+        double btn_layY = button.getLayoutY()+button.getHeight()*related_height;
+        Random_Label.setLayoutX(btn_layX);
+        Random_Label.setLayoutY(btn_layY);
+        mainPane.getChildren().add(Random_Label);
+        Random_Label.setText(text);
+        Is_Labeled = true;
+    }
+    private void rm_animated_Button(){
+        mainPane.getChildren().remove(Random_Label);
+        Is_Labeled = false;
+    }
 
     @Override
     public void init(){
@@ -105,11 +153,21 @@ public class Menu_Stage extends Stage_SM {
     }
     private void init_menu_button(){
         Still_Button b;
-        for(String s : Menus){
-            b = menu_btn_list.get_Button(s);
+        for(String Button_Name : Menus){
+            b = menu_btn_list.get_Button(Button_Name);
             if(b!=null){
+                Still_Button finalB = b;
                 b.setOnAction(actionEvent -> {
-                        trigger_actions(s);
+                        trigger_actions(Button_Name);
+                });
+                b.setOnMouseEntered(mouseEvent -> {
+                    finalB.setTextFill(Color.RED);
+                    animated_Button(Button_Name);
+
+                });
+                b.setOnMouseExited(mouseEvent -> {
+                    finalB.setTextFill(Color.BLACK);
+                    rm_animated_Button();
                 });
             }else{
                 // not implemented yet //
@@ -122,7 +180,7 @@ public class Menu_Stage extends Stage_SM {
 
     }
 
-    private double delta_For_Ball[] = {0.0001,0.0003};
+    private double delta_For_Ball[] = {0.0005,0.0008};
     private void initBall_board(int radius, double LayoutX, double LayoutY) {
         ball = new Circle();
         ball.setRadius(radius);
@@ -130,6 +188,7 @@ public class Menu_Stage extends Stage_SM {
         getPane().getChildren().add(ball);
     }
 
+    /* O Yes                    //
     private MediaPlayer mediaPlayer;
     private void play(){
         URL url = getClass().getResource("/Music/down.mp3");
@@ -138,6 +197,7 @@ public class Menu_Stage extends Stage_SM {
             mediaPlayer.play();
         }
     }
+    // Just blocking some code */
     private void update_Ball_In_Board(){
         Bounds bounds = Menu_board.getBoundsInLocal();
         double radius = ((Menu_board.getWidth()+ Menu_board.getHeight())/2)*0.05;
@@ -165,11 +225,11 @@ public class Menu_Stage extends Stage_SM {
             if(RightBoards) {
                 System.out.println("Right");
                 ball.setLayoutX(layX + Menu_board.getWidth() - radius);
-                play();
+                //play();
             }else{
                 System.out.println("Left");
                 ball.setLayoutX(layX+radius);
-                play();
+                //play();
             }
         }
         if(TopBoards || BottomBoards){
@@ -178,11 +238,11 @@ public class Menu_Stage extends Stage_SM {
             if(TopBoards) {
                 System.out.println("Top");
                 ball.setLayoutY(layY + radius);
-                play();
+                //play();
             }else {
                 System.out.println("bottom");
                 ball.setLayoutY(layY + Menu_board.getHeight() - radius);
-                play();
+                //play();
             }
         }
     }
@@ -196,6 +256,9 @@ public class Menu_Stage extends Stage_SM {
     }
     public void clean_Up(){
         game_loop.stop();
+        if (Is_Labeled){
+            getPane().getChildren().remove(Random_Label);
+        }
         menu_btn_list.remove_Button(Menus);
         getPane().getChildren().remove(Menu_board);
         getPane().getChildren().remove(ball);
@@ -206,10 +269,8 @@ public class Menu_Stage extends Stage_SM {
         int index = Menus.indexOf(action_s);
         if(index>=0){
             enter_NextState(index);
-        }
-        else //do something else
-        {
-            // Not implemented yet //
+        }else{
+            // not implemented yet //
         }
     }
 
