@@ -13,9 +13,9 @@ public abstract class Stage_SM {
     //---------------------------//
     // Static Variable for Stage //
     //---------------------------//
-    public static AnchorPane mainPane;
-    public static Scene mainScene;
-    public static Stage mainStage;
+    private static AnchorPane mainPane;
+    private static Scene mainScene;
+    private static Stage mainStage;
 
     //--------------------------//
     // Constructor for Stage_SM //

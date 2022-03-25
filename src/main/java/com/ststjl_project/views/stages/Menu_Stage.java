@@ -1,6 +1,7 @@
 package com.ststjl_project.views.stages;
 
 import com.ststjl_project.views.Menu_Btn_List;
+import com.ststjl_project.views.Sprite;
 import com.ststjl_project.views.buttons.Still_Button;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -8,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -18,7 +20,6 @@ import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 //----------------------------------------//
 // In this Stage. Every thing is related. //
@@ -50,10 +51,15 @@ public class Menu_Stage extends Stage_SM {
     // Position Follow by Left, Right, Top, Down //
     //-------------------------------------------//
     //    Related position of the Menu_Button    //
+    // I do know this is dump, but it just works //
     //-------------------------------------------//
     private final double[] menu_btn_Pos = {0.05,0.30,0.09,0.91,0.30};
-    private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
 
+
+
+    private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
+    Sprite Menu_Bell = new Sprite();
+    private double delta_For_Ball[] = {0.0005,0.0008};
     //-----------------//
     // The constructor //
     //-----------------//
@@ -69,25 +75,26 @@ public class Menu_Stage extends Stage_SM {
 
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
+
         double pane_Width = get_Pane_WIDTH();
         double pane_Height = get_Pane_HEIGHT();
-        double menu_board_init_X  = pane_Width  * menu_board_Pos[0];
-        double menu_board_end_X   = pane_Width * menu_board_Pos[1];
-        double menu_board_init_Y =  pane_Height * menu_board_Pos[2];
-        double menu_board_end_Y  =  pane_Height * menu_board_Pos[3];
 
-        double middleX = Math.abs(menu_board_init_X-menu_board_end_X);
-        double middleY = Math.abs(menu_board_init_Y-menu_board_end_Y);
-        update_Menu_Board(menu_board_init_X, menu_board_end_X, menu_board_init_Y, menu_board_end_Y);
+        double s_posX = pane_Width  * menu_board_Pos[0];
+        double e_posX = pane_Width * menu_board_Pos[1];
+        double s_posY = pane_Height * menu_board_Pos[2];
+        double e_posY = pane_Height * menu_board_Pos[3];
+        update_Menu_Board(s_posX, e_posX, s_posY, e_posY);
         update_Ball_In_Board();
-
+        Circle t_rec = (Circle) Menu_Bell.getSprite();
+        t_rec.setRadius( ((Menu_board.getWidth()+ Menu_board.getHeight())/2)*0.05);
+        Menu_Bell.update(1);
+        Menu_Bell.rotation += 1;
     }));
 
     private Label Random_Label;
     private boolean Is_Labeled = false;
 
-
-    private void animated_Button(String name){
+    private void animated_label(String name){
         double related_width = 0.2;
         double related_height= 1.1;
         Still_Button button = menu_btn_list.get_Button(name);
@@ -125,12 +132,12 @@ public class Menu_Stage extends Stage_SM {
         double btn_layY = button.getLayoutY()+button.getHeight()*related_height;
         Random_Label.setLayoutX(btn_layX);
         Random_Label.setLayoutY(btn_layY);
-        mainPane.getChildren().add(Random_Label);
+        getPane().getChildren().add(Random_Label);
         Random_Label.setText(text);
         Is_Labeled = true;
     }
     private void rm_animated_Button(){
-        mainPane.getChildren().remove(Random_Label);
+        getPane().getChildren().remove(Random_Label);
         Is_Labeled = false;
     }
 
@@ -147,6 +154,10 @@ public class Menu_Stage extends Stage_SM {
         game_loop.setCycleCount(Animation.INDEFINITE);
         game_loop.play();
         initMenu_board();
+        Menu_Bell.setSprite(new Circle());
+        Menu_Bell.position.set(0,0);
+        Menu_Bell.velocity.set(5,0);
+        Menu_Bell.render();
         initBall_board(1, Menu_board.getLayoutX()+1,Menu_board.getLayoutY()+1);
 
         super.setTitle("This is the Menu");
@@ -162,7 +173,7 @@ public class Menu_Stage extends Stage_SM {
                 });
                 b.setOnMouseEntered(mouseEvent -> {
                     finalB.setTextFill(Color.RED);
-                    animated_Button(Button_Name);
+                    animated_label(Button_Name);
 
                 });
                 b.setOnMouseExited(mouseEvent -> {
@@ -179,8 +190,6 @@ public class Menu_Stage extends Stage_SM {
         getPane().getChildren().add(Menu_board);
 
     }
-
-    private double delta_For_Ball[] = {0.0005,0.0008};
     private void initBall_board(int radius, double LayoutX, double LayoutY) {
         ball = new Circle();
         ball.setRadius(radius);
@@ -262,6 +271,7 @@ public class Menu_Stage extends Stage_SM {
         menu_btn_list.remove_Button(Menus);
         getPane().getChildren().remove(Menu_board);
         getPane().getChildren().remove(ball);
+        Menu_Bell.destory();
     }
 
 
