@@ -4,12 +4,12 @@ import com.ststjl_project.views.stages.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class The_Main extends Application {
@@ -20,21 +20,35 @@ public class The_Main extends Application {
         //--------------------------------------------------//
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
-        init_Stage_SM(stage);
+        Stage_SM.setCanvas(new Canvas(710,400));
+        Stage_SM.initGraphicsContext();
+        Stage_SM.setPane(new Pane(Stage_SM.getCanvas()));
+        Stage_SM.setScene(new Scene(Stage_SM.getPane()));
+        Stage_SM.setStage(stage);
+        Stage_SM.getStage().setScene(Stage_SM.getScene());
 
+        Stage_SM.addState("game",new Gaming_Stage());
+        Stage_SM.addState("score",new Score_Stage());
+        Stage_SM.addState("option",new Option_Stage());
+        Stage_SM.addState("credit",new Credit_Stage());
+        Stage_SM.addState("menu",new Menu_Stage());
+        Stage_SM.addState("current",Stage_SM.getState("menu"));
         //----------------//
         // Show the Stage //
         //----------------//
-        Stage_SM.current.getStage().setFullScreenExitHint("");
-        Stage_SM.current.showUp();
-        Stage_SM.current.getStage().setFullScreen(true);
-        Stage_SM.current.getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+
+
+        Stage_SM.getState("current").init();
+        Stage_SM.getState("current").getStage().setFullScreenExitHint("");
+        Stage_SM.getState("current").getStage().show();
+        Stage_SM.getState("current").getStage().setFullScreen(true);
+        Stage_SM.getState("current").getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if(new KeyCodeCombination(KeyCode.F11).match(event)) {
                 stage.setFullScreen(!stage.isFullScreen());
             }
         });
     }
-    private void init_Stage_SM(Stage stage){
+/*    private void init_Stage_SM(Stage stage){
         //--------------------------------------//
         // Construct stage of the State machine //
         //--------------------------------------//
@@ -61,7 +75,7 @@ public class The_Main extends Application {
         
         Stage_SM.current = Stage_SM.menu;
         Stage_SM.current.init();
-    }
+    }*/
     public static void main(String[] args) {
         launch(args);
     }

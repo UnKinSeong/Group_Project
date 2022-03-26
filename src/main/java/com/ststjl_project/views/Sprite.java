@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-
+/*
 
 public class Sprite {
     public Vector position;
@@ -64,4 +64,4 @@ public class Sprite {
 
     }
 
-}
+}*/

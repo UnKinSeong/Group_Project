@@ -1,89 +1,73 @@
 package com.ststjl_project.views.stages;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public abstract class Stage_SM {
-    //-------------------------------------//
-    // Static Stage_Sm(s) for finite state //
-    //-------------------------------------//
-    public static Stage_SM current, menu,game,score,option,credit;
+    private static Map<String ,Stage_SM> State_SMs = new TreeMap<>();
 
-    //---------------------------//
-    // Static Variable for Stage //
-    //---------------------------//
-    private static AnchorPane mainPane;
-    private static Scene mainScene;
+    public static void addState(String stageN, Stage_SM stageSm){
+        State_SMs.put(stageN,stageSm);
+    }
+    public static Stage_SM getState(String stage){
+        return State_SMs.get(stage);
+    }
+    public static boolean setState(String stage){
+        Stage_SM stage_sm_tar = getState(stage);
+        if(stage_sm_tar!=null){
+            State_SMs.replace("current",stage_sm_tar);
+            return true;
+        }
+        return false;
+    }
+
     private static Stage mainStage;
+    private static Scene mainScene;
+    private static Pane mainPane;
+    private static Canvas mainCanvas;
+    private static GraphicsContext graphicsContext;
 
-    //--------------------------//
-    // Constructor for Stage_SM //
-    //--------------------------//
-    public Stage_SM(){}
-    public Stage_SM(Stage stage, AnchorPane anchorPane, Scene scene){
-        this.mainPane = anchorPane;
-        this.mainStage = stage;
-        this.mainScene = scene;
+    public static void setStage(Stage stage) {
+        mainStage = stage;
     }
-
-    //---------------------------//
-    //   make a separator init   //
-    // AKA manual Re-constructor //
-    //---------------------------//
-    public abstract void init();
-
-    //---------//
-    // Setters //
-    //---------//
-    public void setTitle(String title){
-        this.mainStage.setTitle(title);
+    public static void setScene(Scene scene) {
+         mainScene = scene;
     }
-    public void setPane(AnchorPane mainPane) {
-        this.mainPane = mainPane;
+    public static void setPane(Pane pane) {
+        mainPane = pane;
     }
-    public void setScene(Scene mainScene) {
-        this.mainScene = mainScene;
+    public static void setCanvas(Canvas canvas) {
+        mainCanvas = canvas;
     }
-    public void setStage(Stage mainStage) {
-        this.mainStage = mainStage;
+    public static void initGraphicsContext(){
+        graphicsContext = mainCanvas.getGraphicsContext2D();
+    }
+    public static GraphicsContext getGC(){
+        return graphicsContext;
     }
 
-    //---------//
-    // Getters //
-    //---------//
-    public double get_Pane_WIDTH() {
-        return this.mainPane.getWidth();
+    public static Stage getStage() {
+        return mainStage;
     }
-    public double get_Pane_HEIGHT() {
-        return this.mainPane.getHeight();
+    public static Scene getScene() {
+        return mainScene;
     }
-    public AnchorPane getPane() {
-        return this.mainPane;
+    public static Pane getPane() {
+        return mainPane;
     }
-    public Scene getScene() {
-        return this.mainScene;
+    public static Canvas getCanvas() {
+        return mainCanvas;
     }
-    public Stage getStage() {
-        return this.mainStage;
-    };
 
-
-    //------------------------------------------------------//
-    // State Switcher                                       //
-    // All declaration must follow the Cleanup before Enter //
-    //     AKA the manual trigger to Garbage collection     //
-    //------------------------------------------------------//
-    protected abstract void clean_Up();
     public abstract void enter_NextState(int id);
 
-    //----------------//
-    // Show the State //
-    //----------------//
-    public void showUp() {
-        this.getStage().setScene(current.getScene());
-        this.getStage().show();
-    }
+    public abstract void clean_Up();
 
-
+    public abstract void init();
 }

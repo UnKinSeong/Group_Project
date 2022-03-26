@@ -1,15 +1,9 @@
 package com.ststjl_project.views.stages;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class Gaming_Stage extends Stage_SM {
     private Button btn;
-    public Gaming_Stage(Stage stage, AnchorPane anchorPane, Scene scene) {
-        super(stage, anchorPane, scene);
-    }
 
     public Gaming_Stage() {
 
@@ -18,17 +12,16 @@ public class Gaming_Stage extends Stage_SM {
     @Override
     public void enter_NextState(int id) {
         if(id == 0){
-            current.clean_Up();
-            current = Stage_SM.menu;
-            current.getStage().setTitle("This is the Credit");
-            getStage().setScene(current.getScene());
-            current.init();
+            clean_Up();
+            setState("menu");
+            getState("current").getStage().setScene(getScene());
+            getState("current").init();
         }
     }
 
 
     @Override
-    protected void clean_Up() {
+    public void clean_Up() {
         getPane().getChildren().remove(btn);
     }
 
@@ -40,6 +33,6 @@ public class Gaming_Stage extends Stage_SM {
             enter_NextState(0);
         });
         getPane().getChildren().add(btn);
-        super.setTitle("This is the Gaming");
+        getStage().setTitle("This is the Gaming");
     }
 }

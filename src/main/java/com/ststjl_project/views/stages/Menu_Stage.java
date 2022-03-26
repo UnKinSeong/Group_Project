@@ -1,21 +1,16 @@
 package com.ststjl_project.views.stages;
 
 import com.ststjl_project.views.Menu_Btn_List;
-import com.ststjl_project.views.Sprite;
 import com.ststjl_project.views.buttons.Still_Button;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Arrays;
@@ -58,17 +53,10 @@ public class Menu_Stage extends Stage_SM {
 
 
     private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
-    Sprite Menu_Bell = new Sprite();
     private double delta_For_Ball[] = {0.0005,0.0008};
     //-----------------//
     // The constructor //
     //-----------------//
-    public Menu_Stage (Stage stage,
-                       AnchorPane anchorPane,
-                       Scene scene){
-        super(stage,anchorPane,scene);
-        cleanUp_Status = false;
-    };
     public Menu_Stage() {
 
     }
@@ -76,8 +64,8 @@ public class Menu_Stage extends Stage_SM {
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
-        double pane_Width = get_Pane_WIDTH();
-        double pane_Height = get_Pane_HEIGHT();
+        double pane_Width = getPane().getWidth();
+        double pane_Height = getPane().getHeight();
 
         double s_posX = pane_Width  * menu_board_Pos[0];
         double e_posX = pane_Width * menu_board_Pos[1];
@@ -85,10 +73,12 @@ public class Menu_Stage extends Stage_SM {
         double e_posY = pane_Height * menu_board_Pos[3];
         update_Menu_Board(s_posX, e_posX, s_posY, e_posY);
         update_Ball_In_Board();
-        Circle t_rec = (Circle) Menu_Bell.getSprite();
-        t_rec.setRadius( ((Menu_board.getWidth()+ Menu_board.getHeight())/2)*0.05);
-        Menu_Bell.update(1);
-        Menu_Bell.rotation += 1;
+        getCanvas().setWidth(pane_Width);
+        getCanvas().setHeight(pane_Height);
+        getGC().setFill(Color.WHITE);
+        getGC().fillRect(0,0,pane_Width,pane_Height);
+        getGC().setFill(Color.BLACK);
+        getGC().fillRect(0,0,pane_Width*0.3,pane_Height*0.5);
     }));
 
     private Label Random_Label;
@@ -154,13 +144,10 @@ public class Menu_Stage extends Stage_SM {
         game_loop.setCycleCount(Animation.INDEFINITE);
         game_loop.play();
         initMenu_board();
-        Menu_Bell.setSprite(new Circle());
-        Menu_Bell.position.set(0,0);
-        Menu_Bell.velocity.set(5,0);
-        Menu_Bell.render();
+
         initBall_board(1, Menu_board.getLayoutX()+1,Menu_board.getLayoutY()+1);
 
-        super.setTitle("This is the Menu");
+        getStage().setTitle("This is the Menu");
     }
     private void init_menu_button(){
         Still_Button b;
@@ -271,7 +258,6 @@ public class Menu_Stage extends Stage_SM {
         menu_btn_list.remove_Button(Menus);
         getPane().getChildren().remove(Menu_board);
         getPane().getChildren().remove(ball);
-        Menu_Bell.destory();
     }
 
 
@@ -286,28 +272,28 @@ public class Menu_Stage extends Stage_SM {
 
     @Override
     public void enter_NextState(int id){
-        current.clean_Up();
+        clean_Up();
         switch (id){
             case 0:{
-                current = Stage_SM.game;
+                setState("game");
             }break;
             case 1:{
-                current = Stage_SM.score;
+                setState("score");
             }break;
             case 2:{
-                current = Stage_SM.option;
+                setState("option");
             }break;
             case 3:{
-                current = Stage_SM.credit;
+                setState("credit");
             }break;
             case 4:{
                 System.exit(0);
             }break;
             default:
         }
-        current.getStage().setTitle(String.format("This is the %s", Menus.get(id)));
-        getStage().setScene(current.getScene());
-        current.init();
+        getStage().setTitle(String.format("This is the %s", Menus.get(id)));
+        getState("current").getStage().setScene(getScene());
+        getState("current").init();
     }
 
 }

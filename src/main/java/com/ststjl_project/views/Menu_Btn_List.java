@@ -3,6 +3,7 @@ package com.ststjl_project.views;
 import com.ststjl_project.views.buttons.Still_Button;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ public class Menu_Btn_List {
     //--------------------------------------------------//
     // The reference to the anchorPane that targeted to //
     //--------------------------------------------------//
-    private AnchorPane anchorPane;
+    private Pane pane;
 
     //------------------------------------//
     // Related position to the AnchorPane //
@@ -41,8 +42,8 @@ public class Menu_Btn_List {
     //-------------//
     // Constructor //
     //-------------//
-    public Menu_Btn_List(AnchorPane anchorPane){
-        this.anchorPane=anchorPane;
+    public Menu_Btn_List(Pane anchorPane){
+        this.pane =anchorPane;
     }
 
     //----------------------------------------------//
@@ -53,10 +54,10 @@ public class Menu_Btn_List {
             init_Pane();
         }
         // Calculate the actual locations of the buttons //
-        double menu_init_X  = anchorPane.getWidth()  * menu_related_Pos[0];
-        double menu_end_X   = anchorPane.getWidth()  * menu_related_Pos[1];
-        double menu_init_Y = anchorPane.getHeight() * menu_related_Pos[2];
-        double menu_end_Y  = anchorPane.getHeight() * menu_related_Pos[3];
+        double menu_init_X  = pane.getWidth()  * menu_related_Pos[0];
+        double menu_end_X   = pane.getWidth()  * menu_related_Pos[1];
+        double menu_init_Y = pane.getHeight() * menu_related_Pos[2];
+        double menu_end_Y  = pane.getHeight() * menu_related_Pos[3];
         setMenu_Btn(menu_init_X,menu_end_X,menu_init_Y,menu_end_Y);
     }
 
@@ -66,13 +67,13 @@ public class Menu_Btn_List {
     public void init_Pane(){
         // Just add the button to the anchorPane //
         for(Still_Button b : list_of_Buttons){
-            if(!anchorPane.getChildren().contains(b))
-                anchorPane.getChildren().add(b);
+            if(!pane.getChildren().contains(b))
+                pane.getChildren().add(b);
         }
         is_init=true;
     }
-    public void setAnchorPane(AnchorPane anchorPane) {
-        this.anchorPane = anchorPane;
+    public void setPane(AnchorPane pane) {
+        this.pane = pane;
         update();
     }
     private void set_related_Spacing(double re_spacing){
@@ -119,7 +120,7 @@ public class Menu_Btn_List {
     public void remove_Button(String name){
         int index = list_of_Buttons_Str.indexOf(name);
         if(index>=0){
-            anchorPane.getChildren().remove(list_of_Buttons.get(index));
+            pane.getChildren().remove(list_of_Buttons.get(index));
             list_of_Buttons.remove(index);
             list_of_Buttons_Str.remove(index);
         }else{
