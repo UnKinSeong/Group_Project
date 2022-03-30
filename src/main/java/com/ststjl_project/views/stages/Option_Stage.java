@@ -14,9 +14,8 @@ public class Option_Stage extends Stage_SM {
         if(id == 0){
             clean_Up();
             setState("menu");
-            getStage().setTitle("This is the Credit");
-            getStage().setScene(getScene());
-            init();
+            getState("current").getStage().setScene(getScene());
+            getState("current").init();
         }
     }
 

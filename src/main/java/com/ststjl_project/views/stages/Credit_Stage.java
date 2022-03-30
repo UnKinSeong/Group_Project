@@ -14,8 +14,8 @@ public class Credit_Stage extends Stage_SM {
     public void enter_NextState(int id) {
         if(id == 1){
             clean_Up();
-            setState("credit");
-            getStage().setScene(getScene());
+            setState("menu");
+            getState("current").getStage().setScene(getScene());
             getState("current").init();
         }
     }
