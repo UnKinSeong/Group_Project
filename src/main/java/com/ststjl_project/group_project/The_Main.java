@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -39,6 +40,7 @@ public class The_Main extends Application {
 
 
         Stage_SM.getState("current").init();
+        Stage_SM.getState("current").getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         Stage_SM.getState("current").getStage().setFullScreenExitHint("");
         Stage_SM.getState("current").getStage().show();
         Stage_SM.getState("current").getStage().setFullScreen(true);
