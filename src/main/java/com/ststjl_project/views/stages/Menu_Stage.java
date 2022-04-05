@@ -64,21 +64,15 @@ public class Menu_Stage extends Stage_SM {
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
-        double pane_Width = getPane().getWidth();
-        double pane_Height = getPane().getHeight();
 
-        double s_posX = pane_Width  * menu_board_Pos[0];
-        double e_posX = pane_Width * menu_board_Pos[1];
-        double s_posY = pane_Height * menu_board_Pos[2];
-        double e_posY = pane_Height * menu_board_Pos[3];
-        update_Menu_Board(s_posX, e_posX, s_posY, e_posY);
+        update_Menu_Board();
         update_Ball_In_Board();
-        getCanvas().setWidth(pane_Width);
+        /*getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
         getGC().setFill(Color.WHITE);
         getGC().fillRect(0,0,pane_Width,pane_Height);
         getGC().setFill(Color.BLACK);
-        getGC().fillRect(0,0,pane_Width*0.3,pane_Height*0.5);
+        getGC().fillRect(0,0,pane_Width*0.3,pane_Height*0.5);*/
     }));
 
     private Label Random_Label;
@@ -243,7 +237,14 @@ public class Menu_Stage extends Stage_SM {
         }
     }
 
-    private void update_Menu_Board(double init_width, double end_width, double init_height, double end_height){
+    private void update_Menu_Board(){
+        double pane_Width = getPane().getWidth();
+        double pane_Height = getPane().getHeight();
+
+        double init_width = pane_Width  * menu_board_Pos[0];
+        double end_width = pane_Width * menu_board_Pos[1];
+        double init_height = pane_Height * menu_board_Pos[2];
+        double end_height = pane_Height * menu_board_Pos[3];
         Menu_board.setFill(Paint.valueOf("#daff1f"));
         Menu_board.setLayoutX(init_width);
         Menu_board.setLayoutY(init_height);
