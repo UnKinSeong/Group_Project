@@ -1,4 +1,4 @@
-package com.ststjl_project.views;
+package com.ststjl_project.utility;
 
 import com.ststjl_project.utility.Vector;
 import com.ststjl_project.views.stages.Stage_SM;
