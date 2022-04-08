@@ -1,7 +1,6 @@
 package com.ststjl_project.views.stages;
 
-import com.ststjl_project.utility.Sprite;
-import com.ststjl_project.views.Game_Logic.Player.Player_interface;
+import com.ststjl_project.views.stages.Player_Interface.Player_interface;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,7 +10,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Gaming_Stage extends Stage_SM {
@@ -25,10 +23,12 @@ public class Gaming_Stage extends Stage_SM {
         getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
 
+        btn.setLayoutX(0);
+        btn.setLayoutY(pane_Height-btn.getHeight());
         // manual cleanup background //
         getGC().setFill(Color.WHITE);
+        getGC().fillRect(0,0,pane_Width,pane_Height);
         playerInterface.Draw_Yourself();
-
 
 
     }));
@@ -64,9 +64,11 @@ public class Gaming_Stage extends Stage_SM {
         });
         getPane().getChildren().add(btn);
         game_loop.setCycleCount(Animation.INDEFINITE);
-        game_loop.play();
-        getStage().setTitle("This is the Gaming");
         playerInterface = new Player_interface(getGC(),getPane());
         playerInterface.Init();
+
+
+        getStage().setTitle("This is the Gaming");
+        game_loop.play();
     }
 }

@@ -1,18 +1,15 @@
-package com.ststjl_project.views.Game_Logic.Player;
+package com.ststjl_project.views.stages.Player_Interface;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.scene.text.TextAlignment;
 
 public class Player_interface {
     // related Pos //
-    private GraphicsContext gc;
-    private Pane pane;
+    private GraphicsContext mainGc;
+    private Pane mainPane;
 
+    private Player_Status player_status_pane;
     private double [] Player_Pane_Pos = {0,0,0.4,(double)1/(double)9};
 
     private double [] Bones_Pane_Pos = {0.4,0,0.8,(double)1/(double)9};
@@ -46,30 +43,32 @@ public class Player_interface {
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*3};
 
     public Player_interface(GraphicsContext graphicsContext, Pane pane1){
-        gc = graphicsContext;
-        pane = pane1;
+        mainGc = graphicsContext;
+        mainPane = pane1;
     };
     public double getRelated_(double width, double relatedx, double relatedx2){
         return Math.abs(width*relatedx-width*relatedx2);
     }
 
-    public void draw_Rectangle(double posX, double posY, double width, double height, Color color){
-        gc.setFill(color);
-        gc.fillRect(posX,posY,width,height);
-    }
     public void Init(){
+        player_status_pane=new Player_Status();
+        mainPane.getChildren().add(player_status_pane);
+        player_status_pane.Init(mainPane, mainGc,Player_Pane_Pos);
 
     }
     public void setPPP(double[] related, Color color,String text){
-        double width = pane.getWidth();
-        double height = pane.getHeight();
+        double width = mainPane.getWidth();
+        double height = mainPane.getHeight();
 
-        gc.setFill(color);
-        gc.fillRect(related[0]*width,related[1]*height,getRelated_(width,related[0],related[2]),getRelated_(height,related[1],related[3]));
+        mainGc.setFill(color);
+        mainGc.fillRect(related[0]*width,related[1]*height,getRelated_(width,related[0],related[2]),getRelated_(height,related[1],related[3]));
+        mainGc.setFill(Color.WHITE);
+
+
     }
 
     public void Draw_Yourself(){
-        setPPP(Player_Pane_Pos,Color.RED,"");
+        player_status_pane.update();
         setPPP(Bones_Pane_Pos,Color.BLUE,"");
         setPPP(Timer_Limit_Pane_Pos,Color.GREEN,"");
         setPPP(History_Pane_Pos,Color.GRAY,"");
