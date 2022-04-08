@@ -34,11 +34,9 @@ public class Sprite {
         image = new Image(ImageFileName);
         boundary.resize(image.getWidth(),image.getHeight());
     }
-    public boolean update(double deltaTime){
+    public void update(double deltaTime){
         position.add(velocity.x * deltaTime, velocity.y * deltaTime);
         render();
-
-        return true;
     }
     public void destory(){
         Stage_SM.getState("current").getPane().getChildren().remove(boundary);
