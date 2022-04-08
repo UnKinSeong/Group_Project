@@ -2,6 +2,7 @@ package com.ststjl_project.views.stages.Player_Interface;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -10,7 +11,13 @@ public abstract class Status_Pane extends Pane {
     public abstract void Init(Pane mainPane, GraphicsContext mainGc,double Related_pos[]);
     public abstract void update();
 
-    public void setRectangle(Rectangle rectangle, double layX, double layY, double width, double height) {
+    public void setCirclePosWH(Circle circle, double layX, double layY, double radius){
+        circle.setLayoutX(layX);
+        circle.setLayoutY(layY);
+        circle.setRadius(radius);
+    }
+
+    public void setRectanglePosWH(Rectangle rectangle, double layX, double layY, double width, double height) {
         rectangle.setLayoutX(layX);
         rectangle.setLayoutY(layY);
         rectangle.setWidth(width);
@@ -22,7 +29,7 @@ public abstract class Status_Pane extends Pane {
         pane.prefWidth(width);
         pane.prefHeight(height);
     }
-    public void setText(Text text, double layX, double layY, double width, double height){
+    public void setTextPosWH(Text text, double layX, double layY, double width, double height){
         text.setLayoutX(layX);
         text.setLayoutY(layY);
         text.minWidth(width);

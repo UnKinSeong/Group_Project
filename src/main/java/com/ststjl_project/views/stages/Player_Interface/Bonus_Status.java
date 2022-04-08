@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Bonus_Status extends Status_Pane {
     public Bonus_Status(){}
@@ -12,7 +14,8 @@ public class Bonus_Status extends Status_Pane {
         super.setGC(mainGc);
         super.setRelated_pos(Related_pos);
         Bonus_Box = new Rectangle();
-        this.getChildren().add(Bonus_Box);
+        Bonus_Text = new Text();
+        this.getChildren().addAll(Bonus_Box,Bonus_Text);
     }
 
     @Override
@@ -29,7 +32,13 @@ public class Bonus_Status extends Status_Pane {
         double itemBox_width = width-2.0*itemBox_padX;
         double itemBox_height = height-2.0*itemBox_padY;
 
-        setRectangle(Bonus_Box,itemBox_padX,itemBox_padY,itemBox_width,itemBox_height);
+        setRectanglePosWH(Bonus_Box,itemBox_padX,itemBox_padY,itemBox_width,itemBox_height);
+
+        double text_Size=Bonus_Box.getHeight()*0.5;
+        double text_padX=Bonus_Box.getHeight()*0.3;
+        setTextPosWH(Bonus_Text,Bonus_Box.getLayoutX(),Bonus_Box.getLayoutY()+Bonus_Box.getHeight()-text_padX,itemBox_width,itemBox_height);
+        Bonus_Text.setFont(Font.font ("arial", text_Size));
+        Bonus_Text.setText("Demo History");
         Bonus_Box.setFill(Color.BLUE);
 
     }
@@ -65,4 +74,5 @@ public class Bonus_Status extends Status_Pane {
     private double critical_;
     private double effect_;
     private Rectangle Bonus_Box = new Rectangle();
+    private Text Bonus_Text = new Text();
 }

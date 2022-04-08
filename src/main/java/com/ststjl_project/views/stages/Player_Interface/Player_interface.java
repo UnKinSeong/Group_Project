@@ -18,19 +18,20 @@ public class Player_interface {
     private Timer_Status timer_status;
     private double [] Timer_Limit_Pane_Pos = {0.8,0,1,(double)1/(double)9};
 
-    private History_Status history_status;
     private double Right_Most_Status_PosX = 0.8;
     private double Right_Most_Status_PosY = (double)1/(double)9;
     private double Right_Most_Status_Height = (double)1-(double)1/(double)9;
     private double Right_Most_Status_Each_Height = (double)(Right_Most_Status_Height)/(double)3;
 
 
+    private History_Status history_status;
     private double [] History_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY,
             1,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height};
 
+    private Chance_Status player_Hit_Chances_Pane_Pos;
     private double [] Player_Hit_Chances_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height,
@@ -38,6 +39,7 @@ public class Player_interface {
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*2};
 
 
+    private Next_Status next_status;
     private double [] Player_Next_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*2,
@@ -57,15 +59,19 @@ public class Player_interface {
         bonus_status=new Bonus_Status();
         timer_status=new Timer_Status();
         history_status=new History_Status();
-        mainPane.getChildren().addAll(player_status_pane,bonus_status,timer_status,history_status);
+        player_Hit_Chances_Pane_Pos=new Chance_Status();
+        next_status=new Next_Status();
+        mainPane.getChildren().addAll(player_status_pane,bonus_status,timer_status,history_status,player_Hit_Chances_Pane_Pos,next_status);
 
         player_status_pane.Init(mainPane, mainGc,Player_Pane_Pos);
         bonus_status.Init(mainPane,mainGc,Bones_Pane_Pos);
         timer_status.Init(mainPane,mainGc,Timer_Limit_Pane_Pos);
         history_status.Init(mainPane,mainGc,History_Pane_Pos);
+        player_Hit_Chances_Pane_Pos.Init(mainPane,mainGc,Player_Hit_Chances_Pane_Pos);
+        next_status.Init(mainPane,mainGc,Player_Next_Pane_Pos);
 
     }
-    public void setPPP(double[] related, Color color,String text){
+    public void setPPP(double[] related, Color color,String text){ // Just some debug thingy.
         double width = mainPane.getWidth();
         double height = mainPane.getHeight();
 
@@ -81,7 +87,7 @@ public class Player_interface {
         bonus_status.update();
         timer_status.update();
         history_status.update();
-        setPPP(Player_Hit_Chances_Pane_Pos,Color.PURPLE,"");
-        setPPP(Player_Next_Pane_Pos,Color.BEIGE,"");
+        player_Hit_Chances_Pane_Pos.update();
+        next_status.update();
     }
 }

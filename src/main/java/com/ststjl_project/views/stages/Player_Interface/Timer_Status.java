@@ -31,8 +31,8 @@ public class Timer_Status extends Status_Pane{
         double timeBox_width = width-2.0* timeBox_PadX;
         double timeBox_Height = (height/2)-2.0* timeBox_PadY;
 
-        setRectangle(TimeBox[0], timeBox_PadX,timeBox_PadY,timeBox_width,timeBox_Height);
-        setRectangle(TimeBox[1],timeBox_PadX,timeBox_PadY+height/2,timeBox_width,timeBox_Height);
+        setRectanglePosWH(TimeBox[0], timeBox_PadX,timeBox_PadY,timeBox_width,timeBox_Height);
+        setRectanglePosWH(TimeBox[1],timeBox_PadX,timeBox_PadY+height/2,timeBox_width,timeBox_Height);
 
     }
 
@@ -45,4 +45,5 @@ public class Timer_Status extends Status_Pane{
 
     private double Time_Limited;
     private Rectangle TimeBox[] = new Rectangle[2];
+
 }

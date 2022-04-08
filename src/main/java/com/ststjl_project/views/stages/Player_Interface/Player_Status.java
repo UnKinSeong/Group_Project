@@ -47,18 +47,16 @@ public class Player_Status extends Status_Pane {
 
         double rectangle_width = (width/2.0)-2.0*itemBox_padX;
         double rectangle_height = (height/2.0)-2.0*itemBox_padY;
-        for (Rectangle r : itemBox) {
 
-        }
         double text_Size;
         double text_padX;
         for(int i = 0; i < 4; i++){
-            setRectangle(itemBox[i],itemBox_padX,itemBox_padY,rectangle_width,rectangle_height);
+            setRectanglePosWH(itemBox[i],itemBox_padX,itemBox_padY,rectangle_width,rectangle_height);
 
             text_Size = itemBox[i].getHeight()*0.8;
             text_padX = itemBox[i].getHeight()*0.2;
 
-            setText(itemText[i],itemBox[i].getLayoutX(),itemBox[i].getLayoutY()+itemBox[i].getHeight()-text_padX,rectangle_width,rectangle_height);
+            setTextPosWH(itemText[i],itemBox[i].getLayoutX(),itemBox[i].getLayoutY()+itemBox[i].getHeight()-text_padX,rectangle_width,rectangle_height);
             itemText[i].setFont(Font.font ("arial", text_Size));
 
         }
