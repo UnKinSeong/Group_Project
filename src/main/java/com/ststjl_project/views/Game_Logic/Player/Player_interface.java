@@ -65,13 +65,10 @@ public class Player_interface {
         double pane_width = pane.getWidth();
         double pane_height = pane.getHeight();
 
-        draw_Rectangle(
-                Player_Pane_Pos[0]*pane_width,
-                Player_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,Player_Pane_Pos[0],Player_Pane_Pos[2]),
-                getRelated_(pane_height,Player_Pane_Pos[1],Player_Pane_Pos[3]),
-                Color.RED
-        );
+        Player_Pane_Box.setLayoutX(Player_Pane_Pos[0]*pane_width);
+        Player_Pane_Box.setLayoutY(Player_Pane_Pos[1]*pane_height);
+        Player_Pane_Box.setWidth(getRelated_(pane_width,Player_Pane_Pos[0],Player_Pane_Pos[2]));
+        Player_Pane_Box.setHeight(getRelated_(pane_height,Player_Pane_Pos[1],Player_Pane_Pos[3]));
 
         draw_Rectangle(
                 Bones_Pane_Pos[0]*pane_width,
