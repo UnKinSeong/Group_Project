@@ -40,6 +40,7 @@ public class Sprite {
     public boolean update(double deltaTime){
         position.add(velocity.x * deltaTime, velocity.y * deltaTime);
         render();
+
         return true;
     }
     public void destory(){
