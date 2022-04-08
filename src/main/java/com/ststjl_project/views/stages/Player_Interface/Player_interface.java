@@ -12,11 +12,13 @@ public class Player_interface {
     private Player_Status player_status_pane;
     private double [] Player_Pane_Pos = {0,0,0.4,(double)1/(double)9};
 
+    private Bonus_Status bonus_status;
     private double [] Bones_Pane_Pos = {0.4,0,0.8,(double)1/(double)9};
 
-
+    private Timer_Status timer_status;
     private double [] Timer_Limit_Pane_Pos = {0.8,0,1,(double)1/(double)9};
 
+    private History_Status history_status;
     private double Right_Most_Status_PosX = 0.8;
     private double Right_Most_Status_PosY = (double)1/(double)9;
     private double Right_Most_Status_Height = (double)1-(double)1/(double)9;
@@ -52,8 +54,15 @@ public class Player_interface {
 
     public void Init(){
         player_status_pane=new Player_Status();
-        mainPane.getChildren().add(player_status_pane);
+        bonus_status=new Bonus_Status();
+        timer_status=new Timer_Status();
+        history_status=new History_Status();
+        mainPane.getChildren().addAll(player_status_pane,bonus_status,timer_status,history_status);
+
         player_status_pane.Init(mainPane, mainGc,Player_Pane_Pos);
+        bonus_status.Init(mainPane,mainGc,Bones_Pane_Pos);
+        timer_status.Init(mainPane,mainGc,Timer_Limit_Pane_Pos);
+        history_status.Init(mainPane,mainGc,History_Pane_Pos);
 
     }
     public void setPPP(double[] related, Color color,String text){
@@ -69,9 +78,9 @@ public class Player_interface {
 
     public void Draw_Yourself(){
         player_status_pane.update();
-        setPPP(Bones_Pane_Pos,Color.BLUE,"");
-        setPPP(Timer_Limit_Pane_Pos,Color.GREEN,"");
-        setPPP(History_Pane_Pos,Color.GRAY,"");
+        bonus_status.update();
+        timer_status.update();
+        history_status.update();
         setPPP(Player_Hit_Chances_Pane_Pos,Color.PURPLE,"");
         setPPP(Player_Next_Pane_Pos,Color.BEIGE,"");
     }
