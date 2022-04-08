@@ -43,7 +43,7 @@ public class The_Main extends Application {
         Stage_SM.getState("current").getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         Stage_SM.getState("current").getStage().setFullScreenExitHint("");
         Stage_SM.getState("current").getStage().show();
-        Stage_SM.getState("current").getStage().setFullScreen(true);
+        Stage_SM.getState("current").getStage().setFullScreen(false);
         Stage_SM.getState("current").getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if(new KeyCodeCombination(KeyCode.F11).match(event)) {
                 stage.setFullScreen(!stage.isFullScreen());
