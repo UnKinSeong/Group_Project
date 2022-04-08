@@ -1,10 +1,9 @@
-package com.ststjl_project.Game_Logic.Player;
+package com.ststjl_project.views.Game_Logic.Player;
 
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class player_base {
-    private player_base(){};
+public class Player_interface {
+    private Player_interface(){};
     Shape player;
     public boolean check_collision(Shape shape){
         if(this.player.intersects(shape.getLayoutBounds())){

@@ -15,17 +15,23 @@ public class Gaming_Stage extends Stage_SM {
         getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
 
+        // manual cleanup background //
         getGC().setFill(Color.WHITE);
         getGC().fillRect(0,0, pane_Width,pane_Height);
 
+
         getGC().setFill(Color.BLACK);
+        // Player Status //
         getGC().fillRect(0,0, (pane_Width/3),pane_Height/9);
+        // Predication, History, Player attack chances, Pass //
         getGC().fillRect((pane_Width/3)*2,0,pane_Width,pane_Height);
 
         getGC().setFill(Color.GOLD);
+        // Top Middle Bones status //
         getGC().fillRect((pane_Width/3),0,(pane_Width/3),pane_Height/9);
 
         getGC().setFill(Color.BROWN);
+        // Game Scene //
         getGC().fillRect(0,pane_Height/9,(pane_Width/3)*2,pane_Height-pane_Height/9);
 
 
