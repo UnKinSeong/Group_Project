@@ -8,8 +8,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-/*
-
 public class Sprite {
     public Vector position;
     public Vector velocity;
@@ -45,7 +43,7 @@ public class Sprite {
         return true;
     }
     public void destory(){
-        Stage_SM.current.getPane().getChildren().remove(boundary);
+        Stage_SM.getState("current").getPane().getChildren().remove(boundary);
         is_Displayed=false;
     }
     public void setPosition(double x, double y){
@@ -55,7 +53,7 @@ public class Sprite {
 
     public void render(){
         if(!is_Displayed){
-            Stage_SM.current.getPane().getChildren().add(boundary);
+            Stage_SM.getState("current").getPane().getChildren().add(boundary);
             is_Displayed=true;
         }
         boundary.setLayoutX(position.x);
@@ -64,4 +62,4 @@ public class Sprite {
 
     }
 
-}*/
+}

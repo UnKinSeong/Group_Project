@@ -14,6 +14,7 @@ public class Gaming_Stage extends Stage_SM {
         double pane_Height = getPane().getHeight();
         getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
+
         getGC().setFill(Color.WHITE);
         getGC().fillRect(0,0, pane_Width,pane_Height);
 
