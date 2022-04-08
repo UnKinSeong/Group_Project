@@ -67,5 +67,6 @@ public class Gaming_Stage extends Stage_SM {
         game_loop.play();
         getStage().setTitle("This is the Gaming");
         playerInterface = new Player_interface(getGC(),getPane());
+        playerInterface.Init();
     }
 }

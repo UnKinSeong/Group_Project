@@ -1,22 +1,23 @@
 package com.ststjl_project.views.Game_Logic.Player;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.TextAlignment;
 
 public class Player_interface {
     // related Pos //
     private GraphicsContext gc;
     private Pane pane;
-    private Rectangle Player_Pane_Box;
+
     private double [] Player_Pane_Pos = {0,0,0.4,(double)1/(double)9};
 
-    private Rectangle Bones_Pane_Box;
     private double [] Bones_Pane_Pos = {0.4,0,0.8,(double)1/(double)9};
 
-    private Rectangle Timer_Limit_Pane_Box;
+
     private double [] Timer_Limit_Pane_Pos = {0.8,0,1,(double)1/(double)9};
 
     private double Right_Most_Status_PosX = 0.8;
@@ -24,20 +25,20 @@ public class Player_interface {
     private double Right_Most_Status_Height = (double)1-(double)1/(double)9;
     private double Right_Most_Status_Each_Height = (double)(Right_Most_Status_Height)/(double)3;
 
-    private Rectangle History_Pane_Box;
+
     private double [] History_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY,
             1,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height};
-    private Rectangle Player_Hit_Chances_Pane_Box;
+
     private double [] Player_Hit_Chances_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height,
             1,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*2};
 
-    private Rectangle Player_Next_Pane_Box;
+
     private double [] Player_Next_Pane_Pos = {
             Right_Most_Status_PosX,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*2,
@@ -57,57 +58,22 @@ public class Player_interface {
         gc.fillRect(posX,posY,width,height);
     }
     public void Init(){
-        Player_Pane_Box = new Rectangle();
-        Bones_Pane_Box = new Rectangle();
+
     }
+    public void setPPP(double[] related, Color color,String text){
+        double width = pane.getWidth();
+        double height = pane.getHeight();
+
+        gc.setFill(color);
+        gc.fillRect(related[0]*width,related[1]*height,getRelated_(width,related[0],related[2]),getRelated_(height,related[1],related[3]));
+    }
+
     public void Draw_Yourself(){
-
-        double pane_width = pane.getWidth();
-        double pane_height = pane.getHeight();
-
-        Player_Pane_Box.setLayoutX(Player_Pane_Pos[0]*pane_width);
-        Player_Pane_Box.setLayoutY(Player_Pane_Pos[1]*pane_height);
-        Player_Pane_Box.setWidth(getRelated_(pane_width,Player_Pane_Pos[0],Player_Pane_Pos[2]));
-        Player_Pane_Box.setHeight(getRelated_(pane_height,Player_Pane_Pos[1],Player_Pane_Pos[3]));
-
-        draw_Rectangle(
-                Bones_Pane_Pos[0]*pane_width,
-                Bones_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,Bones_Pane_Pos[0],Bones_Pane_Pos[2]),
-                getRelated_(pane_height,Bones_Pane_Pos[1],Bones_Pane_Pos[3]),
-                Color.GREEN
-        );
-
-        draw_Rectangle(
-                Timer_Limit_Pane_Pos[0]*pane_width,
-                Timer_Limit_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,Timer_Limit_Pane_Pos[0],Timer_Limit_Pane_Pos[2]),
-                getRelated_(pane_height,Timer_Limit_Pane_Pos[1],Timer_Limit_Pane_Pos[3]),
-                Color.RED
-        );
-
-        draw_Rectangle(
-                History_Pane_Pos[0]*pane_width,
-                History_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,History_Pane_Pos[0],History_Pane_Pos[2]),
-                getRelated_(pane_height,History_Pane_Pos[1],History_Pane_Pos[3]),
-                Color.BLUE
-        );
-
-        draw_Rectangle(
-                Player_Hit_Chances_Pane_Pos[0]*pane_width,
-                Player_Hit_Chances_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,Player_Hit_Chances_Pane_Pos[0],Player_Hit_Chances_Pane_Pos[2]),
-                getRelated_(pane_height,Player_Hit_Chances_Pane_Pos[1],Player_Hit_Chances_Pane_Pos[3]),
-                Color.GREEN
-        );
-
-        draw_Rectangle(
-                Player_Next_Pane_Pos[0]*pane_width,
-                Player_Next_Pane_Pos[1]*pane_height,
-                getRelated_(pane_width,Player_Next_Pane_Pos[0],Player_Next_Pane_Pos[2]),
-                getRelated_(pane_height,Player_Next_Pane_Pos[1],Player_Next_Pane_Pos[3]),
-                Color.BLUE
-        );
+        setPPP(Player_Pane_Pos,Color.RED,"");
+        setPPP(Bones_Pane_Pos,Color.BLUE,"");
+        setPPP(Timer_Limit_Pane_Pos,Color.GREEN,"");
+        setPPP(History_Pane_Pos,Color.GRAY,"");
+        setPPP(Player_Hit_Chances_Pane_Pos,Color.PURPLE,"");
+        setPPP(Player_Next_Pane_Pos,Color.BEIGE,"");
     }
 }
