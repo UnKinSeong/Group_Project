@@ -1,11 +1,13 @@
 package com.ststjl_project.utility;
 
-public class Vector {
+import javafx.geometry.Point2D;
+
+public class Vector2D {
     public double x,y;
-    public Vector(){
+    public Vector2D(){
         set(0,0);
     }
-    public Vector(double x, double y){
+    public Vector2D(double x, double y){
         set(x,y);
     }
     public void set(double x, double y){

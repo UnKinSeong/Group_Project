@@ -1,23 +1,20 @@
 package com.ststjl_project.utility;
 
-import com.ststjl_project.utility.Vector;
 import com.ststjl_project.views.stages.Stage_SM;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
 public class Sprite {
-    public Vector position;
-    public Vector velocity;
+    public Vector2D position;
+    public Vector2D velocity;
     public double rotation;
     private Shape boundary;
     private Image image;
     private boolean is_Displayed = false;
     public Sprite(){
-        position = new Vector();
-        velocity = new Vector();
+        position = new Vector2D();
+        velocity = new Vector2D();
         rotation = 0;
     }
     public Sprite(String ImageFileName){
