@@ -65,18 +65,12 @@ public class Menu_Stage extends Stage_SM {
     }
 
 
-    int frames = 0;
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
-        frames += 1;
         update_Menu_Board();
         update_Ball_In_Board();
-        if (frames >= 1000){
-            if (!is_playing()) {
-                play_next();
-            }
-        }
+
         /*getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
         getGC().setFill(Color.WHITE);
@@ -133,10 +127,9 @@ public class Menu_Stage extends Stage_SM {
                 menu_btn_Pos[3],
                 menu_btn_Pos[4]);
         game_loop.setCycleCount(Animation.INDEFINITE);
-        play_next();
         game_loop.play();
         initMenu_board();
-
+        play_next();
         initBall_board(1, Menu_board.getLayoutX()+1,Menu_board.getLayoutY()+1);
 
         //
@@ -240,7 +233,7 @@ public class Menu_Stage extends Stage_SM {
     }
     public void clean_Up(){
         game_loop.stop();
-        mediaPlayer.stop();
+        mediaPlayer.dispose();
         media = null;
         mediaPlayer = null;
         if (Is_Labeled){
@@ -283,7 +276,7 @@ public class Menu_Stage extends Stage_SM {
 
     private boolean is_playing(){
         if(mediaPlayer != null){
-            return mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING);
+            return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
         }
         return false;
     }
@@ -297,10 +290,14 @@ public class Menu_Stage extends Stage_SM {
             if (menu_Songs!=null){
                 Random r=new Random();
                 int randomNumber=r.nextInt(menu_Songs.length);
-
+                media = null;
+                mediaPlayer = null;
                 media = new Media(menu_Songs[randomNumber].toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.play();
+                mediaPlayer.setOnStopped(()->play_next());
+                mediaPlayer.setOnStalled(()->play_next());
+                mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
             }
         }
     }

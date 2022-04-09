@@ -1,10 +1,6 @@
 package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
-import com.ststjl_project.views.stages.Stage_SM;
-import javafx.application.Preloader;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -12,9 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.security.Key;
-
-public class Battle_Pane extends _Status_Pane {
+public class Battle_Status extends _Status_Pane {
     @Override
     public void Init(double[] Related_pos) {
         super.setRelated_pos(Related_pos);

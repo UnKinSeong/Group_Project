@@ -1,11 +1,9 @@
 package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Next_Status extends _Status_Pane {
+public class Next_Round_Status_Pane extends _Status_Pane {
 
     @Override
     public void Init(double[] Related_pos) {
