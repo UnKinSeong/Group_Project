@@ -1,15 +1,13 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Timer_Status extends Status_Pane{
+public class Timer_Status extends _Status_Pane {
     @Override
-    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos) {
-        super.setPane(mainPane);
-        super.setGC(mainGc);
+    public void Init(double[] Related_pos) {
         super.setRelated_pos(Related_pos);
         TimeBox[0]=new Rectangle();
         TimeBox[1]=new Rectangle();
@@ -33,6 +31,16 @@ public class Timer_Status extends Status_Pane{
 
         setRectanglePosWH(TimeBox[0], timeBox_PadX,timeBox_PadY,timeBox_width,timeBox_Height);
         setRectanglePosWH(TimeBox[1],timeBox_PadX,timeBox_PadY+height/2,timeBox_width,timeBox_Height);
+
+    }
+
+    @Override
+    public void CleanUp() {
+        this.getChildren().removeAll(TimeBox[0],TimeBox[1]);
+    }
+
+    @Override
+    public void updateData(double[] data) {
 
     }
 

@@ -1,6 +1,6 @@
 package com.ststjl_project.views.stages;
 
-import com.ststjl_project.views.stages.Player_Interface.Player_interface;
+import com.ststjl_project.views.stages.Player_Controller.sub_Pane.Player_interface;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -58,14 +58,14 @@ public class Gaming_Stage extends Stage_SM {
 
     @Override
     public void init() {
-        btn = new Button();
-        btn.setText("Exit");
-        btn.setOnAction(actionEvent -> enter_NextState(0));
-        getPane().getChildren().add(btn);
         game_loop.setCycleCount(Animation.INDEFINITE);
         playerInterface = new Player_interface(getGC(),getPane());
         playerInterface.Init();
 
+        btn = new Button();
+        btn.setText("Exit");
+        btn.setOnAction(actionEvent -> enter_NextState(0));
+        getPane().getChildren().add(btn);
 
         getStage().setTitle("This is the Gaming");
         game_loop.play();

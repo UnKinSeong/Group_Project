@@ -1,4 +1,4 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -7,18 +7,25 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Chance_Status extends Status_Pane{
+public class Chance_Status extends _Status_Pane {
     @Override
-    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos) {
-        super.setPane(mainPane);
-        super.setGC(mainGc);
+    public void Init(double[] Related_pos) {
         super.setRelated_pos(Related_pos);
         for(int i = 0;i<2;i++){
             ChancesBox[i] = new Rectangle();
             ChancesText[i]=new Text();
         }
-        this.getChildren().addAll(ChancesBox);
-        this.getChildren().addAll(ChancesText);
+        ChancesText[0].setFill(Color.RED);
+        ChancesText[1].setFill(Color.YELLOW);
+        getChildren().addAll(ChancesBox);
+        getChildren().addAll(ChancesText);
+    }
+
+    public void setHitChances(String str){
+        ChancesText[0].setText("Hit  : "+str);
+    }
+    public void setCritChances(String str){
+        ChancesText[1].setText("Crit : "+str);
     }
 
     @Override
@@ -46,10 +53,24 @@ public class Chance_Status extends Status_Pane{
 
             setTextPosWH(ChancesText[i],ChancesBox[i].getLayoutX(),ChancesBox[i].getLayoutY()+ChancesBox[i].getHeight()-text_padX,ChancesBox_width,ChancesBox_Height);
             ChancesText[i].setFont(Font.font ("arial", text_Size));
-            ChancesText[i].setFill(Color.WHITE);
-            ChancesText[i].setText("Demo Critical");
+            //ChancesText[i].setFill(Color.WHITE);
         }
     }
+
+    @Override
+    public void CleanUp() {
+        getChildren().removeAll(ChancesBox);
+        getChildren().removeAll(ChancesText);
+    }
+
+    @Override
+    public void updateData(double[] data) {
+        for (int i = 0; i < 2; i++){
+            chances[i]=data[i];
+        }
+    }
+
+    private double chances[] = {0,0};
     private final Rectangle []ChancesBox = new Rectangle[2];
     private final Text []ChancesText = new Text[2];
 }

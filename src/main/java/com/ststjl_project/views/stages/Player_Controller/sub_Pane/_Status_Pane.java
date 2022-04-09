@@ -1,4 +1,4 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -6,10 +6,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public abstract class Status_Pane extends Pane {
-    public Status_Pane(){}
-    public abstract void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos);
+public abstract class _Status_Pane extends Pane {
+    public static Pane mainPane;
+    public static GraphicsContext mainGC;
+    public _Status_Pane(){}
+    public abstract void Init(double[] Related_pos);
     public abstract void reDraw();
+    public abstract void CleanUp();
+    public abstract void updateData(double [] data);
 
     public void setCirclePosWH(Circle circle, double layX, double layY, double radius){
         circle.setLayoutX(layX);
@@ -58,7 +62,5 @@ public abstract class Status_Pane extends Pane {
         this.setWidth(width);
         this.setHeight(height);
     }
-    private Pane mainPane;
-    private GraphicsContext mainGC;
     private double[] Related_pos;
 }

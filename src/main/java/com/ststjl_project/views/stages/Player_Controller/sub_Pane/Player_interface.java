@@ -1,4 +1,4 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -23,6 +23,8 @@ public class Player_interface {
     private final double Right_Most_Status_Height = (double)1-(double)1/(double)9;
     private final double Right_Most_Status_Each_Height = Right_Most_Status_Height /(double)3;
 
+    private Battle_Pane battle_pane;
+    private final double [] Battle_Pane_Pos = {0,(double)1/(double)9,Right_Most_Status_PosX,1};
 
     private History_Status history_status;
     private final double [] History_Pane_Pos = {
@@ -46,9 +48,14 @@ public class Player_interface {
             1,
             Right_Most_Status_PosY+Right_Most_Status_Each_Height*3};
 
+
+
+
     public Player_interface(GraphicsContext graphicsContext, Pane pane1){
         mainGc = graphicsContext;
         mainPane = pane1;
+        _Status_Pane.mainPane = pane1;
+        _Status_Pane.mainGC = graphicsContext;
     }
 
     public double getRelated_(double size, double relatedX, double relatedX2){
@@ -62,15 +69,17 @@ public class Player_interface {
         history_status=new History_Status();
         player_Hit_Chances_Pane_Pos=new Chance_Status();
         next_status=new Next_Status();
-        mainPane.getChildren().addAll(player_status_pane,bonus_status,timer_status,history_status,player_Hit_Chances_Pane_Pos,next_status);
+        battle_pane=new Battle_Pane();
+        mainPane.getChildren().addAll(player_status_pane,bonus_status,timer_status,history_status,player_Hit_Chances_Pane_Pos,next_status,battle_pane);
 
-        player_status_pane.Init(mainPane, mainGc,Player_Pane_Pos);
-        bonus_status.Init(mainPane,mainGc,Bones_Pane_Pos);
-        timer_status.Init(mainPane,mainGc,Timer_Limit_Pane_Pos);
-        history_status.Init(mainPane,mainGc,History_Pane_Pos);
-        player_Hit_Chances_Pane_Pos.Init(mainPane,mainGc,Player_Hit_Chances_Pane_Pos);
-        next_status.Init(mainPane,mainGc,Player_Next_Pane_Pos);
-
+        player_status_pane.Init(Player_Pane_Pos);
+        bonus_status.Init(Bones_Pane_Pos);
+        timer_status.Init(Timer_Limit_Pane_Pos);
+        history_status.Init(History_Pane_Pos);
+        player_Hit_Chances_Pane_Pos.Init(Player_Hit_Chances_Pane_Pos);
+        next_status.Init(Player_Next_Pane_Pos);
+        history_status.addHistory("Demo Add History:", Color.RED);
+        battle_pane.Init(Battle_Pane_Pos);
     }
     public void setPPP(double[] related, Color color){ // Just some debug thingy.
         double width = mainPane.getWidth();
@@ -79,6 +88,7 @@ public class Player_interface {
         mainGc.setFill(color);
         mainGc.fillRect(related[0]*width,related[1]*height,getRelated_(width,related[0],related[2]),getRelated_(height,related[1],related[3]));
         mainGc.setFill(Color.WHITE);
+
     }
 
     public void Draw_Yourself(){
@@ -87,10 +97,33 @@ public class Player_interface {
         timer_status.reDraw();
         history_status.reDraw();
         player_Hit_Chances_Pane_Pos.reDraw();
+        player_Hit_Chances_Pane_Pos.setHitChances("16%");
+        player_Hit_Chances_Pane_Pos.setCritChances("75%");
         next_status.reDraw();
+        battle_pane.reDraw();
+    }
+    public void updateData(){
+
     }
 
+    private double health_;
+    private double health_cap_;
+    private double armor_;
+    private double armor_cap_;
+    private double mana_;
+    private double mana_cap_;
+    private double shield_;
+    private double shield_cap_;
+
+
     public void clean_Up() {
-        mainPane.getChildren().removeAll(player_status_pane,bonus_status,timer_status,history_status,player_Hit_Chances_Pane_Pos,next_status);
+        player_status_pane.CleanUp();
+        bonus_status.CleanUp();
+        timer_status.CleanUp();
+        history_status.CleanUp();
+        player_Hit_Chances_Pane_Pos.CleanUp();
+        next_status.CleanUp();
+        battle_pane.CleanUp();
+        mainPane.getChildren().removeAll(player_status_pane,bonus_status,timer_status,history_status,player_Hit_Chances_Pane_Pos,next_status,battle_pane);
     }
 }

@@ -1,16 +1,14 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Next_Status extends Status_Pane{
+public class Next_Status extends _Status_Pane {
 
     @Override
-    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos) {
-        super.setPane(mainPane);
-        super.setGC(mainGc);
+    public void Init(double[] Related_pos) {
         super.setRelated_pos(Related_pos);
         button=new Circle();
         this.getChildren().add(button);
@@ -31,6 +29,17 @@ public class Next_Status extends Status_Pane{
 
         setCirclePosWH(button,Button_LayX,Button_LayY,Button_Radius);
     }
+
+    @Override
+    public void CleanUp() {
+        getChildren().removeAll(button);
+    }
+
+    @Override
+    public void updateData(double[] data) {
+
+    }
+
 
     private Circle button = new Circle();
 }

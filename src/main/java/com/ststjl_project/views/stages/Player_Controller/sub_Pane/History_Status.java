@@ -1,4 +1,4 @@
-package com.ststjl_project.views.stages.Player_Interface;
+package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -7,11 +7,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class History_Status extends Status_Pane{
+public class History_Status extends _Status_Pane {
     @Override
-    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos) {
-        super.setPane(mainPane);
-        super.setGC(mainGc);
+    public void Init(double[] Related_pos) {
         super.setRelated_pos(Related_pos);
         for(int i = 0; i < 5;i++){
             history_Box[i]=new Rectangle();
@@ -46,9 +44,29 @@ public class History_Status extends Status_Pane{
 
             setTextPosWH(history_s[i],history_Box[i].getLayoutX(),history_Box[i].getLayoutY()+history_Box[i].getHeight()-text_padX,historyBox_width,historyBox_Height);
             history_s[i].setFont(Font.font ("arial", text_Size));
-            history_s[i].setFill(Color.WHITE);
-            history_s[i].setText("Demo History");
         }
+    }
+
+    @Override
+    public void CleanUp() {
+        getChildren().removeAll(history_Box);
+        getChildren().removeAll(history_s);
+    }
+
+    @Override
+    public void updateData(double[] data) {
+
+    }
+
+    public void addHistory(String str, Color color){
+
+        for(int i = 0; i < history_s.length-1; i++){
+            history_s[i].setText(history_s[i+1].getText());
+            history_s[i].setFill(history_s[i+1].getFill());
+        }
+        history_s[history_s.length-1].setText(str);
+        history_s[history_s.length-1].setFill(color);
+
     }
     private final Rectangle []history_Box=new Rectangle[5];
     private final Text []history_s = new Text[5];
