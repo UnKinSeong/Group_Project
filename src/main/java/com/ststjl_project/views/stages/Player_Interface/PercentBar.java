@@ -26,15 +26,17 @@ public class PercentBar extends Status_Pane{
         double width=super.getWidth();
         double height=super.getHeight();
 
-        rectangle[0].setFill(barColor);
+
         setRectanglePosWH(rectangle[0],layoutX,layoutY,width,height);
-        rectangle[1].setFill();
+
     }
     public void setBarFill(Color barColor){
-        this.barColor=barColor;
+        rectangle[1].setFill(barColor);
     }
-    public set setBox
-    private Rectangle[] rectangle  = new Rectangle[2];
-    private Color barColor=Color.RED;
-    private Color boxColor=Color.BLUE;
+
+
+    public void setBoxFill(Color boxColor){
+        rectangle[0].setFill(boxColor);
+    }
+    private final Rectangle[] rectangle  = new Rectangle[2];
 }
