@@ -21,11 +21,11 @@ public class Chance_Status extends _Status_Pane {
         getChildren().addAll(ChancesText);
     }
 
-    public void setHitChances(String str){
-        ChancesText[0].setText("Hit  : "+str);
+    public void setHitChances(double chances){
+        this.chances[0]=chances;
     }
-    public void setCritChances(String str){
-        ChancesText[1].setText("Crit : "+str);
+    public void setCritChances(double chances){
+        this.chances[1]=chances;
     }
 
     @Override
@@ -54,7 +54,10 @@ public class Chance_Status extends _Status_Pane {
             setTextPosWH(ChancesText[i],ChancesBox[i].getLayoutX(),ChancesBox[i].getLayoutY()+ChancesBox[i].getHeight()-text_padX,ChancesBox_width,ChancesBox_Height);
             ChancesText[i].setFont(Font.font ("arial", text_Size));
             //ChancesText[i].setFill(Color.WHITE);
+
         }
+        ChancesText[0].setText("Crit : "+chances[0]);
+        ChancesText[1].setText("Crit : "+chances[1]);
     }
 
     @Override

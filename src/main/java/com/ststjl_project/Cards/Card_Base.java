@@ -1,6 +1,8 @@
 package com.ststjl_project.Cards;
 
-public class Card_Base {
+import javafx.scene.layout.Pane;
+
+public class Card_Base extends Pane {
 
     private double energy_required=0;
     private double bone_required=0;
