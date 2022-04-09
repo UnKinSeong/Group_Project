@@ -7,14 +7,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.net.URL;
+import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 //----------------------------------------//
 // In this Stage. Every thing is related. //
@@ -49,9 +55,6 @@ public class Menu_Stage extends Stage_SM {
     // I do know this is dump, but it just works //
     //-------------------------------------------//
     private final double[] menu_btn_Pos = {0.05,0.30,0.09,0.91,0.30};
-
-
-
     private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
     private final double[] delta_For_Ball = {0.0005,0.0008};
     //-----------------//
@@ -61,12 +64,19 @@ public class Menu_Stage extends Stage_SM {
 
     }
 
+
+    int frames = 0;
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
-
+        frames += 1;
         update_Menu_Board();
         update_Ball_In_Board();
+        if (frames >= 1000){
+            if (!is_playing()) {
+                play_next();
+            }
+        }
         /*getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
         getGC().setFill(Color.WHITE);
@@ -123,10 +133,13 @@ public class Menu_Stage extends Stage_SM {
                 menu_btn_Pos[3],
                 menu_btn_Pos[4]);
         game_loop.setCycleCount(Animation.INDEFINITE);
+        play_next();
         game_loop.play();
         initMenu_board();
 
         initBall_board(1, Menu_board.getLayoutX()+1,Menu_board.getLayoutY()+1);
+
+        //
 
         getStage().setTitle("This is the Menu");
     }
@@ -162,16 +175,6 @@ public class Menu_Stage extends Stage_SM {
         getPane().getChildren().add(ball);
     }
 
-    /* O Yes                    //
-    private MediaPlayer mediaPlayer;
-    private void play(){
-        URL url = getClass().getResource("/Music/down.mp3");
-        if(url!=null){
-            mediaPlayer = new MediaPlayer(new Media(new File(url.getPath()).toURI().toString()));
-            mediaPlayer.play();
-        }
-    }
-    // Just blocking some code */
     private void update_Ball_In_Board(){
         Bounds bounds = Menu_board.getBoundsInLocal();
         double radius = ((Menu_board.getWidth()+ Menu_board.getHeight())/2)*0.05;
@@ -237,6 +240,9 @@ public class Menu_Stage extends Stage_SM {
     }
     public void clean_Up(){
         game_loop.stop();
+        mediaPlayer.stop();
+        media = null;
+        mediaPlayer = null;
         if (Is_Labeled){
             getPane().getChildren().remove(Random_Label);
         }
@@ -269,6 +275,34 @@ public class Menu_Stage extends Stage_SM {
         getStage().setTitle(String.format("This is the %s", Menus.get(id)));
         getStage().setScene(getScene());
         getState("current").init();
+    }
+
+
+    private Media media;
+    private MediaPlayer mediaPlayer;
+
+    private boolean is_playing(){
+        if(mediaPlayer != null){
+            return mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING);
+        }
+        return false;
+    }
+    private void play_next(){
+        File[] menu_Songs = null;
+        URL url = getClass().getResource("/Music/Menu_Music/");
+        File Menu_Music_Asserts_Directory = null;
+        if(url != null){
+            Menu_Music_Asserts_Directory= new File(url.getPath());
+            menu_Songs = Menu_Music_Asserts_Directory.listFiles();
+            if (menu_Songs!=null){
+                Random r=new Random();
+                int randomNumber=r.nextInt(menu_Songs.length);
+
+                media = new Media(menu_Songs[randomNumber].toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+            }
+        }
     }
 
 }

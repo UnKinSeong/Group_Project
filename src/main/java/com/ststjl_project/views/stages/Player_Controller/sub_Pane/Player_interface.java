@@ -102,9 +102,6 @@ public class Player_interface {
         next_status.reDraw();
         battle_pane.reDraw();
     }
-    public void updateData(){
-
-    }
 
     private double health_;
     private double health_cap_;

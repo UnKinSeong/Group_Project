@@ -9,7 +9,12 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class The_Main extends Application {
     private final double width = 800;
@@ -19,6 +24,19 @@ public class The_Main extends Application {
         //--------------------------------------------------//
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
+
+
+
+
+
+        /*private MediaPlayer mediaPlayer;
+        private void play(){
+            URL url = getClass().getResource("/Music/down.mp3");
+            if(url!=null){
+                mediaPlayer = new MediaPlayer(new Media(new File(url.getPath()).toURI().toString()));
+                mediaPlayer.play();
+            }
+        }*/
         Stage_SM.setCanvas(new Canvas(710,400));
         Stage_SM.initGraphicsContext();
         Stage_SM.setPane(new Pane(Stage_SM.getCanvas()));
