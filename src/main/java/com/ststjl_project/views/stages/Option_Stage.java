@@ -14,7 +14,7 @@ public class Option_Stage extends Stage_SM {
         if(id == 0){
             clean_Up();
             setState("menu");
-            getState("current").getStage().setScene(getScene());
+            getStage().setScene(getScene());
             getState("current").init();
         }
     }
@@ -29,9 +29,7 @@ public class Option_Stage extends Stage_SM {
     public void init() {
         btn = new Button();
         btn.setText("Exit");
-        btn.setOnAction(actionEvent -> {
-            enter_NextState(0);
-        });
+        btn.setOnAction(actionEvent -> enter_NextState(0));
         getPane().getChildren().add(btn);
         getStage().setTitle("This is the Option");
     }

@@ -1,7 +1,5 @@
 package com.ststjl_project.utility;
 
-import javafx.geometry.Point2D;
-
 public class Vector2D {
     public double x,y;
     public Vector2D(){

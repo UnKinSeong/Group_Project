@@ -38,8 +38,8 @@ public class Sprite {
         position.add(velocity.x * deltaTime, velocity.y * deltaTime);
         render();
     }
-    public void destory(){
-        Stage_SM.getState("current").getPane().getChildren().remove(boundary);
+    public void destroy(){
+        Stage_SM.getPane().getChildren().remove(boundary);
         is_Displayed=false;
     }
     public void setPosition(double x, double y){
@@ -49,7 +49,7 @@ public class Sprite {
 
     public void render(){
         if(!is_Displayed){
-            Stage_SM.getState("current").getPane().getChildren().add(boundary);
+            Stage_SM.getPane().getChildren().add(boundary);
             is_Displayed=true;
         }
         boundary.setLayoutX(position.x);

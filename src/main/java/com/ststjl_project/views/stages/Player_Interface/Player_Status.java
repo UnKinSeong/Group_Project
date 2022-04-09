@@ -11,7 +11,7 @@ public class Player_Status extends Status_Pane {
     public Player_Status(){
     }
 
-    public void Init(Pane mainPane, GraphicsContext mainGc,double Related_pos[]){
+    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos){
         super.setPane(mainPane);
         super.setGC(mainGc);
         super.setRelated_pos(Related_pos);
@@ -30,7 +30,7 @@ public class Player_Status extends Status_Pane {
         itemBox[3].setFill(Color.BLUEVIOLET);
     }
 
-    public void update(){
+    public void reDraw(){
         reSizing();
         double layoutX=super.getLayoutX();
         double layoutY=super.getLayoutY();
@@ -97,8 +97,8 @@ public class Player_Status extends Status_Pane {
     private double armor_  =0;
     private double mana_   =0;
     private double shield_ =0;
-    private Pane[] itemPane = new Pane[4];
-    private Rectangle[] itemBox  = new Rectangle[4];
-    private Text[]      itemText = new Text[4];
+    private final Pane[] itemPane = new Pane[4];
+    private final Rectangle[] itemBox  = new Rectangle[4];
+    private final Text[]      itemText = new Text[4];
 
 }

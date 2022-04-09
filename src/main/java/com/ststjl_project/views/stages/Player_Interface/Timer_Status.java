@@ -18,7 +18,7 @@ public class Timer_Status extends Status_Pane{
         this.getChildren().addAll(TimeBox[0],TimeBox[1]);
     }
     @Override
-    public void update() {
+    public void reDraw() {
         reSizing();
         double layoutX=this.getLayoutX();
         double layoutY=this.getLayoutY();
@@ -41,9 +41,9 @@ public class Timer_Status extends Status_Pane{
     public void setTime_Limited(double time_Limited) {
         Time_Limited = time_Limited;
     }
-    public double getTime_Limited(){return Time_Limited;};
+    public double getTime_Limited(){return Time_Limited;}
 
     private double Time_Limited;
-    private Rectangle TimeBox[] = new Rectangle[2];
+    private final Rectangle[] TimeBox = new Rectangle[2];
 
 }

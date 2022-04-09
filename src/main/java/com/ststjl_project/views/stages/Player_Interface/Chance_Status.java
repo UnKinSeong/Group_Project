@@ -22,7 +22,7 @@ public class Chance_Status extends Status_Pane{
     }
 
     @Override
-    public void update() {
+    public void reDraw() {
         reSizing();
         double layoutX=this.getLayoutX();
         double layoutY=this.getLayoutY();
@@ -50,6 +50,6 @@ public class Chance_Status extends Status_Pane{
             ChancesText[i].setText("Demo Critical");
         }
     }
-    private Rectangle []ChancesBox = new Rectangle[2];
-    private Text []ChancesText = new Text[2];
+    private final Rectangle []ChancesBox = new Rectangle[2];
+    private final Text []ChancesText = new Text[2];
 }

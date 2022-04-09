@@ -18,19 +18,18 @@ public class Next_Status extends Status_Pane{
     }
 
     @Override
-    public void update() {
+    public void reDraw() {
         reSizing();
         double layoutX=this.getLayoutX();
         double layoutY=this.getLayoutY();
         double width=this.getWidth();
         double height=this.getHeight();
 
-        double Button_PadX = width*0.5;
-        double Button_PadY = height*0.5;
+        double Button_Radius = (width/2+height/2)/4;
+        double Button_LayX = width/2;
+        double Button_LayY = height/2;
 
-        double Button_Width = width-Button_PadX;
-
-        setCirclePosWH(button,Button_PadX,Button_PadY,10);
+        setCirclePosWH(button,Button_LayX,Button_LayY,Button_Radius);
     }
 
     private Circle button = new Circle();

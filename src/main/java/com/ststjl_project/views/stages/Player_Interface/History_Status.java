@@ -22,7 +22,7 @@ public class History_Status extends Status_Pane{
     }
 
     @Override
-    public void update() {
+    public void reDraw() {
         reSizing();
         double layoutX=this.getLayoutX();
         double layoutY=this.getLayoutY();
@@ -50,6 +50,6 @@ public class History_Status extends Status_Pane{
             history_s[i].setText("Demo History");
         }
     }
-    private Rectangle []history_Box=new Rectangle[5];
-    private Text []history_s = new Text[5];
+    private final Rectangle []history_Box=new Rectangle[5];
+    private final Text []history_s = new Text[5];
 }

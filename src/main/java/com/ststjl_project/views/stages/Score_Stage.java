@@ -14,7 +14,7 @@ public class Score_Stage extends Stage_SM {
         if(id == 0){
             clean_Up();
             setState("menu");
-            getState("current").getStage().setScene(getScene());
+            getStage().setScene(getScene());
             getState("current").init();
         }
     }

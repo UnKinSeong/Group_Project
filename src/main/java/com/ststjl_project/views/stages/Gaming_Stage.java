@@ -15,7 +15,7 @@ import java.util.List;
 public class Gaming_Stage extends Stage_SM {
     private Button btn;
     private Player_interface playerInterface;
-    private List<Rectangle> rectangles = new ArrayList<>();
+    private final List<Rectangle> rectangles = new ArrayList<>();
 
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         double pane_Width = getPane().getWidth();
@@ -41,7 +41,7 @@ public class Gaming_Stage extends Stage_SM {
         if(id == 0){
             clean_Up();
             setState("menu");
-            getState("current").getStage().setScene(getScene());
+            getStage().setScene(getScene());
             getState("current").init();
         }
     }
@@ -53,15 +53,14 @@ public class Gaming_Stage extends Stage_SM {
         getPane().getChildren().remove(btn);
         getGC().setFill(Color.WHITE);
         getGC().fillRect(0,0, getPane().getWidth(), getPane().getHeight());
+        playerInterface.clean_Up();
     }
 
     @Override
     public void init() {
         btn = new Button();
         btn.setText("Exit");
-        btn.setOnAction(actionEvent -> {
-            enter_NextState(0);
-        });
+        btn.setOnAction(actionEvent -> enter_NextState(0));
         getPane().getChildren().add(btn);
         game_loop.setCycleCount(Animation.INDEFINITE);
         playerInterface = new Player_interface(getGC(),getPane());

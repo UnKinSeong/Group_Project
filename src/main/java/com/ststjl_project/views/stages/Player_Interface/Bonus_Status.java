@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 
 public class Bonus_Status extends Status_Pane {
     public Bonus_Status(){}
-    public void Init(Pane mainPane, GraphicsContext mainGc,double Related_pos[]){
+    public void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos){
         super.setPane(mainPane);
         super.setGC(mainGc);
         super.setRelated_pos(Related_pos);
@@ -19,7 +19,7 @@ public class Bonus_Status extends Status_Pane {
     }
 
     @Override
-    public void update() {
+    public void reDraw() {
         reSizing();
         double layoutX=this.getLayoutX();
         double layoutY=this.getLayoutY();

@@ -4,20 +4,18 @@ import com.ststjl_project.views.stages.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class The_Main extends Application {
-    private double width = 800;
-    private double height = 460;
+    private final double width = 800;
+    private final double height = 460;
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         //--------------------------------------------------//
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
@@ -40,11 +38,11 @@ public class The_Main extends Application {
 
 
         Stage_SM.getState("current").init();
-        Stage_SM.getState("current").getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        Stage_SM.getState("current").getStage().setFullScreenExitHint("");
-        Stage_SM.getState("current").getStage().show();
-        Stage_SM.getState("current").getStage().setFullScreen(false);
-        Stage_SM.getState("current").getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+        Stage_SM.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        Stage_SM.getStage().setFullScreenExitHint("");
+        Stage_SM.getStage().show();
+        Stage_SM.getStage().setFullScreen(false);
+        Stage_SM.getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if(new KeyCodeCombination(KeyCode.F11).match(event)) {
                 stage.setFullScreen(!stage.isFullScreen());
             }

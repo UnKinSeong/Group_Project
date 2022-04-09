@@ -16,23 +16,18 @@ public class Menu_Btn_List {
     //------------------------------------//
     // Related position to the AnchorPane //
     //------------------------------------//
-    private double menu_related_Pos[] = new double[4];
+    private final double[] menu_related_Pos = new double[4];
 
     //-------------------------------//
     // Related spacing in AnchorPane //
     //-------------------------------//
     private double re_spacing = 0;
 
-    //------------------//
-    // vertical listing // false for horizontal
-    //------------------//
-    private boolean vertical = true;
-
     //-----------------------------------------------------------------//
     // Button List and button name to id the index for later operation // But why not map? -- quote by someone.
     //-----------------------------------------------------------------//
-    private List<Still_Button> list_of_Buttons = new ArrayList<>();
-    private List<String> list_of_Buttons_Str = new ArrayList<>();
+    private final List<Still_Button> list_of_Buttons = new ArrayList<>();
+    private final List<String> list_of_Buttons_Str = new ArrayList<>();
 
     //--------------------------//
     // The state of the menuBtn //
@@ -87,28 +82,24 @@ public class Menu_Btn_List {
         this.re_spacing = spacing;
     }
     public void setMenu_Btn(double init_x, double end_x, double init_y, double end_y){
-        if (vertical) {
-            for (Button b : list_of_Buttons) {
-                b.setLayoutX(init_x);
-                b.setMaxWidth(Math.abs(init_x - end_x));
-                b.setMinWidth(Math.abs(init_x - end_x));
-            }
-            double height = Math.abs(init_y - end_y);
-            double button_spacing = (height * re_spacing) / (list_of_Buttons.size() - 1);
-            double button_height = (height - height * re_spacing) / list_of_Buttons.size();
+        //------------------//
+        // vertical listing // false for horizontal
+        //------------------//
+        for (Button b : list_of_Buttons) {
+            b.setLayoutX(init_x);
+            b.setMaxWidth(Math.abs(init_x - end_x));
+            b.setMinWidth(Math.abs(init_x - end_x));
+        }
+        double height = Math.abs(init_y - end_y);
+        double button_spacing = (height * re_spacing) / (list_of_Buttons.size() - 1);
+        double button_height = (height - height * re_spacing) / list_of_Buttons.size();
 
-            double next_h = init_y;
-            for (Button b : list_of_Buttons) {
-                b.setLayoutY(next_h);
-                b.setMaxHeight(button_height);
-                b.setMinHeight(button_height);
-                next_h += button_height + button_spacing;
-            }
-        }else{
-            //---------------------//
-            // Not implemented yet //
-            //---------------------//
-            return;
+        double next_h = init_y;
+        for (Button b : list_of_Buttons) {
+            b.setLayoutY(next_h);
+            b.setMaxHeight(button_height);
+            b.setMinHeight(button_height);
+            next_h += button_height + button_spacing;
         }
     }
 

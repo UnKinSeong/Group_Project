@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public abstract class Stage_SM {
-    private static Map<String ,Stage_SM> State_SMs = new TreeMap<>();
+    private static final Map<String ,Stage_SM> State_SMs = new TreeMap<>();
 
     public static void addState(String stageN, Stage_SM stageSm){
         State_SMs.put(stageN,stageSm);

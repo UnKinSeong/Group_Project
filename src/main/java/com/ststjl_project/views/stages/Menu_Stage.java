@@ -53,7 +53,7 @@ public class Menu_Stage extends Stage_SM {
 
 
     private final double[] menu_board_Pos = {0.47,0.95,0.09,0.91};
-    private double delta_For_Ball[] = {0.0005,0.0008};
+    private final double[] delta_For_Ball = {0.0005,0.0008};
     //-----------------//
     // The constructor //
     //-----------------//
@@ -84,33 +84,20 @@ public class Menu_Stage extends Stage_SM {
         Still_Button button = menu_btn_list.get_Button(name);
         if(button==null){
             System.exit(0);
-        };
+        }
         Random_Label = new Label();
         String text="";
-        switch (name){
-            case "Start":
-            {
-                text = "Click me to play";
-            }break;
-            case "Credit":
-            {
-                text = "Support us by donation";
-            }break;
-            case "Option":
-            {
-                text = "Twist the game you like";
-            }break;
-            case "Exit":
-            {
-                text = "Master! Don't leave me";
-            }break;
-            case "Score":
-            {
+        switch (name) {
+            case "Start" -> text = "Click me to play";
+            case "Credit" -> text = "Support us by donation";
+            case "Option" -> text = "Twist the game you like";
+            case "Exit" -> text = "Master! Don't leave me";
+            case "Score" -> {
                 int maximum = 3;
                 int minimum = 1;
-                int i = (int) (Math.random()*(maximum - minimum)) + minimum;
-                text = (i==1)?"See how good you are":(i==2)?"Your glory battles":(i==3)?"Oh You are good":"";
-            }break;
+                int i = (int) (Math.random() * (maximum - minimum)) + minimum;
+                text = (i == 1) ? "See how good you are" : (i == 2) ? "Your glory battles" : (i == 3) ? "Oh You are good" : "";
+            }
         }
         double btn_layX = button.getLayoutX();
         double btn_layY = button.getLayoutY()+button.getHeight()*related_height;
@@ -149,9 +136,7 @@ public class Menu_Stage extends Stage_SM {
             b = menu_btn_list.get_Button(Button_Name);
             if(b!=null){
                 Still_Button finalB = b;
-                b.setOnAction(actionEvent -> {
-                        trigger_actions(Button_Name);
-                });
+                b.setOnAction(actionEvent -> trigger_actions(Button_Name));
                 b.setOnMouseEntered(mouseEvent -> {
                     finalB.setTextFill(Color.RED);
                     animated_label(Button_Name);
@@ -161,9 +146,8 @@ public class Menu_Stage extends Stage_SM {
                     finalB.setTextFill(Color.BLACK);
                     rm_animated_Button();
                 });
-            }else{
-                // not implemented yet //
-            }
+            }// not implemented yet //
+
         }
     }
     private void initMenu_board(){
@@ -266,34 +250,24 @@ public class Menu_Stage extends Stage_SM {
         int index = Menus.indexOf(action_s);
         if(index>=0){
             enter_NextState(index);
-        }else{
-            // not implemented yet //
-        }
+        }// not implemented yet //
+
     }
 
     @Override
     public void enter_NextState(int id){
         clean_Up();
-        switch (id){
-            case 0:{
-                setState("game");
-            }break;
-            case 1:{
-                setState("score");
-            }break;
-            case 2:{
-                setState("option");
-            }break;
-            case 3:{
-                setState("credit");
-            }break;
-            case 4:{
-                System.exit(0);
-            }break;
-            default:
+        switch (id) {
+            case 0 -> setState("game");
+            case 1 -> setState("score");
+            case 2 -> setState("option");
+            case 3 -> setState("credit");
+            case 4 -> System.exit(0);
+            default -> {
+            }
         }
         getStage().setTitle(String.format("This is the %s", Menus.get(id)));
-        getState("current").getStage().setScene(getScene());
+        getStage().setScene(getScene());
         getState("current").init();
     }
 

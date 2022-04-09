@@ -8,8 +8,8 @@ import javafx.scene.text.Text;
 
 public abstract class Status_Pane extends Pane {
     public Status_Pane(){}
-    public abstract void Init(Pane mainPane, GraphicsContext mainGc,double Related_pos[]);
-    public abstract void update();
+    public abstract void Init(Pane mainPane, GraphicsContext mainGc, double[] Related_pos);
+    public abstract void reDraw();
 
     public void setCirclePosWH(Circle circle, double layX, double layY, double radius){
         circle.setLayoutX(layX);
