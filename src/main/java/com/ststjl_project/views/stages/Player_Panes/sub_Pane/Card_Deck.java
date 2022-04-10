@@ -4,11 +4,16 @@ import com.ststjl_project.Cards.Blood_Card;
 import com.ststjl_project.Cards.Bone_Card;
 import com.ststjl_project.Cards.Card_Base;
 import com.ststjl_project.Cards.Card_Container;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Card_Deck extends _Status_Pane{
     private ArrayList<Card_Base> cards_in_deck;
@@ -64,9 +69,7 @@ public class Card_Deck extends _Status_Pane{
                 card_.setPrefHeight(card_height);
                 card_.setPrefWidth(card_width);
                 card_.renderCard();
-
             }
-
         }
     }
 

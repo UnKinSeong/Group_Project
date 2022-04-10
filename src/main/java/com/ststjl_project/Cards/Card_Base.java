@@ -4,10 +4,15 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.io.File;
+import java.net.URL;
 
 import static com.ststjl_project.utility.Positioners.*;
 
@@ -132,19 +137,38 @@ public class Card_Base extends Pane {
             texts[i]=new Text();
         }
 
-        Mouse_On = mouseEvent -> is_over=true;
-        Mouse_Leave = mouseEvent -> is_over=false;
-        Mouse_Click = mouseEvent -> is_selected=!is_selected;
+        Mouse_On = mouseEvent -> {
+            is_over=true;
+            sound_play("Item_Over.mp3");
+        };
+        Mouse_Leave = mouseEvent -> {
+            is_over=false;
+        };
+        Mouse_Click = mouseEvent -> {
+            is_selected=!is_selected;
+            sound_play("Item_Selected.mp3");
+        };
 
         boxes[4].addEventHandler(MouseEvent.MOUSE_ENTERED, Mouse_On);
         boxes[4].addEventHandler(MouseEvent.MOUSE_EXITED, Mouse_Leave);
         boxes[4].addEventHandler(MouseEvent.MOUSE_CLICKED, Mouse_Click);
 
-
         getChildren().addAll(boxes);
         getChildren().addAll(texts);
     }
-
+    private Media media;
+    private MediaPlayer mediaPlayer;
+    private void sound_play(String items){
+        File[] menu_Songs = null;
+        URL url = getClass().getResource("/Music/In_Game_Audio_Effects/"+items);
+        File Menu_Music_Asserts_Directory = null;
+        if(url != null){
+                media = new Media(url.toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+                mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
+        }
+    }
 
     public double getBase_damage(){return this.base_damage;}
     public double getBase_critical_chance(){return this.base_critical_chance;}
