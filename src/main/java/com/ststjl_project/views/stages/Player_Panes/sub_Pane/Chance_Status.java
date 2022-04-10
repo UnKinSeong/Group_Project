@@ -1,11 +1,12 @@
-package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
+package com.ststjl_project.views.stages.Player_Panes.sub_Pane;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import static com.ststjl_project.utility.Positioners.setRectanglePosWH;
+import static com.ststjl_project.utility.Positioners.setTextPosWH;
 
 public class Chance_Status extends _Status_Pane {
     @Override

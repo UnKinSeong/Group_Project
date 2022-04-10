@@ -1,11 +1,12 @@
-package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
+package com.ststjl_project.views.stages.Player_Panes.sub_Pane;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import static com.ststjl_project.utility.Positioners.*;
 
 public class Player_Status extends _Status_Pane {
     public Player_Status(){
@@ -43,10 +44,10 @@ public class Player_Status extends _Status_Pane {
         double width=super.getWidth();
         double height=super.getHeight();
 
-        setPane(itemPane[0],layoutX,layoutY,width/2.0,height/2.0);
-        setPane(itemPane[1],layoutX+(width)/2.0,layoutY,width/2.0,height/2.0);
-        setPane(itemPane[2],layoutX,layoutY+(height)/2.0,width/2.0,height/2.0);
-        setPane(itemPane[3],layoutX+(width)/2.0,layoutY+(height)/2.0,width/2.0,height/2.0);
+        setPanePosWH(itemPane[0],layoutX,layoutY,width/2.0,height/2.0);
+        setPanePosWH(itemPane[1],layoutX+(width)/2.0,layoutY,width/2.0,height/2.0);
+        setPanePosWH(itemPane[2],layoutX,layoutY+(height)/2.0,width/2.0,height/2.0);
+        setPanePosWH(itemPane[3],layoutX+(width)/2.0,layoutY+(height)/2.0,width/2.0,height/2.0);
 
         double itemBox_padX;
         double itemBox_padY;

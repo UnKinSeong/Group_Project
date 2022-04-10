@@ -1,6 +1,6 @@
 package com.ststjl_project.views.stages;
 
-import com.ststjl_project.views.stages.Player_Controller.sub_Pane.Player_interface;
+import com.ststjl_project.views.stages.Player_Panes.sub_Pane.Player_interface;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

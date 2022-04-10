@@ -1,6 +1,11 @@
 package com.ststjl_project.group_project;
 
+import com.ststjl_project.Cards.Blood_Card;
+import com.ststjl_project.Cards.Bone_Card;
+import com.ststjl_project.Cards.Card_Container;
+import com.ststjl_project.Cards.Energy_Card;
 import com.ststjl_project.views.stages.*;
+import eu.hansolo.tilesfx.Demo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -24,6 +29,12 @@ public class The_Main extends Application {
         //--------------------------------------------------//
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
+
+        for(int i=0;i<20;i++){
+            Card_Container.addCards(i*3, new Blood_Card("dummy card"+i,1,1,0));
+            Card_Container.addCards(i*3+1, new Bone_Card("dummy card"+i,1,1,0));
+            Card_Container.addCards(i*3+2, new Energy_Card("dummy card"+i,1,1,0));
+        }
 
 
 
@@ -49,7 +60,8 @@ public class The_Main extends Application {
         Stage_SM.addState("option",new Option_Stage());
         Stage_SM.addState("credit",new Credit_Stage());
         Stage_SM.addState("menu",new Menu_Stage());
-        Stage_SM.addState("current",Stage_SM.getState("menu"));
+        Stage_SM.addState("demo",new Demo_Stage());
+        Stage_SM.addState("current",Stage_SM.getState("game"));
         //----------------//
         // Show the Stage //
         //----------------//

@@ -1,9 +1,9 @@
-package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
+package com.ststjl_project.views.stages.Player_Panes.sub_Pane;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import static com.ststjl_project.utility.Positioners.setRectanglePosWH;
 
 public class Timer_Status extends _Status_Pane {
     @Override

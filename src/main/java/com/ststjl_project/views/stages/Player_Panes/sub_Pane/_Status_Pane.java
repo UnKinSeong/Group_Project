@@ -1,10 +1,7 @@
-package com.ststjl_project.views.stages.Player_Controller.sub_Pane;
+package com.ststjl_project.views.stages.Player_Panes.sub_Pane;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 public abstract class _Status_Pane extends Pane {
     public static Pane mainPane;
@@ -15,30 +12,6 @@ public abstract class _Status_Pane extends Pane {
     public abstract void CleanUp();
     public abstract void updateData(double [] data);
 
-    public void setCirclePosWH(Circle circle, double layX, double layY, double radius){
-        circle.setLayoutX(layX);
-        circle.setLayoutY(layY);
-        circle.setRadius(radius);
-    }
-
-    public void setRectanglePosWH(Rectangle rectangle, double layX, double layY, double width, double height) {
-        rectangle.setLayoutX(layX);
-        rectangle.setLayoutY(layY);
-        rectangle.setWidth(width);
-        rectangle.setHeight(height);
-    }
-    public void setPane(Pane pane, double layX, double layY, double width, double height){
-        pane.setLayoutX(layX);
-        pane.setLayoutY(layY);
-        pane.prefWidth(width);
-        pane.prefHeight(height);
-    }
-    public void setTextPosWH(Text text, double layX, double layY, double width, double height){
-        text.setLayoutX(layX);
-        text.setLayoutY(layY);
-        text.minWidth(width);
-        text.minHeight(height);
-    }
 
     public void setPane(Pane pane){this.mainPane=pane;}
     public void setGC(GraphicsContext graphicsContext){this.mainGC=graphicsContext;}

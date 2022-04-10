@@ -2,6 +2,7 @@ package com.ststjl_project.utility;
 
 import com.ststjl_project.views.stages.Stage_SM;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;
 
 
@@ -12,14 +13,12 @@ public class Sprite {
     private Shape boundary;
     private Image image;
     private boolean is_Displayed = false;
-    public Sprite(){
+    private Pane belong_pane;
+    public Sprite(Pane pane){
+        belong_pane=pane;
         position = new Vector2D();
         velocity = new Vector2D();
         rotation = 0;
-    }
-    public Sprite(String ImageFileName){
-        this();
-        setImage(ImageFileName);
     }
     public void setSprite(Shape rectangle){
         boundary = rectangle;
@@ -39,7 +38,7 @@ public class Sprite {
         render();
     }
     public void destroy(){
-        Stage_SM.getPane().getChildren().remove(boundary);
+        belong_pane.getChildren().remove(boundary);
         is_Displayed=false;
     }
     public void setPosition(double x, double y){
@@ -49,7 +48,7 @@ public class Sprite {
 
     public void render(){
         if(!is_Displayed){
-            Stage_SM.getPane().getChildren().add(boundary);
+            belong_pane.getChildren().add(boundary);
             is_Displayed=true;
         }
         boundary.setLayoutX(position.x);
