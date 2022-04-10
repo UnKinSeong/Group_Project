@@ -24,13 +24,13 @@ public class Blood_Card extends Card_Base{
         Color[] BoxColors = {
                 Color.BLACK,
                 Color.GREEN,
-                Color.WHITE,
+                Color.BLUE,
                 Color.LIGHTGRAY,
                 Color.RED
         };
         Color[] TextColors = {
                 Color.WHITE,
-                Color.BLUE,
+                Color.WHITE,
                 Color.RED,
                 Color.BLUE
         };

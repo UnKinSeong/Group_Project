@@ -1,25 +1,28 @@
 package com.ststjl_project.group_project;
 
-import com.ststjl_project.Cards.Blood_Card;
-import com.ststjl_project.Cards.Bone_Card;
-import com.ststjl_project.Cards.Card_Container;
-import com.ststjl_project.Cards.Energy_Card;
+import com.ststjl_project.Cards.*;
+import com.ststjl_project.utility.Audio_Codex;
+import com.ststjl_project.utility.Random_Number;
 import com.ststjl_project.views.stages.*;
 import eu.hansolo.tilesfx.Demo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Menu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class The_Main extends Application {
     private final double width = 800;
@@ -30,24 +33,84 @@ public class The_Main extends Application {
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
 
-        for(int i=0;i<20;i++){
-            Card_Container.addCards(i*3, new Blood_Card("dummy card"+i,1,1,0));
-            Card_Container.addCards(i*3+1, new Bone_Card("dummy card"+i,1,1,0));
-            Card_Container.addCards(i*3+2, new Energy_Card("dummy card"+i,1,1,0));
+        int CardPool = 60;
+
+        int first_ = 0;
+        int second_ = 0;
+
+        int Blood_Card_Count = Random_Number.randInt(10,20);
+        int Bone_Card_Count = Random_Number.randInt(Blood_Card_Count,20);
+        int Energy_Card_Count = CardPool - Blood_Card_Count-Bone_Card_Count;
+
+
+        System.out.println("First : "+first_+" Second : "+second_ );
+
+        System.out.println("Blood Card Count : "+Blood_Card_Count);
+        System.out.println("Bone Card Count : "+Bone_Card_Count);
+        System.out.println("Energy Card Count : "+Energy_Card_Count);
+
+        String []Blood_Card_Names = {
+                "grizzly bear","lizard",
+                "chinchilla","crow",
+                "weasel", "highland cow","hammer",
+        };
+
+        String []Bone_Card_Names = {
+                "skeleton", "zombie",
+                "wolverine", "Tortoise",
+                "Giraffes","Tortoise"
+        };
+        String []Energy_Card_Names = {
+                "computer", "terminator",
+                "mouse", "keyboard",
+                "hard drive","clock"
+        };
+
+
+        double damage;
+        double criticalChance;
+        double self_damage;
+
+        Random random_gener;
+        int randomNumber;
+
+        for(int i=0;i<Blood_Card_Count;i++){
+            random_gener=new Random();
+            damage = Random_Number.randInt(2,5);
+            criticalChance = Random_Number.randDouble(10,50)/100;
+            self_damage = Random_Number.randInt(0,5);
+            randomNumber=random_gener.nextInt(Blood_Card_Names.length);
+            Card_Container.addCards(i,new Blood_Card(Blood_Card_Names[randomNumber],damage,criticalChance,self_damage));
+        }
+
+        for(int i=Blood_Card_Count;i<Bone_Card_Count+Blood_Card_Count;i++){
+            random_gener=new Random();
+            damage = Random_Number.randInt(1,4);
+            criticalChance = Random_Number.randDouble(30,70)/100;
+            self_damage = Random_Number.randInt(0,10);
+            randomNumber=random_gener.nextInt(Bone_Card_Names.length);
+            Card_Container.addCards(i,new Bone_Card(Bone_Card_Names[randomNumber],damage,criticalChance,self_damage));
+        }
+
+        for(int i=Blood_Card_Count+Bone_Card_Count;i<Bone_Card_Count+Blood_Card_Count+Energy_Card_Count;i++){
+            random_gener=new Random();
+            damage = Random_Number.randInt(3,7);
+            criticalChance = Random_Number.randDouble(0,50)/100;
+            self_damage = Random_Number.randInt(0,2);
+            randomNumber=random_gener.nextInt(Energy_Card_Names.length);
+            Card_Container.addCards(i,new Energy_Card(Energy_Card_Names[randomNumber],damage,criticalChance,self_damage));
         }
 
 
 
+        ArrayList<String> Temp;
+        Temp = initAudio("/Music/In_Game_Audio_Effects");
+        if(Temp!=null) {
+            Card_Base.setAudioList(Temp);
+        }
 
 
-        /*private MediaPlayer mediaPlayer;
-        private void play(){
-            URL url = getClass().getResource("/Music/down.mp3");
-            if(url!=null){
-                mediaPlayer = new MediaPlayer(new Media(new File(url.getPath()).toURI().toString()));
-                mediaPlayer.play();
-            }
-        }*/
+
         Stage_SM.setCanvas(new Canvas(710,400));
         Stage_SM.initGraphicsContext();
         Stage_SM.setPane(new Pane(Stage_SM.getCanvas()));
@@ -62,6 +125,15 @@ public class The_Main extends Application {
         Stage_SM.addState("menu",new Menu_Stage());
         Stage_SM.addState("demo",new Demo_Stage());
         Stage_SM.addState("current",Stage_SM.getState("game"));
+
+        Temp = initAudio("/Music/Menu_Music/");
+        if(Temp!=null){
+            Stage_SM.getState("game").setAudioList(Temp);
+        }
+        Temp = initAudio("/Music/Battle_Music/");
+        if(Temp!=null){
+            Stage_SM.getState("menu").setAudioList(Temp);
+        }
         //----------------//
         // Show the Stage //
         //----------------//
@@ -78,34 +150,31 @@ public class The_Main extends Application {
             }
         });
     }
-/*    private void init_Stage_SM(Stage stage){
-        //--------------------------------------//
-        // Construct stage of the State machine //
-        //--------------------------------------//
-        Stage_SM.current = new Menu_Stage();
-        Stage_SM.current.setPane(new AnchorPane());
-        Stage_SM.current.setScene(new Scene(Stage_SM.current.getPane(),710,400));
-        Stage_SM.current.setStage(stage);
-        Stage_SM.current.setScene(Stage_SM.current.getScene());
+    private ArrayList<String> initAudio(String path_to_location){
+        ArrayList<String> audio_file_name = new ArrayList();
+        File[] songArray;
+        URL url;
+        File Menu_Music_Asserts_Directory;
+        songArray = null;
+        url = getClass().getResource(path_to_location);
+        Menu_Music_Asserts_Directory = null;
+        if(url != null) {
+            Menu_Music_Asserts_Directory = new File(url.getPath());
+            songArray = Menu_Music_Asserts_Directory.listFiles();
+            if (songArray != null) {
+                for(File file : songArray){
+                    Audio_Codex.add(file.getName(),file.toURI());
+                    audio_file_name.add(file.toString());
+                }
+            }
+        }
+        if(audio_file_name.size()>0){
+            return audio_file_name;
+        }else{
+            return null;
+        }
+    }
 
-        //--------------------------------------------------------//
-        //           Assign each state to Stage machine           //
-        //--------------------------------------------------------//
-        // State [ menu | credit | option | game | score | current ]
-        //--------------------------------------------------------//
-        Stage_SM.menu = new Menu_Stage();
-        Stage_SM.credit = new Credit_Stage();
-        Stage_SM.option = new Option_Stage();
-        Stage_SM.game = new Gaming_Stage();
-        Stage_SM.score = new Score_Stage();
-
-        //-----------------------------------//
-        // initialization of the entry stage //
-        //-----------------------------------//
-        
-        Stage_SM.current = Stage_SM.menu;
-        Stage_SM.current.init();
-    }*/
     public static void main(String[] args) {
         launch(args);
     }

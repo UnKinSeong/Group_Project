@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,6 +28,15 @@ public abstract class Stage_SM {
         return false;
     }
 
+    public ArrayList<String> getAudioList() {
+        return audioList;
+    }
+
+    public void setAudioList(ArrayList<String> audioList) {
+        this.audioList = audioList;
+    }
+
+    private ArrayList<String> audioList = new ArrayList<>();
     private static Stage mainStage;
     private static Scene mainScene;
     private static Pane mainPane;

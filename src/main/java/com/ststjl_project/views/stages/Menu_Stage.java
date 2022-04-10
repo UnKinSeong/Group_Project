@@ -1,5 +1,6 @@
 package com.ststjl_project.views.stages;
 
+import com.ststjl_project.utility.Audio_Codex;
 import com.ststjl_project.views.Menu_Btn_List;
 import com.ststjl_project.views.buttons.Still_Button;
 import javafx.animation.Animation;
@@ -64,12 +65,19 @@ public class Menu_Stage extends Stage_SM {
 
     }
 
-
+    int frames = 0;
     Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
         update_Menu_Board();
         update_Ball_In_Board();
+        frames++;
+        if(frames>=1000){
+            if(!Audio_Codex.is_Playing("order-99518.mp3")){
+                Audio_Codex.play("order-99518.mp3");
+            }
+            frames=0;
+        }
 
         /*getCanvas().setWidth(pane_Width);
         getCanvas().setHeight(pane_Height);
@@ -129,7 +137,7 @@ public class Menu_Stage extends Stage_SM {
         game_loop.setCycleCount(Animation.INDEFINITE);
         game_loop.play();
         initMenu_board();
-        play_next();
+
         initBall_board(1, Menu_board.getLayoutX()+1,Menu_board.getLayoutY()+1);
 
         //
@@ -233,9 +241,7 @@ public class Menu_Stage extends Stage_SM {
     }
     public void clean_Up(){
         game_loop.stop();
-        mediaPlayer.dispose();
-        media = null;
-        mediaPlayer = null;
+        Audio_Codex.stopAll();
         if (Is_Labeled){
             getPane().getChildren().remove(Random_Label);
         }
@@ -269,37 +275,4 @@ public class Menu_Stage extends Stage_SM {
         getStage().setScene(getScene());
         getState("current").init();
     }
-
-
-    private Media media;
-    private MediaPlayer mediaPlayer;
-
-    private boolean is_playing(){
-        if(mediaPlayer != null){
-            return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
-        }
-        return false;
-    }
-    private void play_next(){
-        File[] menu_Songs = null;
-        URL url = getClass().getResource("/Music/Menu_Music/");
-        File Menu_Music_Asserts_Directory = null;
-        if(url != null){
-            Menu_Music_Asserts_Directory= new File(url.getPath());
-            menu_Songs = Menu_Music_Asserts_Directory.listFiles();
-            if (menu_Songs!=null){
-                Random r=new Random();
-                int randomNumber=r.nextInt(menu_Songs.length);
-                media = null;
-                mediaPlayer = null;
-                media = new Media(menu_Songs[randomNumber].toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.play();
-                mediaPlayer.setOnStopped(()->play_next());
-                mediaPlayer.setOnStalled(()->play_next());
-                mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
-            }
-        }
-    }
-
 }

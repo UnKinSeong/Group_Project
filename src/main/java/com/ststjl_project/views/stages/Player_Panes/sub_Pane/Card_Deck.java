@@ -25,8 +25,12 @@ public class Card_Deck extends _Status_Pane{
         getChildren().add(Card_Area);
         cards_in_deck=new ArrayList<>();
         is_Card_Displayed=new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            cards_in_deck.add(Card_Container.getCard(i));
+
+        int init_Draw = 5;
+        ArrayList<Card_Base> cards= Card_Container.getRandom(init_Draw);
+
+        for(int i = 0; i < init_Draw; i++){
+            cards_in_deck.add(cards.get(i));
             is_Card_Displayed.add(false);
         }
     }

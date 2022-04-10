@@ -33,7 +33,7 @@ public class Positioners {
         text.setLayoutY(layY);
         text.prefWidth(width);
         text.prefHeight(height);
-    }
+}
 
     public static void setLabelPosWH(Label label, double layX, double layY, double width, double height){
         label.setLayoutX(layX);

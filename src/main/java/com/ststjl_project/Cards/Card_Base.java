@@ -1,5 +1,6 @@
 package com.ststjl_project.Cards;
 
+import com.ststjl_project.utility.Audio_Codex;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static com.ststjl_project.utility.Positioners.*;
 
@@ -90,11 +92,6 @@ public class Card_Base extends Pane {
     };
 
 
-
-
-
-
-
     EventHandler<MouseEvent> Mouse_On;
     EventHandler<MouseEvent> Mouse_Leave;
     EventHandler<MouseEvent> UnSelected_Event;
@@ -139,14 +136,14 @@ public class Card_Base extends Pane {
 
         Mouse_On = mouseEvent -> {
             is_over=true;
-            sound_play("Item_Over.mp3");
+            Audio_Codex.play("Item_Over.mp3");
         };
         Mouse_Leave = mouseEvent -> {
             is_over=false;
         };
         Mouse_Click = mouseEvent -> {
             is_selected=!is_selected;
-            sound_play("Item_Selected.mp3");
+            Audio_Codex.play("Item_Selected.mp3");
         };
 
         boxes[4].addEventHandler(MouseEvent.MOUSE_ENTERED, Mouse_On);
@@ -156,19 +153,15 @@ public class Card_Base extends Pane {
         getChildren().addAll(boxes);
         getChildren().addAll(texts);
     }
-    private Media media;
-    private MediaPlayer mediaPlayer;
-    private void sound_play(String items){
-        File[] menu_Songs = null;
-        URL url = getClass().getResource("/Music/In_Game_Audio_Effects/"+items);
-        File Menu_Music_Asserts_Directory = null;
-        if(url != null){
-                media = new Media(url.toString());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.play();
-                mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
-        }
+    public static ArrayList<String> getAudioList() {
+        return audioList;
     }
+
+    public static void setAudioList(ArrayList<String> audioList2) {
+        audioList = audioList2;
+    }
+
+    private static ArrayList<String> audioList = new ArrayList<>();
 
     public double getBase_damage(){return this.base_damage;}
     public double getBase_critical_chance(){return this.base_critical_chance;}
