@@ -2,7 +2,7 @@ package com.ststjl_project.views.stages;
 
 import javafx.scene.control.Button;
 
-public class Score_Stage extends Stage_SM {
+public class Score_Stage extends _Stage_SM {
     private Button btn;
 
     public Score_Stage() {
@@ -35,4 +35,5 @@ public class Score_Stage extends Stage_SM {
         getPane().getChildren().add(btn);
         getStage().setTitle("This is the Score");
     }
+
 }

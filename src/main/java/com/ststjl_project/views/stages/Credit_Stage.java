@@ -2,7 +2,7 @@ package com.ststjl_project.views.stages;
 
 import javafx.scene.control.Button;
 
-public class Credit_Stage extends Stage_SM {
+public class Credit_Stage extends _Stage_SM {
 
     private Button btn;
 
@@ -33,4 +33,5 @@ public class Credit_Stage extends Stage_SM {
         getPane().getChildren().add(btn);
         getStage().setTitle("This is the Credit");
     }
+
 }

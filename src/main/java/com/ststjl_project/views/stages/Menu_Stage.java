@@ -8,25 +8,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.net.URL;
-import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 //----------------------------------------//
 // In this Stage. Every thing is related. //
 //----------------------------------------//
-public class Menu_Stage extends Stage_SM {
+public class Menu_Stage extends _Stage_SM {
     //---------------------------------------------//
     // Declare the Custom Menu Button List Manager // Oh yes it is dynamic resizing
     //---------------------------------------------//
@@ -65,8 +59,8 @@ public class Menu_Stage extends Stage_SM {
 
     }
 
-    int frames = 0;
-    Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
+    private int frames = 0;
+    private Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         menu_btn_list.update();
 
         update_Menu_Board();

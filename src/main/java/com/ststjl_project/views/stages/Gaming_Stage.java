@@ -1,5 +1,6 @@
 package com.ststjl_project.views.stages;
 
+import com.ststjl_project.utility.Audio_Codex;
 import com.ststjl_project.views.stages.Player_Panes.sub_Pane.Player_interface;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -12,22 +13,24 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gaming_Stage extends Stage_SM {
+public class Gaming_Stage extends _Stage_SM {
     private Button btn;
     private Player_interface playerInterface;
     private final List<Rectangle> rectangles = new ArrayList<>();
-
-    Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
+    private int frames = 0;
+    private Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
         double pane_Width = getPane().getWidth();
         double pane_Height = getPane().getHeight();
-        getCanvas().setWidth(pane_Width);
-        getCanvas().setHeight(pane_Height);
-
+        frames++;
+        if(frames>=1000){
+            if(!Audio_Codex.is_Playing("epic_battle_music_1-6275.mp3")){
+                Audio_Codex.play("epic_battle_music_1-6275.mp3");
+            }
+            frames=0;
+        }
         btn.setLayoutX(0);
         btn.setLayoutY(pane_Height-btn.getHeight());
         // manual cleanup background //
-        getGC().setFill(Color.WHITE);
-        getGC().fillRect(0,0,pane_Width,pane_Height);
         playerInterface.Draw_Yourself();
 
 
@@ -50,16 +53,15 @@ public class Gaming_Stage extends Stage_SM {
     @Override
     public void clean_Up() {
         game_loop.stop();
+        Audio_Codex.stop("epic_battle_music_1-6275.mp3");
         getPane().getChildren().remove(btn);
-        getGC().setFill(Color.WHITE);
-        getGC().fillRect(0,0, getPane().getWidth(), getPane().getHeight());
         playerInterface.clean_Up();
     }
 
     @Override
     public void init() {
         game_loop.setCycleCount(Animation.INDEFINITE);
-        playerInterface = new Player_interface(getGC(),getPane());
+        playerInterface = new Player_interface(getPane());
         playerInterface.Init();
 
         btn = new Button();
@@ -70,4 +72,6 @@ public class Gaming_Stage extends Stage_SM {
         getStage().setTitle("This is the Gaming");
         game_loop.play();
     }
+
+
 }

@@ -2,7 +2,7 @@ package com.ststjl_project.views.stages;
 
 import javafx.scene.control.Button;
 
-public class Option_Stage extends Stage_SM {
+public class Option_Stage extends _Stage_SM {
     private Button btn;
 
     public Option_Stage() {
@@ -33,4 +33,6 @@ public class Option_Stage extends Stage_SM {
         getPane().getChildren().add(btn);
         getStage().setTitle("This is the Option");
     }
+
+
 }

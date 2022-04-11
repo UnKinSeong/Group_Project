@@ -97,6 +97,9 @@ public class Card_Base extends Pane {
     EventHandler<MouseEvent> UnSelected_Event;
     EventHandler<MouseEvent> Mouse_Click;
 
+    public void unselect(){
+        is_selected = false;
+    }
     public void drawYourself(){};
     private boolean isSelect(){
         return is_selected;
@@ -146,9 +149,9 @@ public class Card_Base extends Pane {
             Audio_Codex.play("Item_Selected.mp3");
         };
 
-        boxes[4].addEventHandler(MouseEvent.MOUSE_ENTERED, Mouse_On);
-        boxes[4].addEventHandler(MouseEvent.MOUSE_EXITED, Mouse_Leave);
-        boxes[4].addEventHandler(MouseEvent.MOUSE_CLICKED, Mouse_Click);
+        this.addEventHandler(MouseEvent.MOUSE_ENTERED, Mouse_On);
+        this.addEventHandler(MouseEvent.MOUSE_EXITED, Mouse_Leave);
+        this.addEventHandler(MouseEvent.MOUSE_CLICKED, Mouse_Click);
 
         getChildren().addAll(boxes);
         getChildren().addAll(texts);

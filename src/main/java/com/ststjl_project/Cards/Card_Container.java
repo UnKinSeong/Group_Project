@@ -2,6 +2,7 @@ package com.ststjl_project.Cards;
 
 import javafx.scene.control.RadioMenuItem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +26,7 @@ public class Card_Container {
     public static int size(){
         return Card_DataBase.size();
     }
-
-    public static ArrayList<Card_Base> getRandom(int count) {
-        ArrayList<Card_Base> listOf_Cards = new ArrayList<>();
+    public static ArrayList<Card_Base> Draw_Card(ArrayList<Card_Base> listOf_Cards,int count) {
         Card_Base randomName = null;
         int i = 0;
         while(i<count) {
