@@ -74,19 +74,29 @@ public class Audio_Codex {
                         MediaPlayer target = teMediaPlayerList.get(i);
                         if(target!=null){
                             if(target.getStatus()!= MediaPlayer.Status.PLAYING){
-                                target = new MediaPlayer(teMedia);
-                                MediaPlayer target_ = target;
-                                teMediaPlayerList.set(i,target);
-                                target.setOnEndOfMedia(() -> target_.stop());
-                                target.play();
+                                try {
+                                    target.stop();
+                                    target.dispose();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                MediaPlayer  target1 = new MediaPlayer(teMedia);
+                                teMediaPlayerList.set(i,target1);
+                                target1.setOnEndOfMedia(() -> target1.stop());
+                                target1.play();
                                 return;
                             }
                         }
                     }
                     MediaPlayer last_ = teMediaPlayerList.get(teMediaPlayerList.size()-1);
                     if(last_!=null){
-                        last_.stop();
-                        last_.dispose();
+                        try {
+                            last_.stop();
+                            last_.dispose();
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         last_ = new MediaPlayer(teMedia);
                         MediaPlayer _last_ = last_;
                         last_.setOnEndOfMedia(() -> _last_.stop());

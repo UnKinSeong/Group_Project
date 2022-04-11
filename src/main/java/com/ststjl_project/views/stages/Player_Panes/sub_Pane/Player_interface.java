@@ -28,9 +28,21 @@ public class Player_interface {
             mainPane.getChildren().add((paneBoxes[i]));
         }
         pane_border_box[5].setFill(Color.TRANSPARENT);
-        paneBoxes[6].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> System.out.println("Yes"));
-        paneBoxes[7].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Card_Container.Draw_Card(card_baseArrayList,1));
+        paneBoxes[7].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            for(int i = 0; i < card_baseArrayList.size();i++){
+                if(card_baseArrayList.get(i).isSelect()){
+                    card_marked_As_Destroy.set(i,true);
+                }
+            }
+        });
+        paneBoxes[6].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Card_Container.Draw_Card(card_baseArrayList, 1);
+            card_marked_As_Destroy.add(false);
+        });
         Card_Container.Draw_Card(card_baseArrayList,5);
+        for(int i = 0; i < 5; i++){
+            card_marked_As_Destroy.add(false);
+        }
     }
     boolean is_begin = false;
     private void Positioning_Pane_Box(){
@@ -62,6 +74,20 @@ public class Player_interface {
 
         double card_height = pane_border_box[5].getHeight()-4;
         double card_width = pane_border_box[5].getHeight()*0.6;
+        for(int i = card_baseArrayList.size()-1;i>-1;i--){
+            if(card_marked_As_Destroy.get(i)==true){
+                card_baseArrayList.get(i).CleanUp();
+                paneBoxes[5].getChildren().remove(card_baseArrayList.get(i));
+            }
+        }
+        for(int i = card_baseArrayList.size()-1;i>-1;i--){
+            if(card_marked_As_Destroy.get(i)==true){
+                card_marked_As_Destroy.remove(i);
+                card_baseArrayList.remove(i);
+            }
+        }
+
+
         for(Card_Base cb: card_baseArrayList){
             cb.setPrefHeight(card_height);
             cb.setPrefWidth(card_width);
@@ -109,6 +135,7 @@ public class Player_interface {
     }
 
     private final ArrayList<Card_Base> card_baseArrayList = new ArrayList<>();
+    private final ArrayList<Boolean> card_marked_As_Destroy = new ArrayList<>();
     private final Pane mainPane;
     private Pane paneBoxes[] = new Pane[8];
     private Rectangle pane_border_box[] = new Rectangle[8];

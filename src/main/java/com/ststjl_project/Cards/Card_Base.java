@@ -92,19 +92,26 @@ public class Card_Base extends Pane {
     };
 
 
-    EventHandler<MouseEvent> Mouse_On;
-    EventHandler<MouseEvent> Mouse_Leave;
-    EventHandler<MouseEvent> UnSelected_Event;
-    EventHandler<MouseEvent> Mouse_Click;
+    private EventHandler<MouseEvent> Mouse_On;
+    private EventHandler<MouseEvent> Mouse_Leave;
+    private EventHandler<MouseEvent> UnSelected_Event;
+    private EventHandler<MouseEvent> Mouse_Click;
 
     public void unselect(){
         is_selected = false;
     }
     public void drawYourself(){};
-    private boolean isSelect(){
+    public boolean isSelect(){
         return is_selected;
     }
-    private StackPane[] stackPanes = new StackPane[4];
+    public boolean is_removed = false;
+    public void CleanUp(){
+        removeEventFilter(MouseEvent.MOUSE_ENTERED, Mouse_On);
+        removeEventFilter(MouseEvent.MOUSE_EXITED, Mouse_Leave);
+        removeEventFilter(MouseEvent.MOUSE_CLICKED, Mouse_Click);
+        getChildren().removeAll(boxes);
+        getChildren().removeAll(texts);
+    }
     private Rectangle[] boxes = new Rectangle[5];
     private Text[] texts = new Text[4];
     private double
