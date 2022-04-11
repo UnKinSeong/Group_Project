@@ -19,6 +19,19 @@ public class Positioners {
         rectangle.setWidth(width);
         rectangle.setHeight(height);
     }
+    public static void setRPanePosWH(Pane pane,double pane_width, double pane_height, double B_layX, double B_layY, double E_layX, double E_layY){
+        pane.setLayoutX(B_layX*pane_width);
+        pane.setLayoutY(B_layY*pane_height);
+
+        double width = pane_width*E_layX-pane_width*B_layX;
+        double height = pane_height*E_layY-pane_height*B_layY;
+
+        pane.prefWidth(width);
+
+        pane.prefHeight(height);
+
+
+    }
 
     public static void setPanePosWH(Pane pane, double layX, double layY, double width, double height){
         pane.setLayoutX(layX);
