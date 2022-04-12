@@ -10,13 +10,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.TransferQueue;
 
 import static com.ststjl_project.utility.Positioners.*;
 
-public class Player_interface {
-    public Player_interface(Pane pane){
+public class PlayerScene {
+    public PlayerScene(Pane pane){
         this.mainPane = pane;
     }
     public void Init(){
@@ -30,8 +30,31 @@ public class Player_interface {
         pane_border_box[5].setFill(Color.TRANSPARENT);
         paneBoxes[7].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             for(int i = 0; i < card_baseArrayList.size();i++){
-                if(card_baseArrayList.get(i).isSelect()){
+                Card_Base iCvaL = card_baseArrayList.get(i);
+                if(iCvaL.isSelect()){
                     card_marked_As_Destroy.set(i,true);
+                    switch (iCvaL.getType_name()){
+                        case "Basic":{
+                            Player_Info.health_lost(iCvaL.getCost());
+                        }break;
+                        case "Blood":{
+                            Player_Info.blood_lost(iCvaL.getCost());
+                        }break;
+                        case "Bone":{
+                            Player_Info.bone_lost(iCvaL.getCost());
+                        }break;
+                    }
+                    if(Player_Info.isPlayer_Dead()){
+                        System.out.println("The Player is dead");
+                        System.out.println("Player Health : "+Player_Info.getPlayer_health());
+                        System.out.println("Player Blood : "+Player_Info.getPlayer_blood());
+                        System.out.println("Player Bone : "+Player_Info.getPlayer_bone());
+                    }else
+                    {
+                        System.out.println("Player Health : "+Player_Info.getPlayer_health());
+                        System.out.println("Player Blood : "+Player_Info.getPlayer_blood());
+                        System.out.println("Player Bone : "+Player_Info.getPlayer_bone());
+                    }
                 }
             }
         });
@@ -76,7 +99,7 @@ public class Player_interface {
         double card_width = pane_border_box[5].getHeight()*0.6;
         for(int i = card_baseArrayList.size()-1;i>-1;i--){
             if(card_marked_As_Destroy.get(i)==true){
-                card_baseArrayList.get(i).CleanUp();
+                card_baseArrayList.get(i).unselect();
                 paneBoxes[5].getChildren().remove(card_baseArrayList.get(i));
             }
         }

@@ -1,23 +1,23 @@
 package com.ststjl_project.Cards;
 
-public class Energy_Card extends Card_Base{
+public class Basic_Card extends Card_Base{
     @Override
     public void drawYourself() {
 
     }
 
 
-    public Energy_Card(
+    public Basic_Card(
             String card_Name,
+            double cost,
             double base_damage,
-            double base_critical_chance,
-            double self_damage
+            double base_critical_chance
     ){
         super(
                 card_Name,
-                "Energy",
+                "Basic",
+                cost,
                 base_damage,
-                base_critical_chance,
-                self_damage);
+                base_critical_chance);
     }
 }

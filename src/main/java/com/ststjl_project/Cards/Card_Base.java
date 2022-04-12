@@ -74,7 +74,9 @@ public class Card_Base extends Pane {
         Text_Colors=colors;
     }
 
-
+    public String getType_name(){
+        return type_name;
+    }
     private String card_Name;
     private String type_name;
     private Color [] Boxes_Colors = {
@@ -121,6 +123,10 @@ public class Card_Base extends Pane {
     private boolean is_selected = false;
     public void setType_name(String str){
         type_name = str;
+    }
+
+    public double getCost() {
+        return self_damage;
     }
 
     private boolean is_over = false;

@@ -1,12 +1,11 @@
 package com.ststjl_project.views.stages;
 
 import com.ststjl_project.utility.Audio_Codex;
-import com.ststjl_project.views.stages.Player_Panes.sub_Pane.Player_interface;
+import com.ststjl_project.views.stages.Player_Panes.sub_Pane.PlayerScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class Gaming_Stage extends _Stage_SM {
     private Button btn;
-    private Player_interface playerInterface;
+    private PlayerScene playerInterface;
     private final List<Rectangle> rectangles = new ArrayList<>();
     private int frames = 0;
     private Timeline game_loop = new Timeline(new KeyFrame(Duration.millis(1), actionEvent -> {
@@ -61,7 +60,7 @@ public class Gaming_Stage extends _Stage_SM {
     @Override
     public void init() {
         game_loop.setCycleCount(Animation.INDEFINITE);
-        playerInterface = new Player_interface(getPane());
+        playerInterface = new PlayerScene(getPane());
         playerInterface.Init();
 
         btn = new Button();

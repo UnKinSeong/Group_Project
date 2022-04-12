@@ -35,14 +35,14 @@ public class The_Main extends Application {
 
         int Blood_Card_Count = Random_Number.randInt(10,20);
         int Bone_Card_Count = Random_Number.randInt(Blood_Card_Count,20);
-        int Energy_Card_Count = CardPool - Blood_Card_Count-Bone_Card_Count;
+        int Basic_Card_Count = CardPool - Blood_Card_Count-Bone_Card_Count;
 
 
         System.out.println("First : "+first_+" Second : "+second_ );
 
         System.out.println("Blood Card Count : "+Blood_Card_Count);
         System.out.println("Bone Card Count : "+Bone_Card_Count);
-        System.out.println("Energy Card Count : "+Energy_Card_Count);
+        System.out.println("Basic Card Count : "+Basic_Card_Count);
 
         String []Blood_Card_Names = {
                 "grizzly bear","lizard",
@@ -55,7 +55,7 @@ public class The_Main extends Application {
                 "wolverine", "Tortoise",
                 "Giraffes","Tortoise"
         };
-        String []Energy_Card_Names = {
+        String []Basic_Card_Names = {
                 "computer", "terminator",
                 "mouse", "keyboard",
                 "hard drive","clock"
@@ -87,13 +87,13 @@ public class The_Main extends Application {
             Card_Container.addCards(i,new Bone_Card(Bone_Card_Names[randomNumber],damage,criticalChance,self_damage));
         }
 
-        for(int i=Blood_Card_Count+Bone_Card_Count;i<Bone_Card_Count+Blood_Card_Count+Energy_Card_Count;i++){
+        for(int i=Blood_Card_Count+Bone_Card_Count;i<Bone_Card_Count+Blood_Card_Count+Basic_Card_Count;i++){
             random_gener=new Random();
             damage = Random_Number.randInt(3,7);
             criticalChance = Random_Number.randDouble(0,50)/100;
             self_damage = Random_Number.randInt(0,2);
-            randomNumber=random_gener.nextInt(Energy_Card_Names.length);
-            Card_Container.addCards(i,new Energy_Card(Energy_Card_Names[randomNumber],damage,criticalChance,self_damage));
+            randomNumber=random_gener.nextInt(Basic_Card_Names.length);
+            Card_Container.addCards(i,new Basic_Card(Basic_Card_Names[randomNumber],damage,criticalChance,self_damage));
         }
 
 
