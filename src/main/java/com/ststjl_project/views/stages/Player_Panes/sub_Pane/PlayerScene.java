@@ -4,11 +4,14 @@ import com.ststjl_project.Cards.Bone_Card;
 import com.ststjl_project.Cards.Card_Base;
 import com.ststjl_project.Cards.Card_Container;
 import com.ststjl_project.utility.Positioners;
+import com.ststjl_project.views.stages._Stage_SM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.*;
 import java.util.concurrent.TransferQueue;
@@ -45,6 +48,10 @@ public class PlayerScene {
                         }break;
                     }
                     if(Player_Info.isPlayer_Dead()){
+                        _Stage_SM.getState("current").enter_NextState(0);
+                        Player_Info.setPlayer_health(Player_Info.getPlayer_health_cap());
+                        Player_Info.setPlayer_blood(Player_Info.getPlayer_blood());
+                        Player_Info.setPlayer_bone(Player_Info.getPlayer_bone());
                         System.out.println("The Player is dead");
                         System.out.println("Player Health : "+Player_Info.getPlayer_health());
                         System.out.println("Player Blood : "+Player_Info.getPlayer_blood());
@@ -58,6 +65,14 @@ public class PlayerScene {
                 }
             }
         });
+        health_box_text = new Text();
+        paneBoxes[0].getChildren().add(health_box_text);
+        blood_box_text = new Text();
+        paneBoxes[1].getChildren().add(blood_box_text);
+        bone_box_text = new Text();
+        paneBoxes[2].getChildren().add(bone_box_text);
+
+
         paneBoxes[6].addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             Card_Container.Draw_Card(card_baseArrayList, 1);
             card_marked_As_Destroy.add(false);
@@ -141,12 +156,30 @@ public class PlayerScene {
     }
     public void Draw_Yourself(){
         Positioning_Pane_Box();
+
+        //health_box.setFill(Color.TRANSPARENT);
+        setTextPosWH(health_box_text,pane_border_box[0].getLayoutX()+pane_border_box[0].getStrokeWidth(),pane_border_box[0].getLayoutY()+pane_border_box[0].getHeight()-pane_border_box[0].getStrokeWidth(),pane_border_box[0].getWidth(),pane_border_box[0].getHeight());
+        health_box_text.setFont(Font.font("arial", paneBoxes[0].getHeight() * 0.5));
+        health_box_text.setText("Health:"+Player_Info.getPlayer_health_cap()+"/"+Player_Info.getPlayer_health());
+
+        setTextPosWH(blood_box_text,pane_border_box[1].getLayoutX()+pane_border_box[1].getStrokeWidth(),pane_border_box[1].getLayoutY()+pane_border_box[1].getHeight()-pane_border_box[1].getStrokeWidth(),pane_border_box[1].getWidth(),pane_border_box[1].getHeight());
+        blood_box_text.setFont(Font.font("arial", paneBoxes[1].getHeight() * 0.5));
+        blood_box_text.setFill(Color.WHITE);
+        blood_box_text.setText("Blood:"+Player_Info.getPlayer_blood_cap()+"/"+Player_Info.getPlayer_blood());
+
+        setTextPosWH(bone_box_text,pane_border_box[2].getLayoutX()+pane_border_box[2].getStrokeWidth(),pane_border_box[2].getLayoutY()+pane_border_box[2].getHeight()-pane_border_box[2].getStrokeWidth(),pane_border_box[2].getWidth(),pane_border_box[2].getHeight());
+        bone_box_text.setFont(Font.font("arial", paneBoxes[1].getHeight() * 0.5));
+        bone_box_text.setFill(Color.WHITE);
+        bone_box_text.setText("Bone:"+Player_Info.getPlayer_blood_cap()+"/"+Player_Info.getPlayer_bone());
+
         for(Card_Base cb : card_baseArrayList){
             if(cb.getParent()!=paneBoxes[5]){
                 paneBoxes[5].getChildren().add(cb);
             }
         }
         Rendering_Cards();
+
+
     }
 
     public void clean_Up() {
@@ -155,12 +188,17 @@ public class PlayerScene {
             r.unselect();
         }
         mainPane.getChildren().removeAll(paneBoxes);
+
     }
 
     private final ArrayList<Card_Base> card_baseArrayList = new ArrayList<>();
     private final ArrayList<Boolean> card_marked_As_Destroy = new ArrayList<>();
     private final Pane mainPane;
     private Pane paneBoxes[] = new Pane[8];
+    private Text[] texts= new Text[6];
+    private Text health_box_text;
+    private Text blood_box_text;
+    private Text bone_box_text;
     private Rectangle pane_border_box[] = new Rectangle[8];
     private Color paneBoxes_Color[] = {Color.YELLOW,Color.RED,Color.BLUE,Color.DEEPPINK,Color.GREEN,Color.PURPLE,Color.GOLDENROD,Color.RED};
     private final double[][] r_Panes_Pos;
@@ -170,9 +208,9 @@ public class PlayerScene {
         final double Row_3_EndY = 1;
         r_Panes_Pos = new double[][]{
                 // ROW 1 //
-                {0,0,(double)820/(double)1920,Row_1_EndY},
-                {(double)820/(double)1920,0,(double)1640/(double)1920,Row_1_EndY},
-                {(double)1640/(double)1920,0,1,Row_1_EndY},
+                {0,0,(double)640/(double)1920,Row_1_EndY},
+                {(double)640/(double)1920,0,(double)1280/(double)1920,Row_1_EndY},
+                {(double)1280/(double)1920,0,1,Row_1_EndY},
                 // ROW 2 //
                 {0,Row_1_EndY,(double)1230/(double)1920,Row_2_EndY},
                 {(double)1230/(double)1920,Row_1_EndY,1,Row_2_EndY},
