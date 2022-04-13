@@ -30,7 +30,7 @@ public class Blood_Card extends Card_Base{
         };
         Color[] TextColors = {
                 Color.WHITE,
-                Color.WHITE,
+                Color.RED,
                 Color.RED,
                 Color.BLUE
         };

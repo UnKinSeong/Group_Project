@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1519.0" prefWidth="1900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ststjl_project.views.stages.Credit_Stage">
+   <children>
+      <VBox fx:id="Player_VBox" alignment="TOP_CENTER" layoutX="64.0" layoutY="114.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Text fx:id="Player_Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Players" textAlignment="CENTER" wrappingWidth="745.9706760921281">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="750.0" />
+         </children>
+      </VBox>
+      <VBox fx:id="Score_VBox" alignment="TOP_CENTER" layoutX="1516.0" layoutY="294.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Score">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" stroke="BLACK" strokeType="INSIDE" width="750.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

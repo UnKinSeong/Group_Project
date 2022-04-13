@@ -1,4 +1,4 @@
-package com.ststjl_project.views.stages.Player_Panes.sub_Pane;
+package com.ststjl_project.Player;
 
 public class Player_Info {
 
@@ -51,6 +51,11 @@ public class Player_Info {
         return player_bone_cap;
     }
 
+    public static void resetPlayer(){
+        Player_Info.player_health =Player_Info.player_health_cap;
+        Player_Info.player_blood = Player_Info.player_blood_cap;
+        Player_Info.player_bone = Player_Info.player_bone_cap;
+    }
     public static void setPlayer_health(int player_health) {
         Player_Info.player_health = player_health;
     }

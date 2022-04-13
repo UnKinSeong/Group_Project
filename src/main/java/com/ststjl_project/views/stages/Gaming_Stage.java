@@ -5,15 +5,18 @@ import com.ststjl_project.views.stages.Player_Panes.sub_Pane.PlayerScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Gaming_Stage extends _Stage_SM {
-    private Button btn;
     private PlayerScene playerInterface;
     private final List<Rectangle> rectangles = new ArrayList<>();
     private int frames = 0;
@@ -27,8 +30,6 @@ public class Gaming_Stage extends _Stage_SM {
             }
             frames=0;
         }
-        btn.setLayoutX(0);
-        btn.setLayoutY(pane_Height-btn.getHeight());
         // manual cleanup background //
         playerInterface.Draw_Yourself();
 
@@ -40,11 +41,24 @@ public class Gaming_Stage extends _Stage_SM {
 
     @Override
     public void enter_NextState(int id) {
-        if(id == 0){
-            clean_Up();
-            setState("menu");
-            getStage().setScene(getScene());
-            getState("current").init();
+        switch (id){
+            case 0->{
+                clean_Up();
+                setState("menu");
+                getStage().setScene(getScene());
+                getState("current").init();
+            }
+            case 1->{
+                FXMLLoader loader = new FXMLLoader();
+                Pane mainPane = null;
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/Stage_fxml/New_Record_Stage.fxml"));
+                    getScene().setRoot(root);
+                    setState("new_Record");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -53,7 +67,6 @@ public class Gaming_Stage extends _Stage_SM {
     public void clean_Up() {
         game_loop.stop();
         Audio_Codex.stop("epic_battle_music_1-6275.mp3");
-        getPane().getChildren().remove(btn);
         playerInterface.clean_Up();
     }
 
@@ -62,11 +75,6 @@ public class Gaming_Stage extends _Stage_SM {
         game_loop.setCycleCount(Animation.INDEFINITE);
         playerInterface = new PlayerScene(getPane());
         playerInterface.Init();
-
-        btn = new Button();
-        btn.setText("Exit");
-        btn.setOnAction(actionEvent -> enter_NextState(0));
-        getPane().getChildren().add(btn);
 
         getStage().setTitle("This is the Gaming");
         game_loop.play();

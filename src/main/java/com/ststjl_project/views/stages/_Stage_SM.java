@@ -36,6 +36,9 @@ public abstract class _Stage_SM {
         this.audioList = audioList;
     }
 
+
+    private boolean is_fxml=false;
+
     private ArrayList<String> audioList = new ArrayList<>();
     private static Stage mainStage;
     private static Scene mainScene;
@@ -71,4 +74,10 @@ public abstract class _Stage_SM {
     public abstract void clean_Up();
 
     public abstract void init();
+    public boolean is_fxml(){
+        return is_fxml;
+    }
+    public void setFXML() {
+        this.is_fxml = true;
+    }
 }

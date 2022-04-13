@@ -1,6 +1,7 @@
 package com.ststjl_project.Cards;
 
 import com.ststjl_project.utility.Audio_Codex;
+import com.ststjl_project.utility.Random_Number;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -19,12 +20,24 @@ import java.util.ArrayList;
 import static com.ststjl_project.utility.Positioners.*;
 
 public class Card_Base extends Pane {
+    public static double scaleFontToFit(double width,double stringWidth,double fontSize) {
+        if(stringWidth <= width)
+            return fontSize;
+        fontSize = (width / stringWidth) * fontSize;
+        return fontSize;
+    }
     public void renderCard(){
         double Stroke_Width = 0.05*getHeight();
-        boxes[4].setLayoutX(0+Stroke_Width);
-        boxes[4].setLayoutY(0+Stroke_Width);
-        boxes[4].setWidth(getWidth()-Stroke_Width*2);
-        boxes[4].setHeight(getHeight()-Stroke_Width*2);
+
+        double main_LayX = 0+Stroke_Width;
+        double main_LayY = 0+Stroke_Width;
+        double main_Width = getWidth()-Stroke_Width*2;
+        double main_Height = getHeight()-Stroke_Width*2;
+
+        boxes[4].setLayoutX(main_LayX);
+        boxes[4].setLayoutY(main_LayY);
+        boxes[4].setWidth(main_Width);
+        boxes[4].setHeight(main_Height);
         boxes[4].setFill(Color.TRANSPARENT);
         boxes[4].setStrokeWidth(Stroke_Width);
         if(is_selected && is_over){
@@ -37,20 +50,56 @@ public class Card_Base extends Pane {
             boxes[4].setStroke(Boxes_Colors[0]);
         }
 
+        main_LayX   = main_LayX+Stroke_Width/2;
+        main_LayY   = main_LayY+Stroke_Width/2;
+        main_Width  = main_Width-Stroke_Width;
+        main_Height = main_Height-Stroke_Width;
+
+        setRectanglePosWH(boxes[0],main_LayX,main_LayY,main_Width,main_Height*0.15);
+        setRectanglePosWH(boxes[1],main_LayX,boxes[0].getLayoutY()+boxes[0].getHeight(),main_Width,main_Height*0.15);
+
+        setRectanglePosWH(boxes[2],main_LayX,main_LayX+main_Height-main_Height*0.2,main_Width*0.2,main_Height*0.2);
+
+        setRectanglePosWH(boxes[3],(main_LayX+main_Width)-(main_Width)*0.2,main_LayX+main_Height-main_Height*0.2,main_Width*0.2,main_Height*0.2);
 
 
-        setRectanglePosWH(boxes[0],0+Stroke_Width,0+Stroke_Width,getWidth()-Stroke_Width*2,getHeight()*0.2-Stroke_Width);
-        setRectanglePosWH(boxes[1],0+Stroke_Width,getHeight()*0.2-Stroke_Width,getWidth()-Stroke_Width*2,getHeight()*0.2-Stroke_Width);
-        setRectanglePosWH(boxes[2],0+Stroke_Width,getHeight()-getHeight()*0.15-Stroke_Width,getWidth()*0.2,getHeight()*0.15);
-        setRectanglePosWH(boxes[3],getWidth()-getWidth()*0.2-Stroke_Width,getHeight()-getHeight()*0.15-Stroke_Width,getWidth()*0.2,getHeight()*0.15);
-
-
-        double text_Size;
-        double text_padX;
-
+        double text_width,text_height,text_Size;
+        double rec_layX, rec_layY, rec_width, rec_height;
         for (int i = 0; i < 4;i++) {
-            text_Size = boxes[i].getHeight() * 0.5;
-            setTextPosWH(texts[i], boxes[i].getLayoutX()+Stroke_Width, boxes[i].getLayoutY()+boxes[i].getHeight()-text_Size, boxes[i].getWidth(), boxes[i].getHeight());
+            text_width = texts[i].getLayoutBounds().getWidth();
+            text_height = texts[i].getLayoutBounds().getHeight();
+            text_Size = texts[i].getFont().getSize();
+
+            texts[i].setFont(Font.font("arial", text_height));
+            texts[0].setText(card_Name);
+            texts[1].setText(type_name);
+            texts[2].setText(Integer.toString((int) base_damage));
+            texts[3].setText(Integer.toString((int)self_damage));
+            rec_layX = boxes[i].getLayoutX();
+            rec_layY = boxes[i].getLayoutY()+boxes[i].getHeight();
+            rec_width = boxes[i].getWidth();
+            rec_height = boxes[i].getHeight();
+
+            if(text_height<rec_height) {
+                if(text_width>rec_width){
+                    text_Size = scaleFontToFit(rec_width,text_width,text_Size);
+                }else if(Math.abs(text_width-rec_width)>0.2){
+                    text_Size = rec_height;
+                }else{
+                    text_Size = scaleFontToFit(rec_width,text_width,text_Size);
+                }
+            }else if(text_height>rec_height){
+                if(text_width>rec_width){
+                    text_Size = scaleFontToFit(rec_width,text_width,text_Size);
+                }else if (Math.abs(text_width-rec_width)>0.2){
+                    text_Size = rec_height;
+                }else{
+                    text_Size = scaleFontToFit(rec_width,text_width,text_Size);
+                }
+            }
+
+            texts[i].setLayoutX(rec_layX);
+            texts[i].setLayoutY(rec_layY-text_Size*0.15);
             texts[i].setFont(Font.font("arial", text_Size));
         }
 
@@ -59,11 +108,6 @@ public class Card_Base extends Pane {
             boxes[i].setFill(Boxes_Colors[i+1]);
             texts[i].setFill(Text_Colors[i]);
         }
-
-        texts[0].setText(card_Name);
-        texts[1].setText(type_name);
-        texts[2].setText(Integer.toString((int) base_damage));
-        texts[3].setText(Integer.toString((int)self_damage));
     }
     public void Update_Card_Detail(){
     }
@@ -79,6 +123,45 @@ public class Card_Base extends Pane {
     }
     private String card_Name;
     private String type_name;
+    private final double[][] Boxes_Pos;
+    {
+        final double ResulX = 1080;
+        final double ResulY = 1640;
+        final double Row_1_EndY = (double) 410 / ResulY;
+        final double Row_2_EndY = (double) 660 / ResulY;
+        final double Row_4_EndY = (double) 570 / ResulY;
+        final double Row_E_EndY = 1;
+        Boxes_Pos = new double[][]{
+                // ROW 1 //
+                {
+                        (double)0/ResulX,
+                        (double)0/ResulY,
+                        1,
+                        Row_1_EndY
+                },
+                // ROW 2 //
+                {
+                        (double)0/ResulX,
+                        Row_1_EndY,
+                        1,
+                        Row_2_EndY
+                },
+                // ROW 4 //
+                {
+                        (double)0/ResulX,
+                        Row_4_EndY,
+                        410/ResulX,
+                        Row_1_EndY
+                },
+                {
+                        (double)670/ResulX,
+                        Row_4_EndY,
+                        1,
+                        Row_1_EndY
+                },
+        };
+    }
+
     private Color [] Boxes_Colors = {
             Color.BLACK,
             Color.BLUE,
@@ -127,6 +210,9 @@ public class Card_Base extends Pane {
 
     public double getCost() {
         return self_damage;
+    }
+    public double getDamage(){
+        return base_damage + (1+(base_critical_chance-Random_Number.randDouble(0.0,base_critical_chance)))*base_damage;
     }
 
     private boolean is_over = false;

@@ -4,9 +4,9 @@ import com.ststjl_project.Cards.*;
 import com.ststjl_project.utility.Audio_Codex;
 import com.ststjl_project.utility.Random_Number;
 import com.ststjl_project.views.stages.*;
+import com.ststjl_project.views.stages.New_Record;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -28,6 +28,55 @@ public class The_Main extends Application {
         // Call init_Stage_SM to Declare the state variable //
         //--------------------------------------------------//
 
+
+
+        init_card_Pool();
+        ArrayList<String> Temp;
+        Temp = initAudio("/Music/Card_Base_Audio_Effects");
+        if(Temp!=null) {
+            Card_Base.setAudioList(Temp);
+        }
+
+
+        _Stage_SM.setPane(new Pane());
+        _Stage_SM.setScene(new Scene(_Stage_SM.getPane(),710,400));
+        _Stage_SM.setStage(stage);
+        _Stage_SM.getStage().setScene(_Stage_SM.getScene());
+
+        _Stage_SM.addState("game",new Gaming_Stage());
+        _Stage_SM.addState("score",new Score_Stage(true));
+        _Stage_SM.addState("option",new Option_Stage());
+        _Stage_SM.addState("credit",new Credit_Stage());
+        _Stage_SM.addState("menu",new Menu_Stage());
+        _Stage_SM.addState("new_Record",new New_Record());
+        _Stage_SM.addState("current", _Stage_SM.getState("game"));
+
+        initAudio("/Music/Game_Stage_Audio/");
+        Temp = initAudio("/Music/Menu_Music/");
+        if(Temp!=null){
+            _Stage_SM.getState("game").setAudioList(Temp);
+        }
+        Temp = initAudio("/Music/Battle_Music/");
+        if(Temp!=null){
+            _Stage_SM.getState("menu").setAudioList(Temp);
+        }
+        //----------------//
+        // Show the Stage //
+        //----------------//
+
+
+        _Stage_SM.getState("current").init();
+        _Stage_SM.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        _Stage_SM.getStage().setFullScreenExitHint("");
+        _Stage_SM.getStage().show();
+        _Stage_SM.getStage().setFullScreen(false);
+        _Stage_SM.getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if(new KeyCodeCombination(KeyCode.F11).match(event)) {
+                stage.setFullScreen(!stage.isFullScreen());
+            }
+        });
+    }
+    private void init_card_Pool(){
         int CardPool = 60;
 
         int first_ = 0;
@@ -95,53 +144,8 @@ public class The_Main extends Application {
             randomNumber=random_gener.nextInt(Basic_Card_Names.length);
             Card_Container.addCards(i,new Basic_Card(Basic_Card_Names[randomNumber],damage,criticalChance,self_damage));
         }
-
-
-
-        ArrayList<String> Temp;
-        Temp = initAudio("/Music/In_Game_Audio_Effects");
-        if(Temp!=null) {
-            Card_Base.setAudioList(Temp);
-        }
-
-
-        _Stage_SM.setPane(new Pane());
-        _Stage_SM.setScene(new Scene(_Stage_SM.getPane(),710,400));
-        _Stage_SM.setStage(stage);
-        _Stage_SM.getStage().setScene(_Stage_SM.getScene());
-
-        _Stage_SM.addState("game",new Gaming_Stage());
-        _Stage_SM.addState("score",new Score_Stage());
-        _Stage_SM.addState("option",new Option_Stage());
-        _Stage_SM.addState("credit",new Credit_Stage());
-        _Stage_SM.addState("menu",new Menu_Stage());
-        _Stage_SM.addState("demo",new Demo_Stage());
-        _Stage_SM.addState("current", _Stage_SM.getState("game"));
-
-        Temp = initAudio("/Music/Menu_Music/");
-        if(Temp!=null){
-            _Stage_SM.getState("game").setAudioList(Temp);
-        }
-        Temp = initAudio("/Music/Battle_Music/");
-        if(Temp!=null){
-            _Stage_SM.getState("menu").setAudioList(Temp);
-        }
-        //----------------//
-        // Show the Stage //
-        //----------------//
-
-
-        _Stage_SM.getState("current").init();
-        _Stage_SM.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        _Stage_SM.getStage().setFullScreenExitHint("");
-        _Stage_SM.getStage().show();
-        _Stage_SM.getStage().setFullScreen(false);
-        _Stage_SM.getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if(new KeyCodeCombination(KeyCode.F11).match(event)) {
-                stage.setFullScreen(!stage.isFullScreen());
-            }
-        });
     }
+
     private ArrayList<String> initAudio(String path_to_location){
         ArrayList<String> audio_file_name = new ArrayList();
         File[] songArray;

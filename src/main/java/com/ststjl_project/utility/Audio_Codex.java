@@ -78,7 +78,7 @@ public class Audio_Codex {
                                     target.stop();
                                     target.dispose();
                                 }catch (Exception e){
-                                    e.printStackTrace();
+                                    System.out.println("Except Audio null error");
                                 }
                                 MediaPlayer  target1 = new MediaPlayer(teMedia);
                                 teMediaPlayerList.set(i,target1);
@@ -95,7 +95,7 @@ public class Audio_Codex {
                             last_.dispose();
 
                         }catch (Exception e){
-                            e.printStackTrace();
+                            System.out.println("Except Audio null error");
                         }
                         last_ = new MediaPlayer(teMedia);
                         MediaPlayer _last_ = last_;

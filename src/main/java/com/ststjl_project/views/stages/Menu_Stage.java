@@ -6,16 +6,21 @@ import com.ststjl_project.views.buttons.Still_Button;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
 
 //----------------------------------------//
 // In this Stage. Every thing is related. //
@@ -258,7 +263,17 @@ public class Menu_Stage extends _Stage_SM {
         clean_Up();
         switch (id) {
             case 0 -> setState("game");
-            case 1 -> setState("score");
+            case 1 -> {
+                FXMLLoader loader = new FXMLLoader();
+                Pane mainPane = null;
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/Stage_fxml/Score_Stage.fxml"));
+                    getScene().setRoot(root);
+                    setState("score");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             case 2 -> setState("option");
             case 3 -> setState("credit");
             case 4 -> System.exit(0);
@@ -266,6 +281,7 @@ public class Menu_Stage extends _Stage_SM {
             }
         }
         getStage().setTitle(String.format("This is the %s", Menus.get(id)));
+
         getStage().setScene(getScene());
         getState("current").init();
     }

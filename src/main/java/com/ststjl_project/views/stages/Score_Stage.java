@@ -1,12 +1,31 @@
 package com.ststjl_project.views.stages;
 
 import javafx.scene.control.Button;
+import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class Score_Stage extends _Stage_SM {
+
+    @FXML
+    private Text Player_Text;
+
+    @FXML
+    private VBox Player_VBox;
+
+    @FXML
+    private Text Score_Text;
+
+    @FXML
+    private VBox Score_VBox;
+
+
     private Button btn;
 
-    public Score_Stage() {
-
+    public Score_Stage(boolean is_fxml) {
+        super.setFXML();
     }
 
     @Override
