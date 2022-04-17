@@ -2,7 +2,6 @@ package com.ststjl_project.View;
 
 import com.ststjl_project.Utility.Font_Scale_Rectangle;
 import com.ststjl_project.Utility.Obj_Positions;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -14,7 +13,7 @@ public class Text_List_View {
     //--------------------------------------------------//
     // The reference to the anchorPane that targeted to //
     //--------------------------------------------------//
-    private Pane mainPane;
+    private final Pane mainPane;
 
     //------------------------------------//
     // Related position to the AnchorPane //
@@ -30,7 +29,7 @@ public class Text_List_View {
     //   Text List and Text name to id the index for later operation   // But why not map? -- quote by someone.
     //-----------------------------------------------------------------//
     private final List<Text> list_of_Text = new ArrayList<>();
-    private final List<String> list_of_Text_Ids = new ArrayList<>();
+
 
     //----------------------------//
     // The state of the TextField //
@@ -70,26 +69,12 @@ public class Text_List_View {
         System.out.println("Init");
         is_init=true;
     }
-    public void setTextPane(AnchorPane mainPane) {
-        this.mainPane = mainPane;
-        update();
-    }
-    private void set_related_Spacing(double re_spacing){
-        this.re_spacing = re_spacing;
-    }
+
     public void setTextPane_Position(double[] menu_related_Pos, double spacing){
         this.text_Related_Pos = menu_related_Pos;
         this.re_spacing = spacing;
     }
 
-
-    public void setTextPane_Position(double menu_left_related, double menu_right_related, double menu_top_related, double menu_bottom_related, double spacing){
-        this.text_Related_Pos[0]=menu_left_related;
-        this.text_Related_Pos[1]=menu_right_related;
-        this.text_Related_Pos[2]=menu_top_related;
-        this.text_Related_Pos[3]=menu_bottom_related;
-        this.re_spacing = spacing;
-    }
 
     public void setTextPane(double init_x, double init_y, double end_x, double end_y){
         double total_height  = Math.abs(init_y - end_y);
@@ -111,50 +96,23 @@ public class Text_List_View {
             Font_Scale_Rectangle.scaleTextToFit_Rect(b,each_button_width,each_button_height);
         }
         double beginY = init_y+each_button_height;
-        for(int i = 0; i < list_of_Text.size();i++){
-            list_of_Text.get(i).setLayoutX(init_x+each_button_width*0.04);
-            list_of_Text.get(i).setLayoutY(beginY-each_button_height*0.1);
-            beginY+=each_button_height+each_spacing_height;
+        for (Text text : list_of_Text) {
+            text.setLayoutX(init_x + each_button_width * 0.04);
+            text.setLayoutY(beginY - each_button_height * 0.1);
+            beginY += each_button_height + each_spacing_height;
         }
     }
     public void CleanUp(){
         mainPane.getChildren().removeAll(list_of_Text);
         list_of_Text.clear();
-        list_of_Text_Ids.clear();
-
         System.out.println("Remove");
         is_init=false;
     }
-    public void remove_Text(List<String> name){
-        for(String s:name){
-            remove_Text(s);
-        }
-    }
-    public void remove_Text(String name){
-        int index = list_of_Text_Ids.indexOf(name);
-        if(index>=0){
-            mainPane.getChildren().remove(list_of_Text.get(index));
-            list_of_Text.remove(index);
-            list_of_Text_Ids.remove(index);
-        }else{
-            System.out.printf("Button[%s] at Method remove_Button not found\n",name);
-        }
-        is_init=false;
-    }
-    public Text getText(String name){
-        // As the name suggest, It just acquires the button by the name of the button //
-        int index = list_of_Text_Ids.indexOf(name);
-        if(index>=0){
-            return list_of_Text.get(index);
-        }else{
-            return null;
-        }
-    }
+
     public void add_Text(String name){
         Text t_btn = new Text();
         t_btn.setText(name);
         list_of_Text.add(t_btn);
-        list_of_Text_Ids.add(name);
         is_init=false;
     }
 }

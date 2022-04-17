@@ -21,43 +21,9 @@ public abstract class Controller_SM{
         stageSm.setStateName(stageN);
 
     }
-    public void setStateName(String name){
-        currentState = name;
-    }
     public static Controller_SM getState(String stage){
         return State_SMs.get(stage);
     }
-    public static boolean setState(String stage){
-        Controller_SM stage_sm_tar = getState(stage);
-        if(stage_sm_tar!=null){
-            State_SMs.replace("current",stage_sm_tar);
-            currentState=stage;
-            return true;
-        }
-        return false;
-    }
-
-
-    private boolean is_fxml=false;
-
-    private static Stage mainStage;
-    private static Scene mainScene;
-    private static Pane mainPane;
-
-
-
-    public static void setStage(Stage stage) {
-        mainStage = stage;
-    }
-    public static void setScene(Scene scene) {
-        mainScene = scene;
-    }
-    public static void setPane(Pane pane) {
-        mainPane = pane;
-    }
-
-
-
     public static Stage getStage() {
         return mainStage;
     }
@@ -69,6 +35,33 @@ public abstract class Controller_SM{
     }
 
 
+
+
+    public void setStateName(String name){
+        currentState = name;
+    }
+    public static boolean setState(String stage){
+        Controller_SM stage_sm_tar = getState(stage);
+        if(stage_sm_tar!=null){
+            State_SMs.replace("current",stage_sm_tar);
+            currentState=stage;
+            return true;
+        }
+        return false;
+    }
+    private boolean is_fxml=false;
+    private static Stage mainStage;
+    private static Scene mainScene;
+    private static Pane mainPane;
+    public static void setStage(Stage stage) {
+        mainStage = stage;
+    }
+    public static void setScene(Scene scene) {
+        mainScene = scene;
+    }
+    public static void setPane(Pane pane) {
+        mainPane = pane;
+    }
     public ArrayList<String> getAudios() {
         return audios;
     }
@@ -76,12 +69,6 @@ public abstract class Controller_SM{
         audios = audios1;
     }
 
-    protected String getCurrentState(){
-        return currentState;
-    }
-
-    protected abstract void update();
-    protected abstract void draw(double v);
     protected AnimationTimer gameLoop = new AnimationTimer() {
         final int MAX_FPS = 120;
         final int MAX_UPS = 120;
@@ -136,8 +123,14 @@ public abstract class Controller_SM{
         }
     };
     private String currentAudio;
-    private static String currentState;
     public ArrayList<String> audios;
+
+    protected abstract void update();
+    protected abstract void draw(double v);
+    protected String getCurrentState(){
+        return currentState;
+    }
+    private static String currentState;
     public abstract void enter_NextState(int id);
     public abstract void clean_Up();
     public abstract void init();

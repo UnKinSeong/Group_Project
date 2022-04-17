@@ -69,22 +69,13 @@ public class Menu_Btn_List {
         this.pane = pane;
         update();
     }
-    private void set_related_Spacing(double re_spacing){
-        this.re_spacing = re_spacing;
-    }
+
     public void setManu_Position(double[] menu_related_Pos, double spacing){
         this.menu_related_Pos = menu_related_Pos;
         this.re_spacing = spacing;
     }
 
 
-    public void setManu_Position(double menu_left_related, double menu_right_related, double menu_top_related, double menu_bottom_related, double spacing){
-        this.menu_related_Pos[0]=menu_left_related;
-        this.menu_related_Pos[1]=menu_right_related;
-        this.menu_related_Pos[2]=menu_top_related;
-        this.menu_related_Pos[3]=menu_bottom_related;
-        this.re_spacing = spacing;
-    }
     public void setMenu_Btn(double init_x, double init_y, double end_x, double end_y){
         //------------------//
         // vertical listing // false for horizontal

@@ -90,12 +90,12 @@ public class Card_Container {
     }
 
 
-    private static Map<Integer, card_Base> Card_DataBase = new HashMap<>();
+    private static Map<Integer, Card_Base> Card_DataBase = new HashMap<>();
 
-    public static void addCards(int ids, card_Base cards){
+    public static void addCards(int ids, Card_Base cards){
         Card_DataBase.put(ids,cards);
     }
-    public static card_Base getCard(int ids){
+    public static Card_Base getCard(int ids){
         if(Card_DataBase.containsKey(ids)){
             return Card_DataBase.get(ids);
         }
@@ -105,17 +105,17 @@ public class Card_Container {
         return Card_DataBase.size();
     }
 
-    private static ArrayList<card_Base> card_Inventory = new ArrayList<>();
+    private static ArrayList<Card_Base> card_Inventory = new ArrayList<>();
 
-    public static ArrayList<card_Base> getCurrentInventory(){
+    public static ArrayList<Card_Base> getCurrentInventory(){
         return card_Inventory;
     }
 
     public static int getInventorySize(){
         return card_Inventory.size();
     }
-    public static card_Base Draw_Card() {
-        card_Base randomCard = null;
+    public static Card_Base Draw_Card() {
+        Card_Base randomCard = null;
         if(Card_DataBase.size()<=0)
             return null;
         while(true) {
@@ -127,7 +127,7 @@ public class Card_Container {
         }
     }
 
-    public static void removeCardFromInventory(card_Base card) {
+    public static void removeCardFromInventory(Card_Base card) {
         int index = card_Inventory.indexOf(card);
         if(index>=0){
             card_Inventory.remove(card);

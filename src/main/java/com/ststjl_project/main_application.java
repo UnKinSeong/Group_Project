@@ -6,8 +6,6 @@ import com.ststjl_project.Controller.Game_Controller;
 import com.ststjl_project.Controller.Menu_Controller;
 import com.ststjl_project.Controller.Score_Controller;
 import com.ststjl_project.Model.Card.Card_Container;
-import com.ststjl_project.Model.Player;
-import com.ststjl_project.Model.Player_Database;
 import com.ststjl_project.Utility.Audio_Codex;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,18 +13,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class main_application extends Application {
-    private static Stage mainStage;
-    public static Stage getStage(){
-        return mainStage;
-    }
+
     @Override
-    public void start(Stage stage) throws IOException, ClassNotFoundException {
-        String audios[] = {
+    public void start(Stage stage) {
+        String[] audios = {
                 "/Music/Card_Base_Audio_Effects",
                 "/Music/Game_Stage_Audio/",
                 "/Music/Menu_Music/",
@@ -57,13 +51,11 @@ public class main_application extends Application {
         Controller_SM.getStage().show();
     }
     private ArrayList<String> initAudio(String path_to_location){
-        ArrayList<String> audio_file_name = new ArrayList();
+        ArrayList<String> audio_file_name = new ArrayList<>();
         File[] songArray;
         URL url;
         File Menu_Music_Asserts_Directory;
-        songArray = null;
         url = getClass().getResource(path_to_location);
-        Menu_Music_Asserts_Directory = null;
         if(url != null) {
             Menu_Music_Asserts_Directory = new File(url.getPath());
             songArray = Menu_Music_Asserts_Directory.listFiles();
@@ -79,9 +71,6 @@ public class main_application extends Application {
         }else{
             return null;
         }
-    }
-    private void initStage(){
-
     }
 
     public static void main(String[] args) {

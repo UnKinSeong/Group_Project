@@ -2,9 +2,9 @@ package com.ststjl_project.Model.Card;
 
 import javafx.scene.paint.Color;
 
-public abstract class card_Base {
-    public card_Base(){};
-    public card_Base(String name,double base_Damage,double base_CritChanceBonus, double base_CritChance, double cost){
+public abstract class Card_Base {
+    public Card_Base(){};
+    public Card_Base(String name, double base_Damage, double base_CritChanceBonus, double base_CritChance, double cost){
         this.card_Name = name;
         this.base_Damage = base_Damage;
         this.base_CritChanceBonus = base_CritChanceBonus;

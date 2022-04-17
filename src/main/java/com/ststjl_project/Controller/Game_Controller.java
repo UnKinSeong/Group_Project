@@ -3,7 +3,7 @@ package com.ststjl_project.Controller;
 
 import com.ststjl_project.Model.Card.Card_Container;
 import com.ststjl_project.Model.Card.InGame_Player;
-import com.ststjl_project.Model.Card.card_Base;
+import com.ststjl_project.Model.Card.Card_Base;
 import com.ststjl_project.Model.Enemy_Generator;
 import com.ststjl_project.Model.Player;
 import com.ststjl_project.Model.Player_Database;
@@ -73,9 +73,9 @@ public class Game_Controller extends Controller_SM{
     }
     private InGame_Player inGame_player;
     private void define_Game_ViewLogic(){
-        ArrayList<card_Base> cardInventory = Card_Container.getCurrentInventory();
+        ArrayList<Card_Base> cardInventory = Card_Container.getCurrentInventory();
 
-        for(card_Base cp: cardInventory){
+        for(Card_Base cp: cardInventory){
             game_view.addCard(new Card_Pane(cp));
         }
         mouse_DrawCard = mouseEvent -> {
@@ -98,7 +98,7 @@ public class Game_Controller extends Controller_SM{
             boolean any = cards.size()>0;
             double damage =0;
             double health_Lost = 0,blood_Lost = 0, bone_Lost = 0;
-            card_Base card = null;
+            Card_Base card = null;
             for(int i = 0; i<cards.size();i++){
                 System.out.println("Remove "+cards.get(i).getCardBase().getName());
                 card = cards.get(i).getCardBase();

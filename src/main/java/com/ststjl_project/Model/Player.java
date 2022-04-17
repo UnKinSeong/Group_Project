@@ -70,8 +70,8 @@ public class Player implements java.io.Serializable{
     public double getDamageTaken() {
         return damageTaken;
     }
-    String playerName;
-    double damageDeal;
-    int roundPass;
-    double damageTaken;
+    private String playerName;
+    private double damageDeal;
+    private int roundPass;
+    private double damageTaken;
 }

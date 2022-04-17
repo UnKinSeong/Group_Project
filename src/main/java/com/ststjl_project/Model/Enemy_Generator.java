@@ -10,7 +10,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.Random;
 
-public class Enemy_Generator {
+import static com.ststjl_project.Utility.Obj_Positions.Relative_Pos_TPos;
+
+public class Enemy_Generator{
     public Enemy_Generator(Pane mainPane){
         this.mainPane = mainPane;
     }
@@ -41,7 +43,7 @@ public class Enemy_Generator {
         if(Enemy_Image_View!=null) {
 
             double Stroke_Width = 0.005*Math.min(mainPane.getHeight(),mainPane.getWidth());
-            double [] pos_ = Obj_Positions.Relative_Pos_TPos(mainPane.getWidth(), mainPane.getHeight(), text_Related_Pos);
+            double [] pos_ = Relative_Pos_TPos(mainPane.getWidth(), mainPane.getHeight(), text_Related_Pos);
             double LayX = pos_[0]+Stroke_Width*2;
             double LayY = pos_[1]+Stroke_Width*2;
             double width = pos_[2]-pos_[0]-Stroke_Width*4;

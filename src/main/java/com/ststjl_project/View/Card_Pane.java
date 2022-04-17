@@ -1,7 +1,7 @@
 package com.ststjl_project.View;
 
 
-import com.ststjl_project.Model.Card.card_Base;
+import com.ststjl_project.Model.Card.Card_Base;
 import com.ststjl_project.Utility.Font_Scale_Rectangle;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -158,7 +158,7 @@ public class Card_Pane extends Pane {
     public boolean isSelect(){
         return is_selected;
     }
-    public boolean is_removed = false;
+    private boolean is_removed = false;
     public void CleanUp(){
         for (Pair<EventType,EventHandler> pr : events)
             removeEventHandler(pr.getKey(),pr.getValue());
@@ -171,8 +171,8 @@ public class Card_Pane extends Pane {
     private boolean is_selected = false;
 
     private boolean is_over = false;
-    private card_Base tarCard;
-    public Card_Pane(card_Base cardBase){
+    private Card_Base tarCard;
+    public Card_Pane(Card_Base cardBase){
         tarCard = cardBase;
 
         Boxes_Colors = tarCard.getBoxes_Colors();
@@ -203,11 +203,11 @@ public class Card_Pane extends Pane {
 
         getChildren().addAll(texts);
     }
-    public card_Base getCardBase(){return tarCard;};
+    public Card_Base getCardBase(){return tarCard;};
     public void addLocalEventHandler(EventType eventType,EventHandler eventHandler){
         this.addEventHandler(eventType,eventHandler);
     }
 
-    ArrayList<Pair<EventType,EventHandler>> events= new ArrayList<>();
+    private ArrayList<Pair<EventType,EventHandler>> events= new ArrayList<>();
     private static ArrayList<String> audioList = new ArrayList<>();
 }

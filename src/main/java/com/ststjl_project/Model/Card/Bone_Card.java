@@ -3,7 +3,7 @@ package com.ststjl_project.Model.Card;
 import com.ststjl_project.Utility.Random_Number;
 import javafx.scene.paint.Color;
 
-public class Bone_Card extends card_Base{
+public class Bone_Card extends Card_Base {
     Bone_Card(){};
     public Bone_Card(String name,double base_Damage,double base_CritChanceBonus, double base_CritChance, double cost){
         super(name,base_Damage,base_CritChanceBonus,base_CritChance,cost);
