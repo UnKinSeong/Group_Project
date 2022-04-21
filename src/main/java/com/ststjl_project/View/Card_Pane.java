@@ -98,8 +98,7 @@ public class Card_Pane extends Pane {
     public String getType_name(){
         return tarCard.getTypeName();
     }
-    private final double[][] Boxes_Pos;
-    {
+    private final double[][] Boxes_Pos;{
         final double ResulX = 1080;
         final double ResulY = 1640;
         final double Row_1_EndY = (double) 410 / ResulY;

@@ -1,5 +1,6 @@
 package com.ststjl_project.View;
 
+import com.ststjl_project.Utility.Font_Scale_Rectangle;
 import com.ststjl_project.Utility.Obj_Positions;
 import com.ststjl_project.Utility.Random_Number;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Menu_View extends View_Base{
     @Override
@@ -22,11 +24,12 @@ public class Menu_View extends View_Base{
 
         this.mainPane.widthProperty().addListener(windowEventEventHandler);
         this.mainPane.heightProperty().addListener(windowEventEventHandler);
-
         this.menu_btn_list = new Menu_Btn_List(mainPane);
         this.ball     = new Circle();
         this.ball.setFill(Color.BLUE);
         this.ball_Rectangle = new Rectangle();
+        this.title = new Text("Self-sacrifice Card Game");
+        this.mainPane.getChildren().add(title);
         this.mainPane.getChildren().addAll(ball_Rectangle,ball);
         this.menu_btn_list.setManu_Position(r_Panes_Pos[0],r_Panes_Pos[0][4]);
 
@@ -66,10 +69,6 @@ public class Menu_View extends View_Base{
             ball.setLayoutY(ball_Rectangle.getLayoutY()+ball_Rectangle.getHeight()*ball_rPos[1]);
             is_ball_init=true;
         }else {
-            double posX = ball_Rectangle.getLayoutX();
-            double posY = ball_Rectangle.getLayoutY();
-            double width = ball_Rectangle.getWidth();
-            double height = ball_Rectangle.getHeight();
             double[] tar_rPos = new double[2];
             tar_rPos[0] = ball_rPos[0] + vol[0];
             tar_rPos[1] = ball_rPos[1] + vol[1];
@@ -110,6 +109,11 @@ public class Menu_View extends View_Base{
             ball_Rectangle.setFill(Color.YELLOW);
             window_Changes=false;
             is_ball_init=false;
+            pos_ = Obj_Positions.Relative_Pos_TPos(mainPane.getWidth(),mainPane.getHeight(),r_Panes_Pos[2]);
+            Font_Scale_Rectangle.scaleTextToFit_Rect(title,pos_[2]-pos_[0],pos_[3]-pos_[1]);
+            title.setLayoutX(pos_[0]);
+            title.setLayoutY(pos_[1]+title.getFont().getSize());
+            title.setFill(Color.RED);
         }
     }
     @Override
@@ -124,6 +128,8 @@ public class Menu_View extends View_Base{
     private Rectangle ball_Rectangle;
     private Circle ball;
     private final double[] delta_For_Ball = {0.005,0.005};
+
+    private Text title;
 
     // Position Of the Pane //
     private final double[][] r_Panes_Pos;
@@ -140,11 +146,18 @@ public class Menu_View extends View_Base{
                         0.2d
                 },
                 // Pane 2 (ball Pane) //
+                // Pane 3 (ball Pane) //
+                {
+                        900.d/width,
+                        400.d/height,
+                        1820.d/width,
+                        980.d/height
+                },
                 {
                         900.d/width,
                         100.d/height,
                         1820.d/width,
-                        980.d/height
+                        300.d/height
                 }
         };
     }

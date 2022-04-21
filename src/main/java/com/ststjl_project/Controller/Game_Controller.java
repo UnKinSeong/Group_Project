@@ -144,6 +144,8 @@ public class Game_Controller extends Controller_SM{
                     System.out.println("The Player is dead");
                     if(Player_Database.is_better(tempPlayer.get_Over_Score())){
                         CanBeScoreBoard = true;
+                        td.setTitle("Congratulations");
+                        td.setHeaderText("Enter your name");
                         td.show();
                     }
                     is_dead = true;

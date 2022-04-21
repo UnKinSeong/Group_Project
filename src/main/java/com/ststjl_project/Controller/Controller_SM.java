@@ -35,8 +35,6 @@ public abstract class Controller_SM{
     }
 
 
-
-
     public void setStateName(String name){
         currentState = name;
     }

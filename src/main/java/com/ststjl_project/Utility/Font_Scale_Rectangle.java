@@ -20,29 +20,31 @@ public class Font_Scale_Rectangle {
         text.maxHeight(rec_height);
         text.minHeight(rec_height);
 
-        text_width  = text.getLayoutBounds().getWidth();
-        text_height = text.getLayoutBounds().getHeight();
-        text_Size   = text.getFont().getSize();
+        for(int i = 0;i<2;i++) {
+            text_width = text.getLayoutBounds().getWidth();
+            text_height = text.getLayoutBounds().getHeight();
+            text_Size = text.getFont().getSize();
 
-        text.setFont(Font.font("arial", text_Size));
+            text.setFont(Font.font("arial", text_Size));
 
-        if(text_height<rec_height) {
-            if(text_width>rec_width){
-                text_Size = scaleFontToFit(rec_width,text_width,text_Size);
-            }else if(Math.abs(text_width-rec_width)>0.2){
-                text_Size = rec_height;
-            }else{
-                text_Size = scaleFontToFit(rec_width,text_width,text_Size);
+            if (text_height < rec_height) {
+                if (text_width > rec_width) {
+                    text_Size = scaleFontToFit(rec_width, text_width, text_Size);
+                } else if (Math.abs(text_width - rec_width) > 0.2) {
+                    text_Size = rec_height;
+                } else {
+                    text_Size = scaleFontToFit(rec_width, text_width, text_Size);
+                }
+            } else if (text_height > rec_height) {
+                if (text_width > rec_width) {
+                    text_Size = scaleFontToFit(rec_width, text_width, text_Size);
+                } else if (Math.abs(text_width - rec_width) > 0.2) {
+                    text_Size = rec_height;
+                } else {
+                    text_Size = scaleFontToFit(rec_width, text_width, text_Size);
+                }
             }
-        }else if(text_height>rec_height){
-            if(text_width>rec_width){
-                text_Size = scaleFontToFit(rec_width,text_width,text_Size);
-            }else if (Math.abs(text_width-rec_width)>0.2){
-                text_Size = rec_height;
-            }else{
-                text_Size = scaleFontToFit(rec_width,text_width,text_Size);
-            }
+            text.setFont(Font.font("arial", text_Size));
         }
-        text.setFont(Font.font("arial", text_Size));
     }
 }
